@@ -95,8 +95,72 @@ Library for dynamically generating and animating skeleton drawables. This librar
 # Getting started
 </div>
 
-**Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating a instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns.
+<br/>
 
+**Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating a instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns. It can also be use with data-binding.
+
+<br/>
+
+## How can I use in my project?
+
+[![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
+
+### Step 1
+
+Add it in your root build.gradle at the end of repositories:
+
+``` gradle
+allprojects {
+  repositories {
+    maven { url 'https://jitpack.io' }
+  }
+}
+```
+
+Add as a dependency in you applications build.gradle.
+
+``` gradle
+dependencies {
+  implementation 'com.github.EudyContreras:Skeleton-Bones:${lib_version}'
+}
+```
+
+### Step 2
+
+Refer to a skeleton from any **`ViewGroup`** in order to apply a Skeleton effect to it and its child views
+
+### Example Usage 1:
+
+```xml
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background"
+    android:elevation="4dp"
+    app:skeletonAnimateRestoredBounds="@{true}"
+    app:skeletonAllowSavedState="@{true}"
+    app:skeletonBoneColor="@{@color/bone_color}"
+    app:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
+    app:skeletonBoneMaxThickness="@{Utils.getDp(12)}"
+    app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+    app:skeletonDissectLargeBones="@{false}"
+    app:skeletonEnabled="@{viewModel.loading}"
+    app:skeletonGenerateBones="@{true}"
+    app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
+    app:skeletonShimmerRayCount="@{4}"
+    app:skeletonShimmerRayInterpolator="@{@android:interpolator/accelerate_quad}"
+    app:skeletonShimmerRaySharedInterpolator="@{true}"
+    app:skeletonShimmerRaySpeedMultiplier="@{1f}"
+    app:skeletonShimmerRayThickness="@{Utils.getDp(120)}"
+    app:skeletonShimmerRayTilt="@{-0.2f}"
+    app:skeletonTransitionDuration="@{200L}"
+    app:skeletonUseStateTransition="@{true}"
+    tools:background="@color/white">
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+<br/>
+
+### Example Usage 2:
 
 **You can use the available extension function**
 
@@ -330,69 +394,6 @@ For a more thorough guides and descriptions please look at the following links:
 
 [**Shimmer Rays**](./docs/elements/SHIMMER_RAY.md) Contains information about shimmer rays and their properties
 <br/>
-<br/>
-
-<div align="center">
-  
- ![Header Banner][banner] 
-# How can I use in my project?
-</Div>
-
-[![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
-
-### Step 1
-
-Add it in your root build.gradle at the end of repositories:
-
-``` gradle
-allprojects {
-  repositories {
-    maven { url 'https://jitpack.io' }
-  }
-}
-```
-
-Add as a dependency in you applications build.gradle.
-
-``` gradle
-dependencies {
-  implementation 'com.github.EudyContreras:Skeleton-Bones:${lib_version}'
-}
-```
-
-### Step 2
-
-Refer to a skeleton from any **`ViewGroup`** in order to apply a Skeleton effect to it and its child views
-
-### Example Usage:
-
-```xml
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/background"
-    android:elevation="4dp"
-    app:skeletonAnimateRestoredBounds="@{true}"
-    app:skeletonAllowSavedState="@{true}"
-    app:skeletonBoneColor="@{@color/bone_color}"
-    app:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
-    app:skeletonBoneMaxThickness="@{Utils.getDp(12)}"
-    app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-    app:skeletonDissectLargeBones="@{false}"
-    app:skeletonEnabled="@{viewModel.loading}"
-    app:skeletonGenerateBones="@{true}"
-    app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
-    app:skeletonShimmerRayCount="@{4}"
-    app:skeletonShimmerRayInterpolator="@{@android:interpolator/accelerate_quad}"
-    app:skeletonShimmerRaySharedInterpolator="@{true}"
-    app:skeletonShimmerRaySpeedMultiplier="@{1f}"
-    app:skeletonShimmerRayThickness="@{Utils.getDp(120)}"
-    app:skeletonShimmerRayTilt="@{-0.2f}"
-    app:skeletonTransitionDuration="@{200L}"
-    app:skeletonUseStateTransition="@{true}"
-    tools:background="@color/white">
-</androidx.constraintlayout.widget.ConstraintLayout>
-```
 <br/>
 
 <div align="center">
