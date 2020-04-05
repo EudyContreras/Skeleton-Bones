@@ -52,7 +52,10 @@ Library for dynamically generating and animating skeleton drawables. This librar
 - **[Disclaimers](#disclaimer)**
 - **[License](#license)**
 
+<div align="center">
+  
 ## Glossary![Header Banner][banner]
+</div>
 
 **Skeleton**: A drawable loader representation of a ViewGroup. The skeleton is the wrapper around the generated bones where each bone represents a view within the ViewGroup. The skeleton is in charge of managing and rendering each of the bones generated for each non-ignored view within the owner layout. Skeleton drawables are recommended over single Bone Drawables when possible since the a single drawable is used for representing a complex layout. The skeleton drawable is created and overlaid over the layout in order to render the bones and the visible shimmers. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md), See [**Skeleton**](./docs/elements/SKELETON.md)
 
@@ -64,7 +67,10 @@ Library for dynamically generating and animating skeleton drawables. This librar
 <br/>
 <br/>
 
+<div align="center">
+  
 ## Features ![Banner Demo][banner]
+</div>
 
 * Lightweight and easy to use
 * Non-invasive, No changes to existing code required.
@@ -185,9 +191,9 @@ These are the properties that can be access through any ViewGroup. Although, som
 |**app:skeletonShimmerRaySharedInterpolator** &nbsp; &nbsp; &nbsp; &nbsp;| When true it shares a set interpolator among the shimmer rays|
 
 </div>
+  <br/>
   
-  
-Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute. If you rather read more in detail about the properties and about skeletons, please check out this link: [**Skeleton**](./docs/elements/SKELETON.md)
+>Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute. If you rather read more in detail about the properties and about skeletons, please check out this link: [**Skeleton**](./docs/elements/SKELETON.md)
 
 <br/>
 
@@ -243,7 +249,7 @@ The following are bone properties that can be access through any View. Some of t
 
 <br/>
 
-Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute
+>Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute
 <br/>
 <br/>
 
@@ -287,7 +293,7 @@ The BoneProperty holder can make use of the following properties. For a detailed
 
 <br/>
 
-A view can refer to a **BonePropertyHolder** using its id through the **`app:skeletonBonePropId`** attribute. In order to override the properties set in the referenced property holder, the attributes must be prepended with `prop_`. Example: **`app:prop_skeletonBoneColor`**
+>A view can refer to a **BonePropertyHolder** using its id through the **`app:skeletonBonePropId`** attribute. In order to override the properties set in the referenced property holder, the attributes must be prepended with `prop_`. Example: **`app:prop_skeletonBoneColor`**
 <br/>
 <br/>
 
@@ -390,22 +396,22 @@ If the owner view of a bone does not have valid drawable bounds, meaning its hei
    * Ex: Circular bones collapse to the center
 <br/>
 
-## Contribute![Header Banner][banner] 
+## Contribute
 
 Please read [**Contributing**](./CONTRIBUTING.md) for details about how to contribute, and the process for submitting pull requests to **Bones**
 
-## Authors![Header Banner][banner] 
+## Authors
 
 **Eudy Contreras**
 
-## Contact![Header Banner][banner] 
+## Contact
 
 If you wish to contact me, you can reach me through my [**LinkedIn**](https://www.linkedin.com/in/eudycontreras/) or my [**Email**](EudyContrerasRosario@gmail.com)
 
-## Disclaimer![Header Banner][banner] 
+## Disclaimer 
 
 The avatar images are not created by me. They are amazing and I wanted to use them. If you are the author please contact me.
 
-## License![Header Banner][banner] 
+## License
 
 This project is licensed under the MIT License - see the [**Licence**](./LICENSE) file for details
