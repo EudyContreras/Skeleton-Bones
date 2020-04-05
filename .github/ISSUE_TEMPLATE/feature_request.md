@@ -1,9 +1,9 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+about: Suggest an idea or feature to help improve Bones
+title: Feature or Suggestion
+labels: enhancement
+assignees: EudyContreras
 
 ---
 

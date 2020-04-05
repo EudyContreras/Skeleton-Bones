@@ -45,7 +45,7 @@
         app:skeletonShimmerRayInterpolator="@{@android:interpolator/accelerate_quad}"
         app:skeletonShimmerRaySharedInterpolator="@{true}"
         app:skeletonShimmerRaySpeedMultiplier="@{1f}"
-        app:skeletonShimmerRayThickness="@{Utils.getDp(120)}"
+        app:skeletonShimmerRayThicknessRatio="@{0.45f}"
         app:skeletonShimmerRayTilt="@{-0.2f}"
         app:skeletonTransitionDuration="@{200L}"
         app:skeletonUseStateTransition="@{true}"

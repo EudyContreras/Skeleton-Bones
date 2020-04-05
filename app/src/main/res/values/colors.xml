@@ -20,7 +20,7 @@
     <color name="bone_color">#E6E6E6</color>
     <color name="bone_color_alt">#C8C8C8</color>
 
-    <color name="bone_ray_color">#D7FAFAFA</color>
+    <color name="bone_ray_color">#D7BEBEBE</color>
     <color name="bone_ray_color_alt">#ffffff</color>
 
     <color name="white">#ffffff</color>
