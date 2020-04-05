@@ -70,7 +70,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 <div align="center">
   
 ![Banner Demo][banner]
-## Features
+# Features
 </div>
 
 * Lightweight and easy to use
@@ -87,8 +87,9 @@ Library for dynamically generating and animating skeleton drawables. This librar
 <br/>
 
 <div align="center">
-  
-## Getting started![Header Banner][banner] 
+
+![Header Banner][banner] 
+# Getting started
 </div>
 
 **Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating a instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns.
