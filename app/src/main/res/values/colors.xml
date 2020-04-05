@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2D2D2D</color>
+    <color name="colorPrimaryDark">#2D2D2D</color>
+    <color name="colorPrimaryVeryDark">#2D2D2D</color>
+    <color name="colorPrimaryLight">#4B4B4B</color>
+    <color name="colorPrimaryVeryLight">#3C3C3C</color>
+    <color name="colorAccent">#2D2D2D</color>
+
+    <color name="colorSecondary">#2D2D2D</color>
+
+    <color name="colorGradientStart">#2D2D2D</color>
+    <color name="colorGradientCenter">#2D2D2D</color>
+    <color name="colorGradientEnd">#2D2D2D</color>
+
+    <color name="colorBackground">#EBEBEB</color>
+
+    <color name="text_color">#505050</color>
+
+    <color name="bone_color">#E6E6E6</color>
+    <color name="bone_color_alt">#C8C8C8</color>
+
+    <color name="bone_ray_color">#D7FAFAFA</color>
+    <color name="bone_ray_color_alt">#ffffff</color>
+
+    <color name="white">#ffffff</color>
+    <color name="red">#ff0000</color>
+</resources>

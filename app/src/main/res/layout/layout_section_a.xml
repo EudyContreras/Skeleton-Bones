@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.eudycontreras.bones.SomeViewModel" />
+
+        <import type="androidx.interpolator.view.animation.FastOutSlowInInterpolator" />
+
+        <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
+
+        <import
+            alias="Utils"
+            type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/shape_section_background"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="4dp"
+        android:padding="10dp"
+        app:skeletonAnimateRestoredBounds="@{true}"
+        app:skeletonAllowSavedState="@{true}"
+        app:skeletonBoneColor="@{@color/bone_color}"
+        app:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
+        app:skeletonBoneMaxThickness="@{Utils.getDp(12)}"
+        app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+        app:skeletonDissectLargeBones="@{false}"
+        app:skeletonEnabled="@{viewModel.loading}"
+        app:skeletonGenerateBones="@{true}"
+        app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
+        app:skeletonShimmerRayCount="@{4}"
+        app:skeletonShimmerRayInterpolator="@{@android:interpolator/accelerate_quad}"
+        app:skeletonShimmerRaySharedInterpolator="@{true}"
+        app:skeletonShimmerRaySpeedMultiplier="@{1f}"
+        app:skeletonShimmerRayThickness="@{Utils.getDp(120)}"
+        app:skeletonShimmerRayTilt="@{-0.2f}"
+        app:skeletonTransitionDuration="@{200L}"
+        app:skeletonUseStateTransition="@{true}"
+        tools:background="@color/white">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/shape_background_oval_alt"
+            android:backgroundTint="@color/bone_color_alt"
+            android:clickable="true"
+            android:cropToPadding="false"
+            android:elevation="4dp"
+            android:src="@drawable/img_male_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:skeletonBoneEnabled="@{viewModel.loadingAlt3}"
+            app:skeletonBoneShadeMultiplier="@{0.9f}"
+            app:skeletonBoneShapeType="@{ShapeType.CIRCULAR}"
+            app:skeletonBoneShimmerRayColor="@{@color/bone_ray_color}"
+            app:skeletonBoneShimmerRayCount="@{3}"
+            app:skeletonBoneShimmerRayInterpolator="@{@android:interpolator/decelerate_quad}"
+            app:skeletonBoneShimmerRaySharedInterpolator="@{false}"
+            app:skeletonBoneShimmerRaySpeedMultiplier="@{1.4f}"
+            app:skeletonBoneShimmerRayThickness="@{Utils.getDp(50)}"
+            app:skeletonBoneShimmerRayTilt="@{-0.2f}" />
+
+        <TextView
+            android:id="@+id/textOne"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="12dp"
+            android:justificationMode="inter_word"
+            android:text="@string/lorem_ipsum"
+            android:padding="6dp"
+            android:tag="text 0"
+            android:textColor="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="@id/photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/photo"
+            app:layout_constraintTop_toTopOf="@id/photo"
+            app:skeletonBoneDissectLargeBones="@{true}"
+            tools:text="@string/lorem_ipsum"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/textThree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:tag="text 2"
+            android:text="@string/lorem_ipsum"
+            android:textAlignment="gravity"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photo"
+            app:skeletonBoneShadeMultiplier="@{0.9f}"
+            app:skeletonBoneMinHeight="@{Utils.getDp(100)}"
+            tools:targetApi="o"
+            tools:text="@string/lorem_ipsum"/>
+
+        <TextView
+            android:id="@+id/textFour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:tag="text 2"
+            android:text="@string/lorem_ipsum"
+            android:textAlignment="gravity"
+            android:textColor="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textThree" />
+
+        <TextView
+            android:id="@+id/textFive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="12dp"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:tag="text 2"
+            android:text="@string/lorem_ipsum"
+            android:textAlignment="gravity"
+            android:textColor="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textFour" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textFive">
+
+            <ImageView
+                android:id="@+id/someImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/shape_section_background"
+                android:backgroundTint="@color/bone_color_alt"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:elevation="8dp"
+                android:src="@drawable/img_female_avatar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:skeletonBoneEnabled="@{viewModel.loadingAlt2}"
+                app:skeletonBoneShadeMultiplier="@{1.021f}" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/someImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:skeletonBoneMaxThickness="@{Utils.getDp(20)}"
+                app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+                app:skeletonDissectLargeBones="@{false}">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="2dp"
+                    android:singleLine="true"
+                    android:tag="before last view"
+                    android:text="@string/lorem_ipsum"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/text_color" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="2dp"
+                    android:singleLine="true"
+                    android:tag="last view"
+                    android:text="@string/lorem_ipsum"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/text_color" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="2dp"
+                    android:singleLine="true"
+                    android:tag="before last view"
+                    android:text="@string/lorem_ipsum"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/text_color"
+                    app:skeletonBoneIgnored="@{false}" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

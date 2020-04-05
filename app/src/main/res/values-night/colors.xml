@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2D2D2D</color>
+    <color name="colorPrimaryDark">#2D2D2D</color>
+    <color name="colorPrimaryVeryDark">#2D2D2D</color>
+    <color name="colorPrimaryLight">#4B4B4B</color>
+    <color name="colorPrimaryVeryLight">#555555</color>
+    <color name="colorAccent">#2D2D2D</color>
+
+    <color name="colorBackground">#282828</color>
+
+    <color name="text_color">#AAAAAA</color>
+
+    <color name="bone_color">#414141</color>
+    <color name="bone_color_alt">#3C3C3C</color>
+
+    <color name="bone_ray_color">#646464</color>
+    <color name="bone_ray_color_alt">#BEBEBE</color>
+
+    <color name="white">#323232</color>
+</resources>

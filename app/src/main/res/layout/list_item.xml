@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.eudycontreras.bones.SomeViewModel" />
+
+        <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
+
+        <import
+            alias="Utils"
+            type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/shape_section_background"
+        android:elevation="4dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:skeletonAllowSavedState="@{true}"
+        app:skeletonBoneColor="@{@color/bone_color}"
+        app:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
+        app:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
+        app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+        app:skeletonDissectLargeBones="@{true}"
+        app:skeletonEnabled="@{viewModel.loadingAlt}"
+        app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
+        app:skeletonShimmerRayCount="@{3}"
+        app:skeletonShimmerRayInterpolator="@{@android:interpolator/linear}"
+        app:skeletonShimmerRaySharedInterpolator="@{true}"
+        app:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
+        app:skeletonShimmerRayThickness="@{Utils.getDp(100)}"
+        app:skeletonShimmerRayTilt="@{-0.4f}"
+        app:skeletonTransitionDuration="@{200L}"
+        app:skeletonUseStateTransition="@{true}">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_background_oval_alt"
+            android:backgroundTint="@color/bone_color_alt"
+            android:clickable="true"
+            android:cropToPadding="false"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/img_male_avatar"
+            app:skeletonBoneColor="@{@color/bone_color_alt}"
+            app:skeletonBoneShapeType="@{ShapeType.CIRCULAR}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_marginStart="12dp"
+            android:ellipsize="marquee"
+            android:justificationMode="inter_word"
+            android:maxLines="3"
+            android:padding="3dp"
+            android:text="@string/lorem_ipsum"
+            android:textColor="@color/text_color"
+            tools:targetApi="o" />
+
+    </LinearLayout>
+</layout>
