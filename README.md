@@ -69,7 +69,8 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 <div align="center">
   
-## Features ![Banner Demo][banner]
+![Banner Demo][banner]
+## Features
 </div>
 
 * Lightweight and easy to use
