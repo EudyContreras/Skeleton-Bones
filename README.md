@@ -30,6 +30,11 @@ Library for dynamically generating and animating skeleton drawables. This librar
 - **[Features](#features)**
 - **[Glossary](#glossary)**
 - **[Getting Started](#getting-started)**
+- **[How can I use in my project?](#how-can-i-use-in-my-project)**
+  - **[Step 1](#step-1)**
+  - **[Step 2](#step-2)**
+  - **[Example Usage 1](#example-usage-1)**
+  - **[Example Usage 2](#example-usage-2)**
 - **[ViewGroup Skeleton Attributes](#viewgroup-skeleton-attributes)**
   - **[Skeleton](#skeleton)**
   - **[Bones](#skeleton-bones)**
@@ -41,11 +46,6 @@ Library for dynamically generating and animating skeleton drawables. This librar
   - **[Property Bones](#property-bone)**
   - **[Property Shimmer Rays](#property-shimmer-rays)**
 - **[Resources](#resources)**
-- **[How can I use in my project?](#how-can-i-use-in-my-project)**
-  - **[Step 1](#step-1)**
-  - **[Step 2](#step-2)**
-  - **[Step 2](#example-usage)**
-- **[ViewGroup Skeleton Attributes](#viewgroup-skeleton-attributes)**
 - **[How does it work?](#how-does-it-work)**
 - **[Caveats, limitations and notes?](#caveats-limitations-and-notes)**
 - **[Future plans](#future-plans)**
