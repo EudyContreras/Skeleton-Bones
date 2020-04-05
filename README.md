@@ -396,8 +396,9 @@ Refer to a skeleton from any **`ViewGroup`** in order to apply a Skeleton effect
 <br/>
 
 <div align="center">
-  
-## How does it work?![Header Banner][banner] 
+
+![Header Banner][banner] 
+# How does it work?
 </div>
 
 The library works by creating a drawable based on some **`View`** or **`ViewGroup`**. The drawable can listen to a state using data-binding. When the state is true the skeleton loader drawable is shown and animated if it has any shimmers added to it. Each skeleton drawable has a skeleton object and a skeleton manager which is in charge for manipulating the skeleton, the bones and the shimmer rays. Same applies to BoneDrawables. The skeleton is visually created based on the ViewGroup/View that the drawable was bound to and then added as an overlay. The skeleton loader drawables are added as temporary foreground drawables. Once the state of the loader changes to false, the skeleton or bone drawable is removed and the original foreground is restored given that one was previously present.
