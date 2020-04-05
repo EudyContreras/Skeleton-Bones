@@ -22,8 +22,10 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 
 ![Banner Demo](./media/images/banner_rounded.png)
-
+<div align="center">
+  
 ## Table of Content
+  </div>
   
 - **[Features](#features)**
 - **[Glossary](#glossary)**
@@ -54,7 +56,8 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 <div align="center">
   
-![Header Banner][banner]<h1>Glossary</h1>
+![Header Banner][banner] 
+# Glossary
 </div>
 
 **Skeleton**: A drawable loader representation of a ViewGroup. The skeleton is the wrapper around the generated bones where each bone represents a view within the ViewGroup. The skeleton is in charge of managing and rendering each of the bones generated for each non-ignored view within the owner layout. Skeleton drawables are recommended over single Bone Drawables when possible since the a single drawable is used for representing a complex layout. The skeleton drawable is created and overlaid over the layout in order to render the bones and the visible shimmers. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md), See [**Skeleton**](./docs/elements/SKELETON.md)
@@ -145,7 +148,8 @@ The recommended way of applying a skeleton drawable is by using **Bone's** data-
 
 <div align="center">
   
-## ViewGroup Skeleton Attributes:![Header Banner][banner] 
+  ![Header Banner][banner] 
+# ViewGroup Skeleton Attributes:
 </div>
 
 These are the properties that can be access through any ViewGroup. Although, some of the following properties will also work when set from a View, the behaviour will be different.
@@ -207,7 +211,8 @@ These are the properties that can be access through any ViewGroup. Although, som
 
 <div align="center">
   
-## View Bone Attributes![Header Banner][banner] 
+  ![Header Banner][banner] 
+# View Bone Attributes
 </div>
 
 The following are bone properties that can be access through any View. Some of these will not work when set from an independent BoneDrawable since they are meant only for virtually dependent bones within a Skeleton ViewGroup. For more information feel free to consult the Bone document. See [**Skeleton Bones**](./docs/elements/SKELETON_BONE.md)
