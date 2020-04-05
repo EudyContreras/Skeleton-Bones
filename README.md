@@ -54,7 +54,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 <div align="center">
   
-# Glossary![Header Banner][banner]
+## Glossary![Header Banner][banner]
 </div>
 
 **Skeleton**: A drawable loader representation of a ViewGroup. The skeleton is the wrapper around the generated bones where each bone represents a view within the ViewGroup. The skeleton is in charge of managing and rendering each of the bones generated for each non-ignored view within the owner layout. Skeleton drawables are recommended over single Bone Drawables when possible since the a single drawable is used for representing a complex layout. The skeleton drawable is created and overlaid over the layout in order to render the bones and the visible shimmers. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md), See [**Skeleton**](./docs/elements/SKELETON.md)
@@ -69,7 +69,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 <div align="center">
   
-# Features ![Banner Demo][banner]
+## Features ![Banner Demo][banner]
 </div>
 
 * Lightweight and easy to use
@@ -87,7 +87,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 <div align="center">
   
-# Getting started![Header Banner][banner] 
+## Getting started![Header Banner][banner] 
 </div>
 
 **Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating a instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns.
@@ -143,7 +143,7 @@ The recommended way of applying a skeleton drawable is by using **Bone's** data-
 
 <div align="center">
   
-# ViewGroup Skeleton Attributes:![Header Banner][banner] 
+## ViewGroup Skeleton Attributes:![Header Banner][banner] 
 </div>
 
 These are the properties that can be access through any ViewGroup. Although, some of the following properties will also work when set from a View, the behaviour will be different.
@@ -205,7 +205,7 @@ These are the properties that can be access through any ViewGroup. Although, som
 
 <div align="center">
   
-# View Bone Attributes![Header Banner][banner] 
+## View Bone Attributes![Header Banner][banner] 
 </div>
 
 The following are bone properties that can be access through any View. Some of these will not work when set from an independent BoneDrawable since they are meant only for virtually dependent bones within a Skeleton ViewGroup. For more information feel free to consult the Bone document. See [**Skeleton Bones**](./docs/elements/SKELETON_BONE.md)
@@ -264,7 +264,7 @@ The following are bone properties that can be access through any View. Some of t
 
 <div align="center">
   
-# Using a Property Holder![Header Banner][banner] 
+## Using a Property Holder![Header Banner][banner] 
 </div>
 
 **BonePropertyHolder** This is a fake View that can be added anywhere within the view hierarchy. It has the sole purpose of acting as a property holder that can later be referenced by any View (Bone). The bone created for that view will then clone the properties of the BonePropertyHolder in order to define its own properties. This is usually done when multiple views share a same independent style or behaviour.
@@ -310,7 +310,7 @@ The BoneProperty holder can make use of the following properties. For a detailed
 
 <div align="center">
   
-# Resources![Header Banner][banner] 
+## Resources![Header Banner][banner] 
 </div>
 
 For a more thorough guides and descriptions please look at the following links:  
@@ -325,7 +325,7 @@ For a more thorough guides and descriptions please look at the following links:
 
 <div align="center">
   
-# How can I use in my project?![Header Banner][banner] 
+## How can I use in my project?![Header Banner][banner] 
 </Div>
 
 [![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
