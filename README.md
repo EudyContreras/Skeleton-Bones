@@ -61,7 +61,8 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 
 **Shimmer Ray**: The effect that overlays a skeleton or bone in order to communicate to the user that the View or ViewGroup is currently loading. Shimmer rays can be applied to both Skeletons and individual bones. Most aspects of the shimmer rays can be customized. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md)
-
+<br/>
+<br/>
 
 ## Features ![Banner Demo][banner]
 
@@ -76,6 +77,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 * Highly performant
 * Extremely customizable
 * Code-free use
+<br/>
 
 ## Getting started![Header Banner][banner] 
 
@@ -245,7 +247,8 @@ Each of the above attributes has documentation. Please consult the **xml docs** 
 <br/>
 <br/>
 
-## Using a Property Holder
+## Using a Property Holder![Header Banner][banner] 
+
 
 **BonePropertyHolder** This is a fake View that can be added anywhere within the view hierarchy. It has the sole purpose of acting as a property holder that can later be referenced by any View (Bone). The bone created for that view will then clone the properties of the BonePropertyHolder in order to define its own properties. This is usually done when multiple views share a same independent style or behaviour.
 
@@ -286,6 +289,7 @@ The BoneProperty holder can make use of the following properties. For a detailed
 
 A view can refer to a **BonePropertyHolder** using its id through the **`app:skeletonBonePropId`** attribute. In order to override the properties set in the referenced property holder, the attributes must be prepended with `prop_`. Example: **`app:prop_skeletonBoneColor`**
 <br/>
+<br/>
 
 ## Resources![Header Banner][banner] 
 
@@ -296,6 +300,7 @@ For a more thorough guides and descriptions please look at the following links:
 [**Skeleton Bones**](./docs/elements/SKELETON_BONE.md) Contains information about bones and their properties  
 
 [**Shimmer Rays**](./docs/elements/SHIMMER_RAY.md) Contains information about shimmer rays and their properties
+<br/>
 <br/>
 
 ## How can I use in my project?
@@ -372,6 +377,7 @@ Setting dimensions using the **`android:minWidth`** and/or the **`android:minHei
 When the state of a bone is true (Loading) and if the **`skeletonBoneToggleView`** is set to true, the view which the bone represents is hidden. When this is the case, if the owner view of the bone has an elevation, fake shadows are generated under the bone. This is done to preserve the look and feel. 
 
 If the owner view of a bone does not have valid drawable bounds, meaning its height is less than bone's set minimum height **`skeletonBoneMinThickness`** or if not set, the default minimum thickness which is 10dp, no bone will be generated for it. This is done to avoid generating bones that are too thin or barely visible.
+<br/>
 <br/>
 
 ## Future plans![Header Banner][banner] 
