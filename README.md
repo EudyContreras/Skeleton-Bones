@@ -149,7 +149,7 @@ The recommended way of applying a skeleton drawable is by using **Bone's** data-
 <div align="center">
   
   ![Header Banner][banner] 
-# ViewGroup Skeleton Attributes:
+# ViewGroup Skeleton Attributes
 </div>
 
 These are the properties that can be access through any ViewGroup. Although, some of the following properties will also work when set from a View, the behaviour will be different.
@@ -271,7 +271,8 @@ The following are bone properties that can be access through any View. Some of t
 
 <div align="center">
   
-## Using a Property Holder![Header Banner][banner] 
+  ![Header Banner][banner] 
+# Using a Property Holder
 </div>
 
 **BonePropertyHolder** This is a fake View that can be added anywhere within the view hierarchy. It has the sole purpose of acting as a property holder that can later be referenced by any View (Bone). The bone created for that view will then clone the properties of the BonePropertyHolder in order to define its own properties. This is usually done when multiple views share a same independent style or behaviour.
@@ -317,7 +318,8 @@ The BoneProperty holder can make use of the following properties. For a detailed
 
 <div align="center">
   
-## Resources![Header Banner][banner] 
+  ![Header Banner][banner] 
+# Resources
 </div>
 
 For a more thorough guides and descriptions please look at the following links:  
@@ -332,7 +334,8 @@ For a more thorough guides and descriptions please look at the following links:
 
 <div align="center">
   
-## How can I use in my project?![Header Banner][banner] 
+ ![Header Banner][banner] 
+# How can I use in my project?
 </Div>
 
 [![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
@@ -403,7 +406,8 @@ The library works by creating a drawable based on some **`View`** or **`ViewGrou
 
 <div align="center">
   
-## Caveats, Limitations and Notes![Header Banner][banner] 
+![Header Banner][banner] 
+# Caveats, Limitations and Notes
 </div>
 
 **BEWARE** In order for the skeleton and bone drawables to be properly generated, there **must** be some pre-determined minimum set dimensions **(Width and Height)** for the none ignored children. This is needed in order to know how to visually build the bone representations of said children views.
@@ -417,8 +421,9 @@ If the owner view of a bone does not have valid drawable bounds, meaning its hei
 <br/>
 
 <div align="center">
-  
-## Future plans![Header Banner][banner] 
+
+![Header Banner][banner] 
+# Future plans
 </div>
 
 - [ ] Facilitate use with Glide and other popular Image Loaders
