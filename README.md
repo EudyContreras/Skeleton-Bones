@@ -24,7 +24,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 ![Banner Demo](./media/images/banner_rounded.png)
 <div align="center">
   
-## Table of Content
+# Table of Content
   </div>
   
 - **[Features](#features)**
