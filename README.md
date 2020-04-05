@@ -22,8 +22,10 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 
 ![Banner Demo](./media/images/banner_rounded.png)
-
-## Table of Content
+<div align="center">
+  
+# Table of Content
+  </div>
   
 - **[Features](#features)**
 - **[Glossary](#glossary)**
@@ -52,7 +54,11 @@ Library for dynamically generating and animating skeleton drawables. This librar
 - **[Disclaimers](#disclaimer)**
 - **[License](#license)**
 
-## Glossary![Header Banner][banner]
+<div align="center">
+  
+![Header Banner][banner] 
+# Glossary
+</div>
 
 **Skeleton**: A drawable loader representation of a ViewGroup. The skeleton is the wrapper around the generated bones where each bone represents a view within the ViewGroup. The skeleton is in charge of managing and rendering each of the bones generated for each non-ignored view within the owner layout. Skeleton drawables are recommended over single Bone Drawables when possible since the a single drawable is used for representing a complex layout. The skeleton drawable is created and overlaid over the layout in order to render the bones and the visible shimmers. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md), See [**Skeleton**](./docs/elements/SKELETON.md)
 
@@ -64,7 +70,11 @@ Library for dynamically generating and animating skeleton drawables. This librar
 <br/>
 <br/>
 
-## Features ![Banner Demo][banner]
+<div align="center">
+  
+![Banner Demo][banner]
+# Features
+</div>
 
 * Lightweight and easy to use
 * Non-invasive, No changes to existing code required.
@@ -79,7 +89,11 @@ Library for dynamically generating and animating skeleton drawables. This librar
 * Code-free use
 <br/>
 
-## Getting started![Header Banner][banner] 
+<div align="center">
+
+![Header Banner][banner] 
+# Getting started
+</div>
 
 **Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating a instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns.
 
@@ -132,7 +146,11 @@ The recommended way of applying a skeleton drawable is by using **Bone's** data-
 <br/>
 <br/>
 
-## ViewGroup Skeleton Attributes:![Header Banner][banner] 
+<div align="center">
+  
+  ![Header Banner][banner] 
+# ViewGroup Skeleton Attributes
+</div>
 
 These are the properties that can be access through any ViewGroup. Although, some of the following properties will also work when set from a View, the behaviour will be different.
 
@@ -185,13 +203,17 @@ These are the properties that can be access through any ViewGroup. Although, som
 |**app:skeletonShimmerRaySharedInterpolator** &nbsp; &nbsp; &nbsp; &nbsp;| When true it shares a set interpolator among the shimmer rays|
 
 </div>
+  <br/>
   
-  
-Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute. If you rather read more in detail about the properties and about skeletons, please check out this link: [**Skeleton**](./docs/elements/SKELETON.md)
+>Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute. If you rather read more in detail about the properties and about skeletons, please check out this link: [**Skeleton**](./docs/elements/SKELETON.md)
 
 <br/>
 
-## View Bone Attributes![Header Banner][banner] 
+<div align="center">
+  
+  ![Header Banner][banner] 
+# View Bone Attributes
+</div>
 
 The following are bone properties that can be access through any View. Some of these will not work when set from an independent BoneDrawable since they are meant only for virtually dependent bones within a Skeleton ViewGroup. For more information feel free to consult the Bone document. See [**Skeleton Bones**](./docs/elements/SKELETON_BONE.md)
 <br/>
@@ -243,12 +265,15 @@ The following are bone properties that can be access through any View. Some of t
 
 <br/>
 
-Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute
+>Each of the above attributes has documentation. Please consult the **xml docs** by hovering over the attribute in order to get a more detailed description of the attribute
 <br/>
 <br/>
 
-## Using a Property Holder![Header Banner][banner] 
-
+<div align="center">
+  
+  ![Header Banner][banner] 
+# Using a Property Holder
+</div>
 
 **BonePropertyHolder** This is a fake View that can be added anywhere within the view hierarchy. It has the sole purpose of acting as a property holder that can later be referenced by any View (Bone). The bone created for that view will then clone the properties of the BonePropertyHolder in order to define its own properties. This is usually done when multiple views share a same independent style or behaviour.
 
@@ -287,11 +312,15 @@ The BoneProperty holder can make use of the following properties. For a detailed
 
 <br/>
 
-A view can refer to a **BonePropertyHolder** using its id through the **`app:skeletonBonePropId`** attribute. In order to override the properties set in the referenced property holder, the attributes must be prepended with `prop_`. Example: **`app:prop_skeletonBoneColor`**
+>A view can refer to a **BonePropertyHolder** using its id through the **`app:skeletonBonePropId`** attribute. In order to override the properties set in the referenced property holder, the attributes must be prepended with `prop_`. Example: **`app:prop_skeletonBoneColor`**
 <br/>
 <br/>
 
-## Resources![Header Banner][banner] 
+<div align="center">
+  
+  ![Header Banner][banner] 
+# Resources
+</div>
 
 For a more thorough guides and descriptions please look at the following links:  
 
@@ -303,7 +332,11 @@ For a more thorough guides and descriptions please look at the following links:
 <br/>
 <br/>
 
-## How can I use in my project?
+<div align="center">
+  
+ ![Header Banner][banner] 
+# How can I use in my project?
+</Div>
 
 [![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
 
@@ -362,13 +395,21 @@ Refer to a skeleton from any **`ViewGroup`** in order to apply a Skeleton effect
 ```
 <br/>
 
-## How does it work?![Header Banner][banner] 
+<div align="center">
+
+![Header Banner][banner] 
+# How does it work?
+</div>
 
 The library works by creating a drawable based on some **`View`** or **`ViewGroup`**. The drawable can listen to a state using data-binding. When the state is true the skeleton loader drawable is shown and animated if it has any shimmers added to it. Each skeleton drawable has a skeleton object and a skeleton manager which is in charge for manipulating the skeleton, the bones and the shimmer rays. Same applies to BoneDrawables. The skeleton is visually created based on the ViewGroup/View that the drawable was bound to and then added as an overlay. The skeleton loader drawables are added as temporary foreground drawables. Once the state of the loader changes to false, the skeleton or bone drawable is removed and the original foreground is restored given that one was previously present.
 
 <br/>
 
-## Caveats, Limitations and Notes![Header Banner][banner] 
+<div align="center">
+  
+![Header Banner][banner] 
+# Caveats, Limitations and Notes
+</div>
 
 **BEWARE** In order for the skeleton and bone drawables to be properly generated, there **must** be some pre-determined minimum set dimensions **(Width and Height)** for the none ignored children. This is needed in order to know how to visually build the bone representations of said children views.
 
@@ -380,7 +421,11 @@ If the owner view of a bone does not have valid drawable bounds, meaning its hei
 <br/>
 <br/>
 
-## Future plans![Header Banner][banner] 
+<div align="center">
+
+![Header Banner][banner] 
+# Future plans
+</div>
 
 - [ ] Facilitate use with Glide and other popular Image Loaders
 - [ ] Allow defining styles for both the Skeleton and Bone drawables
@@ -390,22 +435,22 @@ If the owner view of a bone does not have valid drawable bounds, meaning its hei
    * Ex: Circular bones collapse to the center
 <br/>
 
-## Contribute![Header Banner][banner] 
+## Contribute
 
 Please read [**Contributing**](./CONTRIBUTING.md) for details about how to contribute, and the process for submitting pull requests to **Bones**
 
-## Authors![Header Banner][banner] 
+## Authors
 
 **Eudy Contreras**
 
-## Contact![Header Banner][banner] 
+## Contact
 
 If you wish to contact me, you can reach me through my [**LinkedIn**](https://www.linkedin.com/in/eudycontreras/) or my [**Email**](EudyContrerasRosario@gmail.com)
 
-## Disclaimer![Header Banner][banner] 
+## Disclaimer 
 
 The avatar images are not created by me. They are amazing and I wanted to use them. If you are the author please contact me.
 
-## License![Header Banner][banner] 
+## License
 
 This project is licensed under the MIT License - see the [**Licence**](./LICENSE) file for details
