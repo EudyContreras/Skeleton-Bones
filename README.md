@@ -54,7 +54,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 <div align="center">
   
-## Glossary![Header Banner][banner]
+![Header Banner][banner]<h1>Glossary</h1> ![Header Banner][banner]
 </div>
 
 **Skeleton**: A drawable loader representation of a ViewGroup. The skeleton is the wrapper around the generated bones where each bone represents a view within the ViewGroup. The skeleton is in charge of managing and rendering each of the bones generated for each non-ignored view within the owner layout. Skeleton drawables are recommended over single Bone Drawables when possible since the a single drawable is used for representing a complex layout. The skeleton drawable is created and overlaid over the layout in order to render the bones and the visible shimmers. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md), See [**Skeleton**](./docs/elements/SKELETON.md)
