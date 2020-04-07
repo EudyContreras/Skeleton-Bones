@@ -55,6 +55,20 @@ fun View.applyBoneDrawable(): BoneDrawable {
     return BoneDrawable.create(this)
 }
 
+fun View.hasValidMinBounds(boneProps: BoneProperties): Boolean {
+    boneProps.minHeight?.let {
+        if (measuredHeight < it) {
+            return false
+        }
+    }
+    boneProps.minWidth?.let {
+        if (measuredWidth < it) {
+            return false
+        }
+    }
+    return true
+}
+
 fun View.hasValidBounds(): Boolean {
     return (measuredWidth > 0 && measuredHeight > 0)
 }
