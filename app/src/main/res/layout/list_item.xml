@@ -33,7 +33,7 @@
         app:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
         app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
         app:skeletonDissectLargeBones="@{true}"
-        app:skeletonEnabled="@{viewModel.loadingAlt}"
+        app:skeletonEnabled="@{viewModel.demoDataThree.loading}"
         app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
         app:skeletonShimmerRayCount="@{3}"
         app:skeletonShimmerRayInterpolator="@{@android:interpolator/linear}"
@@ -53,12 +53,13 @@
             android:clickable="true"
             android:cropToPadding="false"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/img_male_avatar"
+            app:imageUrl="@{viewModel.demoDataThree.data.imageUrl}"
+            app:skeletonBoneEnabled="@{viewModel.demoDataThree.loading}"
             app:skeletonBoneColor="@{@color/bone_color_alt}"
             app:skeletonBoneShapeType="@{ShapeType.CIRCULAR}" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_marginStart="12dp"
@@ -66,9 +67,10 @@
             android:justificationMode="inter_word"
             android:maxLines="3"
             android:padding="3dp"
-            android:text="@string/lorem_ipsum"
+            android:text="@{viewModel.demoDataThree.data.text}"
             android:textColor="@color/text_color"
-            tools:targetApi="o" />
+            tools:targetApi="o"
+            tools:text="@string/lorem_ipsum"/>
 
     </LinearLayout>
 </layout>

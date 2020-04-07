@@ -38,7 +38,7 @@
         app:skeletonBoneMaxThickness="@{Utils.getDp(12)}"
         app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
         app:skeletonDissectLargeBones="@{false}"
-        app:skeletonEnabled="@{viewModel.loading}"
+        app:skeletonEnabled="@{viewModel.demoDataTwo.loading}"
         app:skeletonGenerateBones="@{true}"
         app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
         app:skeletonShimmerRayCount="@{4}"
@@ -62,10 +62,10 @@
             android:clickable="true"
             android:cropToPadding="false"
             android:elevation="4dp"
-            android:src="@drawable/img_male_avatar"
+            app:imageUrl="@{viewModel.demoDataTwo.data.imageTwoUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:skeletonBoneEnabled="@{viewModel.loadingAlt3}"
+            app:skeletonBoneEnabled="@{viewModel.demoDataTwo.loading}"
             app:skeletonBoneShadeMultiplier="@{0.9f}"
             app:skeletonBoneShapeType="@{ShapeType.CIRCULAR}"
             app:skeletonBoneShimmerRayColor="@{@color/bone_ray_color}"
@@ -83,7 +83,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="12dp"
             android:justificationMode="inter_word"
-            android:text="@string/lorem_ipsum"
+            android:text="@{viewModel.demoDataTwo.data.text}"
             android:padding="6dp"
             android:tag="text 0"
             android:textColor="@color/text_color"
@@ -105,7 +105,7 @@
             android:padding="2dp"
             android:singleLine="true"
             android:tag="text 2"
-            android:text="@string/lorem_ipsum"
+            android:text="@{viewModel.demoDataTwo.data.text}"
             android:textAlignment="gravity"
             android:textStyle="bold"
             android:textSize="16sp"
@@ -114,7 +114,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/photo"
             app:skeletonBoneShadeMultiplier="@{0.9f}"
-            app:skeletonBoneMinHeight="@{Utils.getDp(100)}"
             tools:targetApi="o"
             tools:text="@string/lorem_ipsum"/>
 
@@ -126,14 +125,15 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:padding="2dp"
-            android:singleLine="true"
+            android:maxLines="3"
             android:tag="text 2"
-            android:text="@string/lorem_ipsum"
+            android:text="@{viewModel.demoDataTwo.data.text}"
             android:textAlignment="gravity"
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textThree" />
+            app:layout_constraintTop_toBottomOf="@id/textThree"
+            tools:text="@string/lorem_ipsum"/>
 
         <TextView
             android:id="@+id/textFive"
@@ -142,14 +142,15 @@
             android:layout_gravity="start"
             android:layout_marginTop="12dp"
             android:padding="2dp"
-            android:singleLine="true"
             android:tag="text 2"
-            android:text="@string/lorem_ipsum"
+            android:text="@{viewModel.demoDataTwo.data.text}"
             android:textAlignment="gravity"
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textFour" />
+            app:layout_constraintTop_toBottomOf="@id/textFour"
+            app:skeletonBoneDissectLargeBones="@{true}"
+            tools:text="@string/lorem_ipsum"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -170,11 +171,11 @@
                 android:backgroundTint="@color/bone_color_alt"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:elevation="8dp"
-                android:src="@drawable/img_female_avatar"
+                app:imageUrl="@{viewModel.demoDataTwo.data.imageOneUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:skeletonBoneEnabled="@{viewModel.loadingAlt2}"
+                app:skeletonBoneEnabled="@{viewModel.demoDataTwo.loading}"
                 app:skeletonBoneShadeMultiplier="@{1.021f}" />
 
             <LinearLayout
@@ -199,9 +200,10 @@
                     android:padding="2dp"
                     android:singleLine="true"
                     android:tag="before last view"
-                    android:text="@string/lorem_ipsum"
+                    android:text="@{viewModel.demoDataTwo.data.text}"
                     android:textAlignment="gravity"
-                    android:textColor="@color/text_color" />
+                    android:textColor="@color/text_color"
+                    tools:text="@string/lorem_ipsum"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -212,9 +214,10 @@
                     android:padding="2dp"
                     android:singleLine="true"
                     android:tag="last view"
-                    android:text="@string/lorem_ipsum"
+                    android:text="@{viewModel.demoDataTwo.data.text}"
                     android:textAlignment="gravity"
-                    android:textColor="@color/text_color" />
+                    android:textColor="@color/text_color"
+                    tools:text="@string/lorem_ipsum"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -225,10 +228,11 @@
                     android:padding="2dp"
                     android:singleLine="true"
                     android:tag="before last view"
-                    android:text="@string/lorem_ipsum"
+                    android:text="@{viewModel.demoDataTwo.data.text}"
                     android:textAlignment="gravity"
                     android:textColor="@color/text_color"
-                    app:skeletonBoneIgnored="@{false}" />
+                    app:skeletonBoneIgnored="@{false}"
+                    tools:text="@string/lorem_ipsum"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

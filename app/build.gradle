@@ -86,6 +86,8 @@ dependencies {
     implementation project(":boneslibrary")
 
     // Third party libs
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     // Testing and mocking libs
