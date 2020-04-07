@@ -137,6 +137,18 @@ internal class SkeletonBone(
         )
     }
 
+    override fun dispose() {
+        shimmerRays.clear()
+        boneProperties.disposed = false
+
+        BoneBoundsHandler.restoreTransitions(
+            view = owner,
+            boneProps = boneProperties,
+            animateRestoration = skeletonProperties.animateRestoredBounds,
+            animDuration = skeletonProperties.stateTransitionDuration
+        )
+    }
+
     override fun concealContent() {
         if (boneProperties.disposed) return
 
@@ -198,11 +210,6 @@ internal class SkeletonBone(
                 ray.onFade(fraction)
             }
         }
-    }
-
-    override fun dispose() {
-        shimmerRays.clear()
-        boneProperties.disposed = false
     }
 
     fun onRender(

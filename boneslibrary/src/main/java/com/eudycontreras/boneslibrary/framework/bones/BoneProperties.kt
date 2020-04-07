@@ -46,6 +46,7 @@ class BoneProperties internal constructor(): Cloneable<BoneProperties>{
     internal var originalParentTransition: LayoutTransitionData? = null
 
     internal data class LayoutTransitionData(
+        val nullTransition: Boolean,
         val changingDuration: Long,
         val isChangingEnabled: Boolean,
         val isDisappearingEnabled: Boolean

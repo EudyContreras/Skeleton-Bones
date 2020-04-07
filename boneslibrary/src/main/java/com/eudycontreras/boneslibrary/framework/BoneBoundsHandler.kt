@@ -3,7 +3,7 @@ package com.eudycontreras.boneslibrary.framework
 import android.animation.LayoutTransition
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.eudycontreras.boneslibrary.extensions.verticalPadding
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties.LayoutTransitionData
@@ -21,8 +21,9 @@ import com.eudycontreras.boneslibrary.tryGet
 
 internal object BoneBoundsHandler {
 
-    private fun getSaveTransitionData(layoutTransition: LayoutTransition): LayoutTransitionData {
+    private fun getSaveTransitionData(wasNull: Boolean, layoutTransition: LayoutTransition): LayoutTransitionData {
         return LayoutTransitionData(
+            nullTransition = wasNull,
             changingDuration = layoutTransition.getDuration(LayoutTransition.CHANGING),
             isChangingEnabled = layoutTransition.isTransitionTypeEnabled(LayoutTransition.CHANGING),
             isDisappearingEnabled = layoutTransition.isTransitionTypeEnabled(LayoutTransition.DISAPPEARING)
@@ -30,6 +31,7 @@ internal object BoneBoundsHandler {
     }
 
     private fun restoreLayoutTransition(viewGroup: ViewGroup, layoutTransitionData: LayoutTransitionData?) {
+
         val layoutTransition = tryGet { viewGroup.layoutTransition } or { LayoutTransition() }
 
         layoutTransitionData?.apply {
@@ -45,21 +47,23 @@ internal object BoneBoundsHandler {
                 layoutTransition.disableTransitionType(LayoutTransition.DISAPPEARING)
             }
         }
+
+        viewGroup.layoutTransition = if (layoutTransitionData?.nullTransition == false) layoutTransition else null
     }
 
-    fun applyTemporaryBounds(view: View, boneProps: BoneProperties, animate: Boolean) {
+    fun applyTemporaryBounds(view: View, boneProps: BoneProperties, animateRestoration: Boolean) {
         with(view) {
             boneProps.originalBounds = Dimension(
                 width = minimumWidth.toFloat(),
                 height = minimumHeight.toFloat()
             )
             if (boneProps.minWidth == null && boneProps.minHeight == null) {
-                applyMinTemporaryBounds(view, boneProps, animate)
+                applyMinTemporaryBounds(view, boneProps, animateRestoration)
                 return
             }
             val parent = parent as? ViewGroup?
 
-            if (parent != null && animate) {
+            if (parent != null && animateRestoration) {
                 applyLayoutAnimationOut(parent, boneProps)
             }
             if (minimumWidth <= 0) {
@@ -71,58 +75,85 @@ internal object BoneBoundsHandler {
         }
     }
 
-    private fun applyMinTemporaryBounds(view: View, boneProps: BoneProperties, animate: Boolean) {
+    fun applyTemporaryBoundsForValid(view: View, boneProps: BoneProperties, animateRestoration: Boolean) {
         with(view) {
-            val verticalPadding = view.verticalPadding
+            boneProps.originalBounds = Dimension(
+                width = minimumWidth.toFloat(),
+                height = minimumHeight.toFloat()
+            )
+
+            if (boneProps.minWidth == null && boneProps.minHeight == null) {
+                applyMinTemporaryBounds(view, boneProps, animateRestoration)
+                return
+            }
+
+            minimumWidth = boneProps.minWidth?.toInt() ?: return
+            minimumHeight = boneProps.minHeight?.toInt() ?: return
 
             val parent = parent as? ViewGroup?
 
-            if (parent != null && animate) {
+            if (parent != null && animateRestoration) {
                 applyLayoutAnimationOut(parent, boneProps)
-            }
-            if (minimumHeight <= 0) {
-                boneProps.minThickness?.let {
-                    val newValue = it + verticalPadding
-                    minimumHeight = newValue.toInt()
-                }
             }
         }
     }
 
-    private fun applyLayoutAnimationIn(parent: ViewGroup, animDuration: Long) {
-        val layoutTransition = tryGet { parent.layoutTransition } or { LayoutTransition() }
+    private fun applyMinTemporaryBounds(view: View, boneProps: BoneProperties, animateRestoration: Boolean) {
+        with(view) {
+            val verticalPadding = view.verticalPadding
 
-        parent.layoutTransition = layoutTransition
-        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        layoutTransition.disableTransitionType(LayoutTransition.DISAPPEARING)
-        layoutTransition.setDuration(LayoutTransition.CHANGING, animDuration)
-        layoutTransition.setInterpolator(LayoutTransition.CHANGING, DecelerateInterpolator())
+            if (minimumHeight <= 0) {
+                boneProps.minThickness.let {
+                    val newValue = it + verticalPadding
+                    minimumHeight = newValue.toInt()
+                }
+            }
+
+            val parent = parent as? ViewGroup?
+
+            if (parent != null && animateRestoration) {
+                applyLayoutAnimationOut(parent, boneProps)
+            }
+        }
     }
 
     private fun applyLayoutAnimationOut(
         parent: ViewGroup,
         boneProps: BoneProperties
     ) {
-        val layoutTransition = tryGet { parent.layoutTransition }.or { LayoutTransition() }
+        var wasNull = false
+
+        val layoutTransition = tryGet { parent.layoutTransition } or {
+            wasNull = true
+            LayoutTransition()
+        }
 
         if (boneProps.originalParentTransition == null) {
-            boneProps.originalParentTransition = getSaveTransitionData(layoutTransition)
+            boneProps.originalParentTransition = getSaveTransitionData(wasNull, layoutTransition)
         }
 
         parent.layoutTransition = layoutTransition
-        layoutTransition.setDuration(LayoutTransition.CHANGING, 0)
-        layoutTransition.disableTransitionType(LayoutTransition.CHANGING)
+    }
+
+    private fun applyLayoutAnimationIn(parent: ViewGroup, animDuration: Long) {
+        val layoutTransition = tryGet { parent.layoutTransition } or { LayoutTransition() }
+
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        layoutTransition.disableTransitionType(LayoutTransition.DISAPPEARING)
+        layoutTransition.setDuration(LayoutTransition.CHANGING, animDuration)
+        layoutTransition.setInterpolator(LayoutTransition.CHANGING, FastOutSlowInInterpolator())
+        parent.layoutTransition = layoutTransition
     }
 
     fun restoreBounds(view: View, boneProps: BoneProperties, animateRestoration: Boolean, animDuration: Long? = null) {
         with(view) {
-            val originalBounds = boneProps.originalBounds
-
             val parent = parent as? ViewGroup?
 
             if (parent != null && animDuration != null && animateRestoration) {
                 applyLayoutAnimationIn(parent, animDuration)
             }
+
+            val originalBounds = boneProps.originalBounds
 
             originalBounds?.let {
                 with(it.width.toInt()) {
@@ -136,8 +167,14 @@ internal object BoneBoundsHandler {
                     }
                 }
             }
+        }
+    }
 
-            if (parent != null && animDuration != null) {
+    fun restoreTransitions(view: View, boneProps: BoneProperties, animateRestoration: Boolean, animDuration: Long? = null) {
+        with(view) {
+            val parent = parent as? ViewGroup?
+
+            if (parent != null && animDuration != null && animateRestoration) {
                 restoreLayoutTransition(parent, boneProps.originalParentTransition)
             }
         }
