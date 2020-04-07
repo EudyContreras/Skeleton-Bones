@@ -33,7 +33,7 @@ The properties covered in this section only apply to SkeletonsDrawables
 |**skeletonDissectLargeBones** | ViewGroup | Boolean | **`false`** |
 |**skeletonUseStateTransition** | ViewGroup | Boolean | **`true`** |
 |**skeletonTransitionDuration** | ViewGroup | Long | **`250L`** |
-|**skeletonAnimateRestoredBounds** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| ViewGroup &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| Boolean | **`true`** |
+|**skeletonAnimateRestoredBounds** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| ViewGroup &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| Boolean | **`false`** |
 <br/>
 
 ### Skeleton Attributes Descriptions
