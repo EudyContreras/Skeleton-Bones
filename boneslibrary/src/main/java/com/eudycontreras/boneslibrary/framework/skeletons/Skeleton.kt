@@ -145,13 +145,11 @@ internal class Skeleton(
                         BoneBoundsHandler.applyTemporaryBounds(child, props, properties.animateRestoredBounds)
                         foundInvalid = true
                     } else {
-                        BoneBoundsHandler.applyTemporaryBoundsForValidIn(child, props, properties.animateRestoredBounds)
+                        BoneBoundsHandler.applyTemporaryBoundsForValid(child, props, properties.animateRestoredBounds)
                         if (!child.hasValidMinBounds(props)) {
                             foundInvalid = true
                         }
                     }
-                } else {
-
                 }
             }
         }

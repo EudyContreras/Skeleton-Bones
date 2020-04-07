@@ -168,7 +168,7 @@ internal fun ViewGroup.setSkeletonAllowWeakSavedState(allowSavedState: Boolean?)
 internal fun ViewGroup.setSkeletonAnimateRestoredBounds(animateRestoredBounds: Boolean?) {
     doWith(foreground) {
         if (it is SkeletonDrawable) {
-            it.getProps().animateRestoredBounds = animateRestoredBounds ?: true
+            it.getProps().animateRestoredBounds = animateRestoredBounds ?: false
         } else {
             addSkeletonLoader(enabled = true)
             setSkeletonAnimateRestoredBounds(animateRestoredBounds)

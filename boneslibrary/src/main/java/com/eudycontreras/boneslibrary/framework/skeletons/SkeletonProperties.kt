@@ -190,14 +190,14 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      * animation. This is done to provide a smoother using experience in such cases.
      * ```
      * ```
-     * **Default:** true
+     * **Default:** false
      * ```
      * ```
      * @see allowSavedState
      * @see SkeletonBindings.SKELETON_ANIMATE_RESTORED_BOUNDS
      */
     @Volatile
-    var animateRestoredBounds: Boolean = true
+    var animateRestoredBounds: Boolean = false
 
     /**
      * @Project Project Bones
