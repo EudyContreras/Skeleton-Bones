@@ -128,7 +128,7 @@ internal class Skeleton(
         bones.clear()
     }
 
-    fun compute(viewGroup: ViewGroup, onCompute: Action) {
+    fun compute(enabled: Boolean, viewGroup: ViewGroup, onCompute: Action) {
         var descendants: List<View> = emptyList()
 
         var foundInvalid = false
@@ -140,9 +140,16 @@ internal class Skeleton(
             for (child in descendants) {
                 val id = child.generateId()
                 val props = properties.getBoneProperties(id)
-                if (!child.hasValidBounds()) {
-                    foundInvalid = true
-                    BoneBoundsHandler.applyTemporaryBounds(child, props, properties.animateRestoredBounds)
+                if (enabled) {
+                    if (!child.hasValidBounds()) {
+                        BoneBoundsHandler.applyTemporaryBounds(child, props, properties.animateRestoredBounds)
+                        foundInvalid = true
+                    } else {
+                        BoneBoundsHandler.applyTemporaryBoundsForValid(child, props, properties.animateRestoredBounds)
+                        if (!child.hasValidMinBounds(props)) {
+                            foundInvalid = true
+                        }
+                    }
                 }
             }
         }

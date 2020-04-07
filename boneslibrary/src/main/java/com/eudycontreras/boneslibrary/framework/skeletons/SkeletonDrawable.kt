@@ -159,17 +159,10 @@ class SkeletonDrawable internal constructor(
             if (value != field) {
                 field = value
                 owner?.let { viewGroup ->
-                    if (viewGroup.isLaidOut) {
-                        skeletonManager.getSkeleton().compute(viewGroup) {
+                    viewGroup.doOnLayout {
+                        skeletonManager.getSkeleton().compute(field, viewGroup) {
                             skeletonManager.showSkeleton(field)
                             invalidateSelf()
-                        }
-                    } else {
-                        viewGroup.doOnLayout {
-                            skeletonManager.getSkeleton().compute(viewGroup) {
-                                skeletonManager.showSkeleton(field)
-                                invalidateSelf()
-                            }
                         }
                     }
                 }
@@ -213,7 +206,7 @@ class SkeletonDrawable internal constructor(
         skeletonManager.properties = properties.clone()
         owner?.let {
             if (it.isLaidOut) {
-                skeletonManager.getSkeleton().compute(it) {
+                skeletonManager.getSkeleton().compute(enabled, it) {
                     skeletonManager.showSkeleton(enabled)
                     invalidateSelf()
                 }
