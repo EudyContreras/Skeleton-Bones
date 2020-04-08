@@ -40,7 +40,7 @@
         app:skeletonShimmerRaySpeedMultiplier="@{1f}"
         app:skeletonShimmerRayThicknessRatio="@{0.45f}"
         app:skeletonShimmerRayTilt="@{-0.2f}"
-        app:skeletonTransitionDuration="@{200L}"
+        app:skeletonTransitionDuration="@{1000L}"
         app:skeletonUseStateTransition="@{true}"
         tools:background="@color/white">
 
@@ -53,10 +53,10 @@
             android:background="@drawable/shape_background_oval_alt"
             android:backgroundTint="@color/bone_color_alt"
             android:elevation="4dp"
-            app:imageUrl="@{viewModel.demoDataTwo.data.imageTwoUrl}"
+            app:imageUrl="@{viewModel.demoDataOne.data.imageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:skeletonBoneEnabled="@{viewModel.demoDataTwo.loading}"
+            app:skeletonBoneEnabled="@{viewModel.demoDataOne.loading}"
             app:skeletonBoneShadeMultiplier="@{0.9f}"
             app:skeletonBoneShapeType="@{ShapeType.CIRCULAR}"
             app:skeletonBoneShimmerRayColor="@{@color/bone_ray_color}"
@@ -134,13 +134,15 @@
             android:layout_marginTop="12dp"
             android:padding="2dp"
             android:tag="text 2"
-            android:text="@{viewModel.demoDataTwo.data.text}"
+            android:text="@{viewModel.demoDataOne.data.textOne}"
             android:textAlignment="gravity"
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textFour"
+            app:skeletonBoneEnabled="@{viewModel.demoDataOne.loading}"
             app:skeletonBoneDissectLargeBones="@{true}"
+            app:skeletonBoneMinHeight="@{Utils.getDp(150)}"
             tools:text="@string/lorem_ipsum"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -166,7 +168,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:skeletonBoneEnabled="@{viewModel.demoDataTwo.loading}"
                 app:skeletonBoneShadeMultiplier="@{1.021f}" />
 
             <LinearLayout

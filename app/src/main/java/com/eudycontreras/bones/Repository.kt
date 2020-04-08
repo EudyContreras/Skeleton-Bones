@@ -35,7 +35,8 @@ class Repository(scope: CoroutineScope) {
         scope.launch(Dispatchers.Main) {
             val dataOne = DemoData.One(
                 textOne = database.textOne,
-                textTwo = database.textTwo
+                textTwo = database.textTwo,
+                imageUrl = database.urlMaleAvatar
             )
             val dataTwo = DemoData.Two(
                 text = database.textOne,

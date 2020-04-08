@@ -3,7 +3,8 @@ package com.eudycontreras.bones
 sealed class DemoData {
     class One(
         val textOne: String,
-        val textTwo: String
+        val textTwo: String,
+        val imageUrl: String
     ): DemoData()
 
     class Two(
