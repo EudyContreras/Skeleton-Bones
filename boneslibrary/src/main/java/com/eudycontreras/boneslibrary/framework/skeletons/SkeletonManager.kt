@@ -1,6 +1,7 @@
 package com.eudycontreras.boneslibrary.framework.skeletons
 
 import android.animation.ValueAnimator
+import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import com.eudycontreras.boneslibrary.Action
 import com.eudycontreras.boneslibrary.MAX_OFFSET
@@ -116,13 +117,20 @@ internal class SkeletonManager(
         updateListeners.remove(listener)
     }
 
+    fun recompute(viewGroup: ViewGroup) {
+        skeleton.recomputeAndBuild(viewGroup)
+    }
+
+    fun loaded(bone: SkeletonBone) {
+        properties.getBoneProps(bone.id).isLoaded = true
+    }
+
     fun dispose(bone: SkeletonBone) {
         val duration = properties.stateTransitionDuration
         animate(
             duration = duration,
             onUpdate = {
                 bone.onFade(it)
-
                 if (bone.boneProperties.toggleView) {
                     bone.fadeContent(it)
                 }
@@ -134,7 +142,7 @@ internal class SkeletonManager(
                 bone.restore()
             },
             onEnd = {
-                properties.getBoneProps(bone.id).disposed = true
+                properties.getBoneProps(bone.id).isDisposed = true
                 properties.removeStateOwner(bone.id)
                 properties.addDisposed(bone.id)
             }

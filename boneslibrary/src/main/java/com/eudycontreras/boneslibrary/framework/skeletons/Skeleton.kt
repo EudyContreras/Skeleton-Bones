@@ -84,6 +84,7 @@ internal class Skeleton(
         for (ray in shimmerRays) {
             ray.onUpdate(fraction)
         }
+        owner?.let { manager.recompute(it) }
     }
 
     override fun onRender(
@@ -165,6 +166,27 @@ internal class Skeleton(
         }
     }
 
+    internal fun recomputeAndBuild(
+        viewGroup: ViewGroup
+    ) {
+        this.width = viewGroup.measuredWidth.toFloat()
+        this.height = viewGroup.measuredHeight.toFloat()
+
+        this.shimmerRays.forEach {
+            it.recompute(
+                bounds = this.bounds,
+                properties = properties.shimmerRayProperties
+            )
+        }
+
+        this.bones.values.forEach {
+            it.recompute(
+                parentView = viewGroup,
+                view = it.owner
+            )
+        }
+    }
+
     private fun applyAndBuild(
         viewGroup: ViewGroup,
         descendants: List<View>
@@ -196,6 +218,7 @@ internal class Skeleton(
             }
             val bone = bones[id] ?: SkeletonBone.build(
                 view = child,
+                viewGroup = viewGroup,
                 properties = props,
                 skeletonProperties = properties,
                 manager = manager

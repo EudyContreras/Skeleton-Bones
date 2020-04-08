@@ -79,6 +79,36 @@ internal class SkeletonBone(
         return computedHeight
     }
 
+    fun recompute(parentView: ViewGroup, view: View) {
+        if (boneProperties.isDisposed) return
+
+        view.getDrawingRect(offsetViewBounds)
+
+        parentView.offsetDescendantRectToMyCoords(view, offsetViewBounds)
+
+        val relativeLeft: Float = offsetViewBounds.centerX().toFloat()
+        val relativeTop: Float = offsetViewBounds.centerY().toFloat()
+
+        this.bounds.width = boneProperties.width ?: getLength(view)
+        this.bounds.height = boneProperties.height ?: getThickness(view)
+
+        this.bounds.x = (relativeLeft - (bounds.width / 2)) + boneProperties.translationX
+        this.bounds.y = (relativeTop - (bounds.height / 2)) + boneProperties.translationY
+
+        if (boneProperties.matchOwnersBounds) {
+            this.bounds.y = this.bounds.y + view.paddingTop
+        }
+
+        boneProperties.shimmerRayProperties?.let {
+            shimmerRays.forEach { ray ->
+                ray.recompute(
+                    bounds = bounds,
+                    properties = it
+                )
+            }
+        }
+    }
+
     fun compute(parentView: ViewGroup, view: View) {
         view.getDrawingRect(offsetViewBounds)
 
@@ -127,7 +157,7 @@ internal class SkeletonBone(
     }
 
     override fun restore() {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         BoneBoundsHandler.restoreBounds(
             view = owner,
@@ -139,7 +169,7 @@ internal class SkeletonBone(
 
     override fun dispose() {
         shimmerRays.clear()
-        boneProperties.disposed = false
+        boneProperties.isDisposed = false
 
         BoneBoundsHandler.restoreTransitions(
             view = owner,
@@ -150,7 +180,7 @@ internal class SkeletonBone(
     }
 
     override fun concealContent() {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         if (boneProperties.toggleView) {
             owner.alpha = MIN_OFFSET
@@ -159,7 +189,7 @@ internal class SkeletonBone(
     }
 
     override fun revealContent() {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         if (boneProperties.toggleView) {
             owner.alpha = MAX_OFFSET
@@ -168,7 +198,7 @@ internal class SkeletonBone(
     }
 
     override fun prepareContentFade() {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         if (boneProperties.toggleView) {
             owner.alpha = MIN_OFFSET
@@ -177,7 +207,7 @@ internal class SkeletonBone(
     }
 
     override fun fadeContent(fraction: Float) {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         if (boneProperties.toggleView) {
             owner.alpha = MAX_OFFSET * fraction
@@ -185,7 +215,7 @@ internal class SkeletonBone(
     }
 
     override fun onUpdate(fraction: Float) {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         if (shimmerRays.size > 0) {
             for (ray in shimmerRays) {
@@ -195,7 +225,7 @@ internal class SkeletonBone(
     }
 
     override fun onFade(fraction: Float) {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         if (drawShadows && skeletonProperties.allowShadows && boneProperties.toggleView) {
             val difference = Color.MAX_COLOR - abs(Color.MAX_COLOR - shadowAlpha)
@@ -219,7 +249,7 @@ internal class SkeletonBone(
         shadowPath: Path,
         rayPath: Path
     ) {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         val allowShadows = drawShadows && skeletonProperties.allowShadows && boneProperties.toggleView
 
@@ -325,6 +355,7 @@ internal class SkeletonBone(
         @JvmStatic
         fun build(
             view: View,
+            viewGroup: ViewGroup,
             properties: BoneProperties,
             skeletonProperties: SkeletonProperties,
             manager: SkeletonManager
@@ -337,7 +368,11 @@ internal class SkeletonBone(
                 this.elevation = view.elevation
                 this.boneProperties.enabledListener = {
                     if (!it) {
-                        manager.dispose(this)
+                       if (!boneProperties.isLoaded) {
+                           manager.dispose(this)
+                           manager.loaded(this)
+                           manager.recompute(viewGroup)
+                       }
                     }
                 }
             }

@@ -37,7 +37,10 @@ class BoneProperties internal constructor(): Cloneable<BoneProperties>{
     internal var background: Drawable? = null
 
     @Volatile
-    internal var disposed: Boolean = false
+    internal var isDisposed: Boolean = false
+
+    @Volatile
+    internal var isLoaded: Boolean = false
 
     @Volatile
     internal var originalBounds: Dimension? = null
@@ -461,7 +464,8 @@ class BoneProperties internal constructor(): Cloneable<BoneProperties>{
         return BoneProperties().also {
             it.width = this.width
             it.height = this.height
-            it.disposed = this.disposed
+            it.isLoaded = this.isLoaded
+            it.isDisposed = this.isDisposed
             it.shapeType = this.shapeType
             it.sectionDistance = this.sectionDistance
             it.minThickness = this.minThickness

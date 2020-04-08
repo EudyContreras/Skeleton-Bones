@@ -95,7 +95,7 @@ internal class Bone(
     }
 
     override fun onUpdate(fraction: Float) {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         if (shimmerRays.size > 0) {
             for (ray in shimmerRays) {
@@ -105,7 +105,7 @@ internal class Bone(
     }
 
     override fun onFade(fraction: Float) {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         opacity = Color.MAX_COLOR - (Color.MAX_COLOR * fraction).toInt()
 
@@ -126,7 +126,7 @@ internal class Bone(
         path: Path,
         rayPath: Path
     ) {
-        if (boneProperties.disposed) return
+        if (boneProperties.isDisposed) return
 
         buildPaths(path, rayPath)
 

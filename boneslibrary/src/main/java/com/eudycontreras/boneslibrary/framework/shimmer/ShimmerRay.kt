@@ -97,6 +97,21 @@ class ShimmerRay internal constructor(
         canvas.drawPath(path, paint)
     }
 
+    internal fun recompute(bounds: Bounds, properties: ShimmerRayProperties) {
+        val ratio = properties.shimmerRayThicknessRatio * bounds.width
+        val thickness = properties.shimmerRayThickness ?: ratio
+
+        val offset = bounds.height * abs(properties.shimmerRayTilt)
+
+        this.strokeWidth = thickness
+        this.width = thickness
+        this.height = bounds.height
+        this.maxX = bounds.right + (thickness + offset)
+        this.tilt = properties.shimmerRayTilt
+        this.x = bounds.x - (thickness + offset)
+        this.y = bounds.y
+    }
+
     companion object {
 
         private const val MIN_ALPHA: Float = MIN_OFFSET
