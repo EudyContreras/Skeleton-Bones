@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bones="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="viewModel"
-            type="com.eudycontreras.bones.SomeViewModel" />
-
-        <import type="androidx.interpolator.view.animation.FastOutSlowInInterpolator" />
+        <variable name="viewModel" type="com.eudycontreras.bones.SomeViewModel" />
 
         <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
-
-        <import
-            alias="Utils"
-            type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
+        <import alias="Utils" type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,24 +24,22 @@
         android:clipToPadding="false"
         android:elevation="4dp"
         android:padding="10dp"
-        app:skeletonAnimateRestoredBounds="@{true}"
-        app:skeletonAllowSavedState="@{true}"
-        app:skeletonBoneColor="@{@color/bone_color}"
-        app:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
-        app:skeletonBoneMaxThickness="@{Utils.getDp(12)}"
-        app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-        app:skeletonDissectLargeBones="@{false}"
-        app:skeletonEnabled="@{viewModel.loading}"
-        app:skeletonGenerateBones="@{true}"
-        app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
-        app:skeletonShimmerRayCount="@{4}"
-        app:skeletonShimmerRayInterpolator="@{@android:interpolator/accelerate_quad}"
-        app:skeletonShimmerRaySharedInterpolator="@{true}"
-        app:skeletonShimmerRaySpeedMultiplier="@{1f}"
-        app:skeletonShimmerRayThicknessRatio="@{0.45f}"
-        app:skeletonShimmerRayTilt="@{-0.2f}"
-        app:skeletonTransitionDuration="@{200L}"
-        app:skeletonUseStateTransition="@{true}"
+        bones:skeletonEnabled="@{viewModel.loading}"
+        bones:skeletonGenerateBones="@{true}"
+        bones:skeletonAllowSavedState="@{true}"
+        bones:skeletonUseStateTransition="@{true}"
+        bones:skeletonTransitionDuration="@{200L}"
+        bones:skeletonBoneColor="@{@color/bone_color}"
+        bones:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
+        bones:skeletonBoneMaxThickness="@{Utils.getDp(12)}"
+        bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+        bones:skeletonShimmerRayColor="@{@color/bone_ray_color}"
+        bones:skeletonShimmerRayCount="@{4}"
+        bones:skeletonShimmerRayInterpolator="@{@android:interpolator/accelerate_quad}"
+        bones:skeletonShimmerRaySharedInterpolator="@{true}"
+        bones:skeletonShimmerRaySpeedMultiplier="@{1f}"
+        bones:skeletonShimmerRayThicknessRatio="@{0.45f}"
+        bones:skeletonShimmerRayTilt="@{-0.2f}"
         tools:background="@color/white">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -59,22 +50,20 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/shape_background_oval_alt"
             android:backgroundTint="@color/bone_color_alt"
-            android:clickable="true"
-            android:cropToPadding="false"
             android:elevation="4dp"
             android:src="@drawable/img_male_avatar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:skeletonBoneEnabled="@{viewModel.loadingAlt3}"
-            app:skeletonBoneShadeMultiplier="@{0.9f}"
-            app:skeletonBoneShapeType="@{ShapeType.CIRCULAR}"
-            app:skeletonBoneShimmerRayColor="@{@color/bone_ray_color}"
-            app:skeletonBoneShimmerRayCount="@{3}"
-            app:skeletonBoneShimmerRayInterpolator="@{@android:interpolator/decelerate_quad}"
-            app:skeletonBoneShimmerRaySharedInterpolator="@{false}"
-            app:skeletonBoneShimmerRaySpeedMultiplier="@{1.4f}"
-            app:skeletonBoneShimmerRayThickness="@{Utils.getDp(50)}"
-            app:skeletonBoneShimmerRayTilt="@{-0.2f}" />
+            bones:skeletonBoneEnabled="@{viewModel.loadingAlt3}"
+            bones:skeletonBoneShapeType="@{ShapeType.CIRCULAR}"
+            bones:skeletonBoneShadeMultiplier="@{0.9f}"
+            bones:skeletonBoneShimmerRayColor="@{@color/bone_ray_color}"
+            bones:skeletonBoneShimmerRayCount="@{3}"
+            bones:skeletonBoneShimmerRayInterpolator="@{@android:interpolator/decelerate_quad}"
+            bones:skeletonBoneShimmerRaySharedInterpolator="@{false}"
+            bones:skeletonBoneShimmerRaySpeedMultiplier="@{1.4f}"
+            bones:skeletonBoneShimmerRayThickness="@{Utils.getDp(50)}"
+            bones:skeletonBoneShimmerRayTilt="@{-0.2f}" />
 
         <TextView
             android:id="@+id/textOne"
@@ -91,7 +80,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/photo"
             app:layout_constraintTop_toTopOf="@id/photo"
-            app:skeletonBoneDissectLargeBones="@{true}"
+            bones:skeletonBoneDissectLargeBones="@{true}"
             tools:text="@string/lorem_ipsum"
             tools:targetApi="o" />
 
@@ -113,8 +102,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/photo"
-            app:skeletonBoneShadeMultiplier="@{0.9f}"
-            app:skeletonBoneMinHeight="@{Utils.getDp(100)}"
+            bones:skeletonBoneMinHeight="@{Utils.getDp(100)}"
+            bones:skeletonBoneShadeMultiplier="@{0.9f}"
             tools:targetApi="o"
             tools:text="@string/lorem_ipsum"/>
 
@@ -174,8 +163,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:skeletonBoneEnabled="@{viewModel.loadingAlt2}"
-                app:skeletonBoneShadeMultiplier="@{1.021f}" />
+                bones:skeletonBoneEnabled="@{viewModel.loadingAlt2}"
+                bones:skeletonBoneShadeMultiplier="@{1.021f}" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -186,9 +175,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/someImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:skeletonBoneMaxThickness="@{Utils.getDp(20)}"
-                app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-                app:skeletonDissectLargeBones="@{false}">
+                bones:skeletonBoneMaxThickness="@{Utils.getDp(20)}"
+                bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+                bones:skeletonDissectLargeBones="@{false}">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -198,7 +187,6 @@
                     android:gravity="center_vertical"
                     android:padding="2dp"
                     android:singleLine="true"
-                    android:tag="before last view"
                     android:text="@string/lorem_ipsum"
                     android:textAlignment="gravity"
                     android:textColor="@color/text_color" />
@@ -211,7 +199,6 @@
                     android:gravity="center_vertical"
                     android:padding="2dp"
                     android:singleLine="true"
-                    android:tag="last view"
                     android:text="@string/lorem_ipsum"
                     android:textAlignment="gravity"
                     android:textColor="@color/text_color" />
@@ -224,11 +211,10 @@
                     android:gravity="center_vertical"
                     android:padding="2dp"
                     android:singleLine="true"
-                    android:tag="before last view"
                     android:text="@string/lorem_ipsum"
                     android:textAlignment="gravity"
                     android:textColor="@color/text_color"
-                    app:skeletonBoneIgnored="@{false}" />
+                    bones:skeletonBoneIgnored="@{false}" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
