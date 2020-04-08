@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bones="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="viewModel"
-            type="com.eudycontreras.bones.SomeViewModel" />
-
-        <import type="androidx.interpolator.view.animation.FastOutSlowInInterpolator" />
+        <variable name="viewModel" type="com.eudycontreras.bones.SomeViewModel" />
 
         <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
-
-        <import
-            alias="Utils"
-            type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
+        <import alias="Utils" type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,8 +52,6 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/shape_background_oval_alt"
             android:backgroundTint="@color/bone_color_alt"
-            android:clickable="true"
-            android:cropToPadding="false"
             android:elevation="4dp"
             app:imageUrl="@{viewModel.demoDataTwo.data.imageTwoUrl}"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/photo"
             app:layout_constraintTop_toTopOf="@id/photo"
-            app:skeletonBoneDissectLargeBones="@{true}"
+            bones:skeletonBoneDissectLargeBones="@{true}"
             tools:text="@string/lorem_ipsum"
             tools:targetApi="o" />
 
@@ -187,9 +178,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/someImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:skeletonBoneMaxThickness="@{Utils.getDp(20)}"
-                app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-                app:skeletonDissectLargeBones="@{false}">
+                bones:skeletonBoneMaxThickness="@{Utils.getDp(20)}"
+                bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+                bones:skeletonDissectLargeBones="@{false}">
 
                 <TextView
                     android:layout_width="match_parent"

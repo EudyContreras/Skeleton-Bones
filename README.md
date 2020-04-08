@@ -10,7 +10,7 @@
 [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23s)
 [![License: ISC](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/ISC)
 [![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
-![Release](https://img.shields.io/github/v/release/EudyContreras/Skeleton-Bones)
+[![Release](https://img.shields.io/github/v/release/EudyContreras/Skeleton-Bones)](https://github.com/EudyContreras/Skeleton-Bones/releases)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
   
@@ -18,7 +18,7 @@
 
 </div>
 
-Library for dynamically generating and animating skeleton drawables. This library can generate a drawable skeleton loader for any View or ViewGroup. Simply define the desired properties and the skeleton drawable will be generated for the ViewGroup and it's children. It is that simple! Below you ll find information on how to use this library.
+Library for dynamically generating and animating skeleton drawables. This library can generate a drawable skeleton loader for any View or ViewGroup. Simply define the desired properties and the skeleton drawable will be generated for the ViewGroup and its children. It is that simple! Below you'll find information on how to use this library.
 
 
 ![Banner Demo](./media/images/banner_rounded.png)
@@ -63,7 +63,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 **Skeleton**: A drawable loader representation of a ViewGroup. The skeleton is the wrapper around the generated bones where each bone represents a view within the ViewGroup. The skeleton is in charge of managing and rendering each of the bones generated for each non-ignored view within the owner layout. Skeleton drawables are recommended over single Bone Drawables when possible since the a single drawable is used for representing a complex layout. The skeleton drawable is created and overlaid over the layout in order to render the bones and the visible shimmers. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md), See [**Skeleton**](./docs/elements/SKELETON.md)
 
 
-**Skeleton Bone**: A bone drawable loader representation of a View. Bones are typically contained within a skeleton, but bones can also be on their own. When a bone is contained within a parent that is a SkeletonDrawable, the parent drawable is in charge of the rendering of said bone. Every detail of the bone can be customized in order to provide the best look. When a bone is not contained within a Skeleton, the bone is then an independent bone and has similar but limited functionality. The bone can have its own state and can display an overlay shimmer. Below you ll find a list of properties that can be customized. Independent bones can share properties through a [**BonePropertyHolder**](#using-a-property-holder), See [**Skeleton Bones**](./docs/elements/SKELETON_BONE.md)
+**Skeleton Bone**: A bone drawable loader representation of a View. Bones are typically contained within a skeleton, but bones can also be on their own. When a bone is contained within a parent that is a SkeletonDrawable, the parent drawable is in charge of the rendering of said bone. Every detail of the bone can be customized in order to provide the best look. When a bone is not contained within a Skeleton, the bone is then an independent bone and has similar but limited functionality. The bone can have its own state and can display an overlay shimmer. Below you'll find a list of properties that can be customized. Independent bones can share properties through a [**BonePropertyHolder**](#using-a-property-holder), See [**Skeleton Bones**](./docs/elements/SKELETON_BONE.md)
 
 
 **Shimmer Ray**: The effect that overlays a skeleton or bone in order to communicate to the user that the View or ViewGroup is currently loading. Shimmer rays can be applied to both Skeletons and individual bones. Most aspects of the shimmer rays can be customized. See [**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md)
@@ -97,7 +97,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 
 <br/>
 
-**Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating a instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns. It can also be use with data-binding.
+**Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating an instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns. It can also be use with data-binding.
 
 <br/>
 
