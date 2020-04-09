@@ -1,3 +1,5 @@
+![Dev Nation Banner](./media/images/dev_nation_banner.png)
+
 <div align="center">
   
   [banner]: ./media/gifs/section_stripe_white.gif
