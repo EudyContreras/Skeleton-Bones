@@ -133,7 +133,7 @@ internal class BoneManager(
                 bone.prepareContentFade()
             },
             onEnd = {
-                properties.disposed = true
+                properties.isDisposed = true
             }
         )
     }

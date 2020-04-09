@@ -113,13 +113,15 @@ class SkeletonDrawable internal constructor(
         )
 
         skeletonManager.onDiscarded {
-            owner?.foreground = baseDrawableForeground
+            val base = baseDrawableForeground
             if (skeletonManager.properties.allowWeakSavedState) {
-                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties, true)
+                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties.clone(), true)
             } else if (skeletonManager.properties.allowSavedState) {
-                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties)
+                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties.clone())
             }
             listeners.clear()
+            owner?.foreground = null
+            owner?.foreground = base
         }
     }
 

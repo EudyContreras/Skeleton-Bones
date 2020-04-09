@@ -87,8 +87,8 @@ internal object BoneBoundsHandler {
                 return
             }
 
-            minimumWidth = boneProps.minWidth?.toInt() ?: return
-            minimumHeight = boneProps.minHeight?.toInt() ?: return
+            minimumWidth = boneProps.minWidth?.toInt() ?: minimumWidth
+            minimumHeight = boneProps.minHeight?.toInt() ?: minimumHeight
 
             val parent = parent as? ViewGroup?
 
