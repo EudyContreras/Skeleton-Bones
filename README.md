@@ -1,4 +1,4 @@
-![Dev Nation Banner](./media/images/dev_nation_banner.png)
+![Dev Nation Banner](./media/images/android_dev_nation.png)
 
 <div align="center">
   
