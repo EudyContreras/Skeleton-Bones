@@ -29,6 +29,8 @@ internal class Skeleton(
 
     private var owner: ViewGroup? = null
 
+    internal var isDirty: Boolean = false
+
     private val rayPath: Path = Path()
 
     private val bonePath: Path = Path()
@@ -83,6 +85,9 @@ internal class Skeleton(
         }
         for (ray in shimmerRays) {
             ray.onUpdate(fraction)
+        }
+        if (isDirty) {
+            owner?.let { recomputeAndBuild(it) }
         }
     }
 
@@ -162,6 +167,27 @@ internal class Skeleton(
         } else {
             applyAndBuild(viewGroup, descendants)
             onCompute()
+        }
+    }
+
+    private fun recomputeAndBuild(
+        viewGroup: ViewGroup
+    ) {
+        this.width = viewGroup.measuredWidth.toFloat()
+        this.height = viewGroup.measuredHeight.toFloat()
+
+        this.shimmerRays.forEach {
+            it.recompute(
+                bounds = this.bounds,
+                properties = properties.shimmerRayProperties
+            )
+        }
+
+        this.bones.values.forEach {
+            it.recompute(
+                parentView = viewGroup,
+                view = it.owner
+            )
         }
     }
 

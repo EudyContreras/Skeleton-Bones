@@ -466,17 +466,16 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
             it.waiting = this.waiting
             it.allowShadows = this.allowShadows
             it.shadowColor = this.shadowColor
-            it.stateOwners = HashMap(this.stateOwners)
             it.ignoredIds = HashSet(this.ignoredIds)
-            it.disposedIds = HashSet(this.disposedIds)
             it.allowSavedState = this.allowSavedState
             it.allowWeakSavedState = this.allowWeakSavedState
             it.allowBoneGeneration = this.allowBoneGeneration
             it.useStateTransition = this.useStateTransition
-            it.skeletonCornerRadii = this.skeletonCornerRadii
             it.animateRestoredBounds = this.animateRestoredBounds
             it.skeletonBackgroundColor = this.skeletonBackgroundColor
+            it.skeletonCornerRadii = this.skeletonCornerRadii?.clone()
             it.shimmerRayProperties = this.shimmerRayProperties.clone()
+            it.stateTransitionDuration = this.stateTransitionDuration
             it.boneProperties = HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
         }
     }

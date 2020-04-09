@@ -37,7 +37,10 @@ class BoneProperties internal constructor(): Cloneable<BoneProperties>{
     internal var background: Drawable? = null
 
     @Volatile
-    internal var disposed: Boolean = false
+    internal var isDisposed: Boolean = false
+
+    @Volatile
+    internal var isLoaded: Boolean = false
 
     @Volatile
     internal var originalBounds: Dimension? = null
@@ -461,20 +464,27 @@ class BoneProperties internal constructor(): Cloneable<BoneProperties>{
         return BoneProperties().also {
             it.width = this.width
             it.height = this.height
-            it.disposed = this.disposed
-            it.shapeType = this.shapeType
-            it.sectionDistance = this.sectionDistance
+            it.minWidth = this.minWidth
+            it.minHeight = this.minHeight
             it.minThickness = this.minThickness
             it.maxThickness = this.maxThickness
             it.translationX = this.translationX
             it.translationY = this.translationY
+            it.shapeType = this.shapeType
+            it.isDisposed = this.isDisposed
+            it.toggleView = this.toggleView
+            it.sectionDistance = this.sectionDistance
             it.dissectBones = this.dissectBones
             it.shadeMultiplier = this.shadeMultiplier
+            it.matchOwnersBounds = this.matchOwnersBounds
             it.allowSavedState = this.allowSavedState
             it.allowWeakSavedState = this.allowWeakSavedState
             it.transitionDuration = this.transitionDuration
+            it.originalBounds = this.originalBounds?.copy()
+            it.originalParentTransition = this.originalParentTransition?.copy()
             it.cornerRadii = this.cornerRadii?.clone()
             it.color = this.color?.clone()
+            it.backgroundColor = this.backgroundColor?.clone()
             it.background = this.background?.clone()
             it.shimmerRayProperties = this.shimmerRayProperties?.clone()
         }

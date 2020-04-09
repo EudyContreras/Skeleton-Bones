@@ -104,7 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/photo"
-            app:skeletonBoneShadeMultiplier="@{0.9f}"
+            bones:skeletonBoneShadeMultiplier="@{0.9f}"
             tools:targetApi="o"
             tools:text="@string/lorem_ipsum"/>
 
