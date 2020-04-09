@@ -108,8 +108,6 @@ class ShimmerRay internal constructor(
         this.height = bounds.height
         this.maxX = bounds.right + (thickness + offset)
         this.tilt = properties.shimmerRayTilt
-        this.x = bounds.x - (thickness + offset)
-        this.y = bounds.y
     }
 
     companion object {

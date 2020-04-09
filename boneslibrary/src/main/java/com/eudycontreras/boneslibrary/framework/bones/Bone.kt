@@ -54,7 +54,7 @@ internal class Bone(
             this.color = MutableColor.fromColor(boneProperties.color)
         }
 
-        this.shapeType = boneProperties.shapeType ?: return
+        this.shapeType = boneProperties.shapeType ?: this.shapeType
         this.corners = boneProperties.cornerRadii?.clone() ?: CornerRadii()
 
         if (this.color != null) {

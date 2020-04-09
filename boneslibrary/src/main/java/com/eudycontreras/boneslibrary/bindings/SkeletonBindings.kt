@@ -10,6 +10,7 @@ import com.eudycontreras.boneslibrary.doWith
 import com.eudycontreras.boneslibrary.extensions.descendantViews
 import com.eudycontreras.boneslibrary.extensions.generateId
 import com.eudycontreras.boneslibrary.extensions.getProps
+import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonManager
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonProperties
@@ -367,7 +368,7 @@ internal fun ViewGroup.setSkeletonBoneMinThickness(minThickness: Float?) {
             descendantViews().forEach { view ->
                 val id = view.generateId()
                 it.getProps().getBoneProps(id).apply {
-                    this.minThickness = minThickness ?: return
+                    this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS
                 }
             }
         } else {
@@ -377,7 +378,7 @@ internal fun ViewGroup.setSkeletonBoneMinThickness(minThickness: Float?) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
                     parent.getProps().getBoneProps(id).apply {
-                        this.minThickness = minThickness ?: return
+                        this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS
                     }
                 }
             } else {
@@ -395,7 +396,7 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
             descendantViews().forEach { view ->
                 val id = view.generateId()
                 it.getProps().getBoneProps(id).apply {
-                    this.maxThickness = maxThickness ?: return
+                    this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS
                 }
             }
         } else {
@@ -405,7 +406,7 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
                     parent.getProps().getBoneProps(id).apply {
-                        this.maxThickness = maxThickness ?: return
+                        this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS
                     }
                 }
             } else {

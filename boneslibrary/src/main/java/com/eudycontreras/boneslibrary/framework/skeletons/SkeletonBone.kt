@@ -355,7 +355,6 @@ internal class SkeletonBone(
         @JvmStatic
         fun build(
             view: View,
-            viewGroup: ViewGroup,
             properties: BoneProperties,
             skeletonProperties: SkeletonProperties,
             manager: SkeletonManager
@@ -371,7 +370,7 @@ internal class SkeletonBone(
                        if (!boneProperties.isLoaded) {
                            manager.dispose(this)
                            manager.loaded(this)
-                           manager.recompute(viewGroup)
+                           manager.recompute()
                        }
                     }
                 }

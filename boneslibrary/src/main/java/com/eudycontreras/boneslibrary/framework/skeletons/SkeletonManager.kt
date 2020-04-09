@@ -117,8 +117,8 @@ internal class SkeletonManager(
         updateListeners.remove(listener)
     }
 
-    fun recompute(viewGroup: ViewGroup) {
-        skeleton.recomputeAndBuild(viewGroup)
+    fun recompute() {
+        skeleton.isDirty = true
     }
 
     fun loaded(bone: SkeletonBone) {

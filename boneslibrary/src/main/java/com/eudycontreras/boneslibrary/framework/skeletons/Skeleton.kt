@@ -29,6 +29,8 @@ internal class Skeleton(
 
     private var owner: ViewGroup? = null
 
+    internal var isDirty: Boolean = false
+
     private val rayPath: Path = Path()
 
     private val bonePath: Path = Path()
@@ -84,7 +86,9 @@ internal class Skeleton(
         for (ray in shimmerRays) {
             ray.onUpdate(fraction)
         }
-        owner?.let { manager.recompute(it) }
+        if (isDirty) {
+            owner?.let { recomputeAndBuild(it) }
+        }
     }
 
     override fun onRender(
@@ -166,7 +170,7 @@ internal class Skeleton(
         }
     }
 
-    internal fun recomputeAndBuild(
+    private fun recomputeAndBuild(
         viewGroup: ViewGroup
     ) {
         this.width = viewGroup.measuredWidth.toFloat()
@@ -218,7 +222,6 @@ internal class Skeleton(
             }
             val bone = bones[id] ?: SkeletonBone.build(
                 view = child,
-                viewGroup = viewGroup,
                 properties = props,
                 skeletonProperties = properties,
                 manager = manager
