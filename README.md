@@ -2,18 +2,6 @@
 
 <div align="center">
   
-  [banner]: ./media/gifs/section_stripe_white.gif
-  [thick-banner]: ./media/gifs/wide_banner_white.gif
-  
-  <h1> Bones </h1>
- 
- 
-</div>
-
-Library for dynamically generating and animating skeleton drawables. This library can generate a drawable skeleton loader for any View or ViewGroup. Simply define the desired properties and the skeleton drawable will be generated for the ViewGroup and its children. It is that simple! Below you'll find information on how to use this library.
-
-<div align="center">
-  
 ![Issues](https://img.shields.io/github/issues-raw/EudyContreras/Skeleton-Bones?color=yellow)
 [![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23s)
@@ -23,6 +11,17 @@ Library for dynamically generating and animating skeleton drawables. This librar
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
 </div>
+
+<div align="center">
+  
+  [banner]: ./media/gifs/section_stripe_white.gif
+  [thick-banner]: ./media/gifs/wide_banner_white.gif
+  
+  <h1> Bones </h1>
+
+</div>
+
+Library for dynamically generating and animating skeleton drawables. This library can generate a drawable skeleton loader for any View or ViewGroup. Simply define the desired properties and the skeleton drawable will be generated for the ViewGroup and its children. It is that simple! Below you'll find information on how to use this library.
 
 ![Banner Demo](./media/images/banner_rounded.png)
 <div align="center">
