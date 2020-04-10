@@ -1,5 +1,9 @@
+  [banner]: ./media/gifs/section_stripe_white.gif
+  [thick-banner]: ./media/gifs/wide_banner_white.gif
+  
 ![Dev Nation Banner](./media/images/android_dev_nation_banner_alt.png)
-
+ 
+![Banner Demo][thick-banner]
 <div align="center">
   
 ![Issues](https://img.shields.io/github/issues-raw/EudyContreras/Skeleton-Bones?color=yellow)
@@ -13,10 +17,7 @@
 </div>
 
 <div align="center">
-  
-  [banner]: ./media/gifs/section_stripe_white.gif
-  [thick-banner]: ./media/gifs/wide_banner_white.gif
-  
+ 
   <h1> Bones </h1>
 
 </div>
