@@ -3,6 +3,8 @@
   
 ![Dev Nation Banner](./media/images/android_dev_nation_banner_orgi.png)
  
+ > Android dev-nation is a community driven by developers dedicated to sharing high quality resources. At dev-nation we aim to push the boundaries of the android platform to the edge and deliver top of the line and completely open source libraries. If you can sing our anthem and would like to contribute, you are more than welcome. 🏆 
+ 
 ![Banner Demo][thick-banner]
 <div align="center">
   
