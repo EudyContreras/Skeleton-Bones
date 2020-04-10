@@ -1,7 +1,7 @@
   [banner]: ./media/gifs/section_stripe_white.gif
   [thick-banner]: ./media/gifs/wide_banner_white.gif
   
-![Dev Nation Banner](./media/images/android_dev_nation_banner_orig.png)
+![Dev Nation Banner](./media/images/android_dev_nation_banner_orgi.png)
  
 ![Banner Demo][thick-banner]
 <div align="center">
