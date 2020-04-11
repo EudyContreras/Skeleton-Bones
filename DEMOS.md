@@ -1,3 +1,4 @@
+[![Dev Nation Banner](media/images/android_dev_site_banner.png)](https://medium.com/android-dev-nation)
 
 <div align="center">
   

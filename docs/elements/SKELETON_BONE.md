@@ -1,4 +1,4 @@
-[![Dev Nation Banner](../../media/images/android_dev_nation_banner_orig.png)](https://medium.com/android-dev-nation)
+[![Dev Nation Banner](../../media/images/android_dev_site_banner.png)](https://medium.com/android-dev-nation)
 <div align="center">
   
 ![Banner Demo](../../media/gifs/wide_banner_white.gif)
