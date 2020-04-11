@@ -10,6 +10,7 @@ import androidx.core.view.*
 import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
+import com.eudycontreras.boneslibrary.properties.Bounds
 import com.eudycontreras.boneslibrary.properties.MutableColor
 import java.lang.ref.WeakReference
 
@@ -40,7 +41,6 @@ internal fun View.generateId(): Int {
         }
     } else id
 }
-
 /**
  * Applies a skeleton drawable to this ViewGroup
  */
@@ -53,6 +53,24 @@ fun ViewGroup.applySkeletonDrawable(): SkeletonDrawable {
  */
 fun View.applyBoneDrawable(): BoneDrawable {
     return BoneDrawable.create(this)
+}
+
+fun View.compareBounds(bounds: Bounds): Int {
+    val xDiff = left - bounds.left.toInt()
+    val yDiff = top - bounds.top.toInt()
+    val widthDiff = measuredWidth - bounds.width.toInt()
+    val heightDiff = measuredHeight - bounds.height.toInt()
+
+    return xDiff + yDiff + widthDiff + heightDiff
+}
+
+fun View.getBounds(): Bounds {
+    return Bounds(
+        x = this.left.toFloat(),
+        y = this.top.toFloat(),
+        width = this.measuredWidth.toFloat(),
+        height = this.measuredHeight.toFloat()
+    )
 }
 
 fun View.hasValidMinBounds(boneProps: BoneProperties): Boolean {
@@ -74,8 +92,7 @@ fun View.hasValidBounds(): Boolean {
 }
 
 fun View.hasDrawableBounds(boneProps: BoneProperties): Boolean {
-    val minThickness = boneProps.minThickness ?: BoneProperties.MIN_THICKNESS
-    return (measuredWidth > 0 && measuredHeight > minThickness)
+    return (measuredWidth > 0 && measuredHeight > boneProps.minThickness)
 }
 
 internal fun View.getBackgroundColor(): MutableColor? {
@@ -165,6 +182,19 @@ internal fun ViewGroup.descendantViews(predicate: ((view: View) -> Boolean)? = n
     val views = mutableListOf<View>()
     findViews(this, predicate, views)
     return views
+}
+
+internal fun ViewGroup.removeAllViews(predicate: ((view: View) -> Boolean)? = null) {
+    val views = mutableListOf<View>()
+    findViews(this, predicate, views)
+    views.forEach {
+        it.removeFromHierarchy()
+    }
+}
+
+internal fun View.removeFromHierarchy() {
+    val parent = parent as? ViewGroup?
+    parent?.removeView(this)
 }
 
 private fun findViews(

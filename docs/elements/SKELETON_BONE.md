@@ -1,4 +1,4 @@
-
+[![Dev Nation Banner](../../media/images/android_dev_nation_banner_orig.png)](https://medium.com/android-dev-nation)
 <div align="center">
   
 ![Banner Demo](../../media/gifs/wide_banner_white.gif)
@@ -29,6 +29,7 @@ The properties covered in this section apply to both Skeleton Bones which are th
 |**skeletonBoneProps** | View | Both |  BoneProperties | **`null`** |
 |**skeletonBonePropId** | View | Both |  Integer | **`null`** |
 |**skeletonBoneEnabled** | View | Both |  Boolean | **`true`** |
+|**skeletonBoneStateOwner** | View,  ViewGroup | Bone | Boolean | **`false`** |
 |**skeletonBoneShapeType** | View | Both |  ShapeType | **`null`** |
 |**skeletonBoneToggleView** | View, ViewGroup | Bone | Boolean | **`true`** |
 |**skeletonBoneColor** | View, ViewGroup | Both | Integer, ColorRes | **`null`** |
@@ -60,7 +61,9 @@ The properties covered in this section apply to both Skeleton Bones which are th
 
 **skeletonBoneEnabled:** Determines whether or not this View should be represented as a skeleton bone or a bone drawable if independent. When the bounded view is child to a ViewGroup that is has a SkeletonDrawable the bounded view will become its own independent state owner.
 
-**skeletonBoneDissectLargeBones:** When true, bones which exceed the max set thickness will be dissected into a set of smaller bones. The smaller bones are evenly distributed throught the space.
+**skeletonBoneStateOwner:**  Marks the target view as an independent state owner. If this target view is an ImageView it can be notified when loaded using the `notifySkeletonImageLoaded()` extension function, otherwise this should be used in combination with `skeletonBoneEnabled`.
+
+**skeletonBoneDissectLargeBones:** When true, bones which exceed the max set thickness will be dissected into a set of smaller bones. The smaller bones are evenly distributed through the space.
 
 **skeletonBoneShapeType:** Sets the type of shape the bone should have (Circular | Rectangular).
 

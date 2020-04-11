@@ -162,7 +162,12 @@ class SkeletonDrawable internal constructor(
                 field = value
                 owner?.let { viewGroup ->
                     viewGroup.doOnLayout {
-                        skeletonManager.getSkeleton().compute(field, viewGroup) {
+                        if (field) {
+                            skeletonManager.getSkeleton().compute(field, viewGroup) {
+                                skeletonManager.showSkeleton(field)
+                                invalidateSelf()
+                            }
+                        } else {
                             skeletonManager.showSkeleton(field)
                             invalidateSelf()
                         }

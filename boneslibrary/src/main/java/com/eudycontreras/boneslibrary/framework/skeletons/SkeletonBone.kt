@@ -14,6 +14,7 @@ import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties.Companion.HEIGHT_THRESHOLD
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties.Companion.OVERFLOW_THRESHOLD
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRay
+import com.eudycontreras.boneslibrary.properties.Bounds
 import com.eudycontreras.boneslibrary.properties.Color
 import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.properties.ShapeType
@@ -30,6 +31,7 @@ import kotlin.math.abs
 
 internal class SkeletonBone(
     val owner: View,
+    val parentSkeleton: Skeleton,
     val boneProperties: BoneProperties,
     private val skeletonProperties: SkeletonProperties
 ) : DrawableShape(), FadeTarget, UpdateTarget, Disposable, ContentLoader {
@@ -41,6 +43,8 @@ internal class SkeletonBone(
     private var shadowFilter: BlurMaskFilter? = null
 
     private var offsetViewBounds = Rect()
+
+    private var viewBounds = Bounds()
 
     private fun getLength(owner: View): Float {
         val ownerWidth = owner.width.toFloat() - (owner.horizontalMargin)
@@ -117,6 +121,8 @@ internal class SkeletonBone(
         val relativeLeft: Float = offsetViewBounds.centerX().toFloat()
         val relativeTop: Float = offsetViewBounds.centerY().toFloat()
         val allowShadows = drawShadows && skeletonProperties.allowShadows && boneProperties.toggleView
+
+        this.viewBounds = view.getBounds()
 
         this.shapeType = boneProperties.shapeType ?: shapeType
 
@@ -217,6 +223,9 @@ internal class SkeletonBone(
     override fun onUpdate(fraction: Float) {
         if (boneProperties.isDisposed) return
 
+        if (owner.compareBounds(viewBounds) != 0) {
+            parentSkeleton.isDirty = true
+        }
         if (shimmerRays.size > 0) {
             for (ray in shimmerRays) {
                 ray.onUpdate(fraction)
@@ -355,12 +364,14 @@ internal class SkeletonBone(
         @JvmStatic
         fun build(
             view: View,
+            skeleton: Skeleton,
             properties: BoneProperties,
             skeletonProperties: SkeletonProperties,
             manager: SkeletonManager
         ): SkeletonBone {
             return SkeletonBone(
                 owner = view,
+                parentSkeleton = skeleton,
                 boneProperties = properties,
                 skeletonProperties = skeletonProperties
             ).apply {

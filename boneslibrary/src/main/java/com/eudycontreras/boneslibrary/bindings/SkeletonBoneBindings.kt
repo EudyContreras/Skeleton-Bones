@@ -34,6 +34,10 @@ object SkeletonBoneBindings {
      */
     const val SKELETON_BONE_ENABLED = "skeletonBoneEnabled"
     /**
+     * **Binding Property**: app:skeletonBoneStateOwner
+     */
+    const val SKELETON_BONE_STATE_OWNER = "skeletonBoneStateOwner"
+    /**
      * **Binding Property**: app:skeletonBoneColor
      */
     const val SKELETON_BONE_COLOR = "skeletonBoneColor"
@@ -309,6 +313,19 @@ internal fun View.setSkeletonBoneEnabled(enabled: Boolean?) {
                 setSkeletonBoneEnabled(enabled)
             }
         }
+    }
+}
+
+@BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_STATE_OWNER)
+internal fun View.setSkeletonBoneStateOwner(stateOwner: Boolean?) {
+    val id = generateId()
+    val parent = getParentSkeletonDrawable()
+
+    if (parent != null) {
+        parent.getProps().setStateOwner(id, stateOwner ?: true)
+    } else {
+        addBoneLoader(enabled = true)
+        setSkeletonBoneStateOwner(stateOwner)
     }
 }
 

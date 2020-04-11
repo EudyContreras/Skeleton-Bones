@@ -1,3 +1,4 @@
+[![Dev Nation Banner](../../media/images/android_dev_nation_banner_orig.png)](https://medium.com/android-dev-nation)
 
 <div align="center">
   
