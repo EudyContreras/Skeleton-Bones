@@ -1,6 +1,7 @@
 package com.eudycontreras.boneslibrary.framework.skeletons
 
 import android.animation.ValueAnimator
+import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import com.eudycontreras.boneslibrary.Action
 import com.eudycontreras.boneslibrary.MAX_OFFSET
