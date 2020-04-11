@@ -1,9 +1,8 @@
   [banner]: ./media/gifs/section_stripe_white.gif
   [thick-banner]: ./media/gifs/wide_banner_white.gif
   
-[![Dev Nation Banner](./media/images/android_dev_nation_banner_orig.png)](https://medium.com/android-dev-nation)
- 
- > **Android Developer Nation** is a developer driven community dedicated to sharing high quality resources and libraries. At dev-nation we the goal is to push the boundaries of the android platform and deliver top of the line and completely open source libraries for the android community. If you can sing our anthem and would like to contribute, you are more than welcome. 🏆 
+[![Dev Site Banner](./media/images/android_dev_site_banner.png)](https://medium.com/android-dev-site)
+ > **Android Developer Site** is a developer driven community dedicated to sharing high quality resources and libraries. At dev-site the goal is to push the boundaries of the android platform and deliver top of the line and completely open source libraries and resources for the android community. If you can sing our anthem and would like to contribute, you are more than welcome. 🏆
  > ***"By developers for developers"*** 
  
 ![Banner Demo][thick-banner]
@@ -59,6 +58,27 @@ Library for dynamically generating and animating skeleton drawables. This librar
 - **[Contact](#contact)**
 - **[Disclaimers](#disclaimer)**
 - **[License](#license)**
+
+<div align="center">
+
+  ![Header Banner][banner]
+# Resources
+</div>
+
+For a more thorough guides and descriptions please look at the following links:
+
+[**Skeleton**](./docs/elements/SKELETON.md) Contains information about skeletons and their properties
+
+[**Skeleton Bones**](./docs/elements/SKELETON_BONE.md) Contains information about bones and their properties
+
+[**Shimmer Rays**](./docs/elements/SHIMMER_RAY.md) Contains information about shimmer rays and their properties
+
+[**Shimmer Rays**](./docs/elements/BONE_SHIMMER_RAY.md) Contains information about shimmer rays and their properties
+
+[**Examples**](./EXAMPLES.md) Contains examples and technical and technical guides
+<br/>
+<br/>
+
 
 <div align="center">
   
@@ -296,6 +316,7 @@ The following are bone properties that can be access through any View. Some of t
 |:----------|:-----------|
 |**app:skeletonBoneProps** | A reference to a **BoneProperties** object |
 |**app:skeletonBoneEnabled** | Enables/Disables the loading state for the bone |
+|**app:skeletonBoneStateOwner** |  Marks the target view as an independent state owner|
 |**app:skeletonBoneColor** |Determines the color of the bone generated for this view|
 |**app:skeletonBoneToggleView** | When true, the bone owner view is hidden while loading. |
 |**app:skeletonBoneShadeMultiplier** | Sets a shade multiplier use for lightening or darkening the bone color |
@@ -385,23 +406,6 @@ The BoneProperty holder can make use of the following properties. For a detailed
 >A view can refer to a **BonePropertyHolder** using its id through the **`app:skeletonBonePropId`** attribute. In order to override the properties set in the referenced property holder, the attributes must be prepended with `prop_`. Example: **`app:prop_skeletonBoneColor`**
 <br/>
 <br/>
-
-<div align="center">
-  
-  ![Header Banner][banner] 
-# Resources
-</div>
-
-For a more thorough guides and descriptions please look at the following links:  
-
-[**Skeleton**](./docs/elements/SKELETON.md) Contains information about skeletons and their properties  
-
-[**Skeleton Bones**](./docs/elements/SKELETON_BONE.md) Contains information about bones and their properties  
-
-[**Shimmer Rays**](./docs/elements/SHIMMER_RAY.md) Contains information about shimmer rays and their properties
-<br/>
-<br/>
-
 <div align="center">
 
 ![Header Banner][banner] 

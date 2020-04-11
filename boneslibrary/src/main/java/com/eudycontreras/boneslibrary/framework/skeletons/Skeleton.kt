@@ -88,6 +88,7 @@ internal class Skeleton(
         }
         if (isDirty) {
             owner?.let { recomputeAndBuild(it) }
+            isDirty = false
         }
     }
 
@@ -222,6 +223,7 @@ internal class Skeleton(
             }
             val bone = bones[id] ?: SkeletonBone.build(
                 view = child,
+                skeleton = this,
                 properties = props,
                 skeletonProperties = properties,
                 manager = manager

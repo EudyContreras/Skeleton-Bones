@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <declare-styleable name="ViewGroup">
 
         <!--| ======================================================================= |-->
@@ -9,47 +8,47 @@
         <eat-comment />
 
         <!-- Determines whether or not this ViewGroup should be represented as a skeleton
-        Default: True<-->
-        <attr name="skeletonEnabled" format="reference|boolean" />
+        Default: True -->
+        <attr name="skeletonEnabled" format="boolean" />
 
         <!-- Sets the color used by this skeleton. Default: null -->
-        <attr name="skeletonColor" format="reference|color" />
+        <attr name="skeletonColor" format="color" />
 
         <!-- When true, view bounds that have been resize in order to accommodate minimum dimensions
         set in order to build valid bones will be restored to their default values using a simple layout
         animation. This is done to provide a smoother using experience in such cases. -->
-        <attr name="skeletonAnimateRestoredBounds" format="reference|boolean"/>
+        <attr name="skeletonAnimateRestoredBounds" format="boolean"/>
 
         <!-- When true, bones are generated for each View in this ViewGroup. When false no bone
          is generated. Can be used in order to apply only a shimmer effect to a ViewGroup. Default: True -->
-        <attr name="skeletonGenerateBones" format="reference|boolean"/>
+        <attr name="skeletonGenerateBones" format="boolean"/>
 
         <!-- Determines whether or not the internal state of the skeleton representation of
         this ViewGroup should be saved. Useful when the state could change from true to false
         (Content to Loading). Default: False -->
-        <attr name="skeletonAllowSavedState" format="reference|boolean" />
+        <attr name="skeletonAllowSavedState" format="boolean" />
 
         <!-- Determines whether or not the internal state of the skeleton representation of
         this ViewGroup should be weakly saved. Useful when the state could change from true to false
         (Content to Loading). Default: False -->
-        <attr name="skeletonAllowWeakSavedState" format="reference|boolean" />
+        <attr name="skeletonAllowWeakSavedState" format="boolean" />
 
         <!-- When true, bones which exceed max thickness will be dissected into a set of bones. Default: false -->
-        <attr name="skeletonDissectLargeBones" format="reference|boolean"/>
+        <attr name="skeletonDissectLargeBones" format="boolean"/>
 
         <!-- Sets the duration of the transition between enabled and disabled. Default: 250L -->
-        <attr name="skeletonTransitionDuration" format="reference|integer" />
+        <attr name="skeletonTransitionDuration" format="integer" />
 
         <!-- Determines if a transition should be used for removing the skeleton drawable from the ViewGroup-->
-        <attr name="skeletonUseStateTransition" format="reference|boolean" />
+        <attr name="skeletonUseStateTransition" format="boolean" />
 
         <!-- Sets the corner radius for this skeleton. This property would only be noticeable if the
         skeleton has a set opaque color -->
-        <attr name="skeletonCornerRadius" format="reference|dimension" />
+        <attr name="skeletonCornerRadius" format="dimension" />
 
         <!-- Determines if the layout bound to this property should be ignored while generating the skeleton.
         Default: false -->
-        <attr name="skeletonLayoutIgnored" format="reference|boolean" />
+        <attr name="skeletonLayoutIgnored" format="boolean" />
 
         <!--| ======================================================================= |-->
         <!--| =================  Skeleton Shimmer Ray Attributes  =================== |-->
@@ -57,25 +56,25 @@
         <eat-comment />
 
         <!-- Sets the base color of the shimmer rays for this Skeleton. The color is then used to generate a gradient -->
-        <attr name="skeletonShimmerRayColor" format="reference|color" />
+        <attr name="skeletonShimmerRayColor" format="color" />
 
         <!-- Sets the tilt or skew used for the shimmer rays of the Skeleton used by this ViewGroup.
         negative values will skew the ray to right while positive values will skew it to the
         left. Default: -0.3f. -->
-        <attr name="skeletonShimmerRayTilt" format="reference|fraction" />
+        <attr name="skeletonShimmerRayTilt" format="fraction" />
 
         <!-- Sets the amount of shimmer rays that should be rendered and animated on the Skeleton. Default: 0 -->
-        <attr name="skeletonShimmerRayCount" format="reference|integer" />
+        <attr name="skeletonShimmerRayCount" format="integer" />
 
         <!-- Sets the shimmer ray thickness. If both skeletonShimmerRayThicknessRatio
         and the skeletonShimmerRayThickness are defined, the skeletonShimmerRayThickness will take priority. Default: 120dp -->
-        <attr name="skeletonShimmerRayThickness" format="reference|dimension" />
+        <attr name="skeletonShimmerRayThickness" format="dimension" />
 
         <!-- Sets the shimmer ray thickness ratio. The ratio tells the ray to be created
         at the specified percentage of its skeleton width. A ratio of 0.2 means that the
         shimmer ray's thickness will be 20 percent of the skeletons's width. If both skeletonShimmerRayThicknessRatio
         and skeletonShimmerRayThickness are defined, the skeletonShimmerRayThickness will take priority. Default: 120dp -->
-        <attr name="skeletonShimmerRayThicknessRatio" format="reference|fraction" />
+        <attr name="skeletonShimmerRayThicknessRatio" format="fraction" />
 
         <!-- Sets the interpolator to use when animating the shimmer rays. The interpolator will either
         be shared among all the rays or divided among them based on the value of: skeletonShimmerRaySharedInterpolator.
@@ -101,11 +100,11 @@
 
         <!-- Determines whether the Interpolator set for animating the shimmer rays should be shared
         or divided among all the shimmer rays. Default: true -->
-        <attr name="skeletonShimmerRaySharedInterpolator" format="reference|boolean" />
+        <attr name="skeletonShimmerRaySharedInterpolator" format="boolean" />
 
         <!-- Sets the shimmer ray speed multiplier. Values greater than 1.0f will result in faster
         animation speeds, while values lower than 1.0 will result in slower animation speeds. Default: 1.0f -->
-        <attr name="skeletonShimmerRaySpeedMultiplier" format="reference|float" />
+        <attr name="skeletonShimmerRaySpeedMultiplier" format="float" />
 
     </declare-styleable>
 
@@ -122,94 +121,97 @@
 
         <!-- The id of the prop holder which contains the properties that are to be assigned
         to the bone generated by this view. -->
-        <attr name="skeletonBonePropId" format="reference|integer"/>
+        <attr name="skeletonBonePropId" format="integer"/>
 
         <!-- Determines whether or not this View should be represented as a skeleton bone
         Default: true<-->
-        <attr name="skeletonBoneEnabled" format="reference|boolean" />
+        <attr name="skeletonBoneEnabled" format="boolean" />
 
         <!--Sets the toggle view flag. When true, the owner views of the bones are hidden while
         the loading state is true (Loading).-->
-        <attr name="skeletonBoneToggleView" format="reference|boolean"/>
+        <attr name="skeletonBoneToggleView" format="boolean"/>
 
         <!-- When true, bones which exceed max thickness will be dissected into a set of bones. Default: false -->
-        <attr name="skeletonBoneDissectLargeBones" format="reference|boolean" />
+        <attr name="skeletonBoneDissectLargeBones" format="boolean" />
 
         <!-- Sets the type of shape the bone should have (Circular | Rectangular).
         If unset the shape will default to the the shape of the the view's background -->
-        <attr name="skeletonBoneShapeType" format="reference|enum">
+        <attr name="skeletonBoneShapeType" format="enum">
             <enum name="CIRCULAR" value="0"/>
             <enum name="RECTANGULAR" value="1"/>
         </attr>
 
+        <!-- Marks the target view as an independent state owner. -->
+        <attr name="skeletonBoneStateOwner" format="boolean" />
+
         <!-- Sets the color of the bones generated by this Skeleton View or ViewGroup. -->
-        <attr name="skeletonBoneColor" format="reference|color" />
+        <attr name="skeletonBoneColor" format="color" />
 
         <!-- Sets the color shade multiplier for the bone used by this view. Values less
         than 1.0f will result in darker shades of the assigned color, while values higher than 1
         will result in brighter shades. Default: 1.0f -->
-        <attr name="skeletonBoneShadeMultiplier" format="reference|fraction"/>
+        <attr name="skeletonBoneShadeMultiplier" format="fraction"/>
 
         <!-- Sets the corner radius of the bone used by this View or ViewGroup. This will only
         take effect if the ShapeType of the view is Circular -->
-        <attr name="skeletonBoneCornerRadius" format="reference|float"/>
+        <attr name="skeletonBoneCornerRadius" format="float"/>
 
         <!-- Flags the bone's dimension to be computed with the owner view's exact bounds. This will
         effectively ignore other bound limits that have been set. -->
-        <attr name="skeletonBoneMatchBounds" format="reference|dimension|float"/>
+        <attr name="skeletonBoneMatchBounds" format="dimension|float"/>
 
         <!-- Sets the desired distance between the sections of a dissected bone. This property only
         takes effect if bone dissection is set to true. -->
-        <attr name="skeletonBoneSectionDistance" format="reference|dimension"/>
+        <attr name="skeletonBoneSectionDistance" format="dimension"/>
 
         <!-- Sets how the minimum thickness a skeleton bone can have. Bones which are thinner than
         this will default to the set value. -->
-        <attr name="skeletonBoneMinThickness" format="reference|dimension"/>
+        <attr name="skeletonBoneMinThickness" format="dimension"/>
 
         <!-- Sets how thick a skeleton bone can be. Bones which exceed this limit will be partitioned
         if skeletonDissectLargeBones is set to true -->
-        <attr name="skeletonBoneMaxThickness" format="reference|dimension"/>
+        <attr name="skeletonBoneMaxThickness" format="dimension"/>
 
         <!-- Sets the width and height of the bone this property was bound to.
         Overrides the computed width and height.-->
-        <attr name="skeletonBoneSize" format="reference|dimension"/>
+        <attr name="skeletonBoneSize" format="dimension"/>
 
         <!-- Sets the min width/length of the bone this property was bound to. Needed in order to assure
         that the layout is properly attributed prior to bone generation.-->
-        <attr name="skeletonBoneMinWidth" format="reference|dimension"/>
+        <attr name="skeletonBoneMinWidth" format="dimension"/>
 
         <!-- Sets the min height/thickness of the bone this property was bound to. Needed in order to assure
         that the layout is properly attributed prior to bone generation.-->
-        <attr name="skeletonBoneMinHeight" format="reference|dimension"/>
+        <attr name="skeletonBoneMinHeight" format="dimension"/>
 
         <!-- Sets the width/length of the bone this property was bound to. Overrides the computed width.-->
-        <attr name="skeletonBoneWidth" format="reference|dimension"/>
+        <attr name="skeletonBoneWidth" format="dimension"/>
 
         <!-- Sets the height/thickness of the bone this property was bound to. Overrides the computed height.-->
-        <attr name="skeletonBoneHeight" format="reference|dimension"/>
+        <attr name="skeletonBoneHeight" format="dimension"/>
 
         <!-- Sets the translationX of the bone this property was bound to.-->
-        <attr name="skeletonBoneTranslationX" format="reference|float"/>
+        <attr name="skeletonBoneTranslationX" format="float"/>
 
         <!-- Sets the translationY of the bone this property was bound to.-->
-        <attr name="skeletonBoneTranslationY" format="reference|float"/>
+        <attr name="skeletonBoneTranslationY" format="float"/>
 
         <!-- If true prevents bone generation for the view this property is bound to. This
         will have no effect if an ancestor of this view is already ignored -->
-        <attr name="skeletonBoneIgnored" format="reference|boolean"/>
+        <attr name="skeletonBoneIgnored" format="boolean"/>
 
         <!-- Determines whether or not the internal state of the this Bone representation of
         this View should be saved. Useful when the state could change from true to false
         (Content to Loading). Default: False -->
-        <attr name="skeletonBoneAllowSavedState" format="reference|boolean"/>
+        <attr name="skeletonBoneAllowSavedState" format="boolean"/>
 
         <!-- Determines whether or not the internal state of the this Bone representation of
         this View should be weakly saved. Useful when the state could change from true to false
         (Content to Loading). Default: False -->
-        <attr name="skeletonBoneAllowWeakSavedState" format="reference|boolean"/>
+        <attr name="skeletonBoneAllowWeakSavedState" format="boolean"/>
 
         <!-- Sets the duration of the transition between enabled and disabled. Default: 250L -->
-        <attr name="skeletonBoneTransitionDuration" format="reference|integer"/>
+        <attr name="skeletonBoneTransitionDuration" format="integer"/>
 
         <!-- ======================================================================= -->
         <!-- ================  Skeleton Bone Shimmer Ray Attributes  =============== -->
@@ -217,25 +219,25 @@
         <eat-comment />
 
         <!-- Sets the base color of the shimmer rays. The color is then used to generate a gradient -->
-        <attr name="skeletonBoneShimmerRayColor" format="reference|color"/>
+        <attr name="skeletonBoneShimmerRayColor" format="color"/>
 
         <!-- Sets the tilt or skew used for the shimmer rays of the bone used by this view.
         negative values will skew the ray to right while positive values will skew it to the
         left. Default: -0.3f. -->
-        <attr name="skeletonBoneShimmerRayTilt" format="reference|fraction"/>
+        <attr name="skeletonBoneShimmerRayTilt" format="fraction"/>
 
         <!-- Sets the amount of shimmer rays that should be rendered and animated. Default: 0 -->
-        <attr name="skeletonBoneShimmerRayCount" format="reference|integer"/>
+        <attr name="skeletonBoneShimmerRayCount" format="integer"/>
 
         <!-- Sets the shimmer ray thickness. If both boneShimmerRayThicknessRatio
         and boneShimmerRayThickness are defined, the boneShimmerRayThickness will take priority. Default: 120dp -->
-        <attr name="skeletonBoneShimmerRayThickness" format="reference|dimension"/>
+        <attr name="skeletonBoneShimmerRayThickness" format="dimension"/>
 
         <!-- Sets the shimmer ray thickness ratio. The ratio tells the ray to be created
         at the specified percentage of its bone width/length. A ratio of 0.2 means that the
         shimmer ray's thickness will be 20 percent of the bones width. If both skeletonBoneShimmerRayThicknessRatio
         and skeletonBoneShimmerRayThickness are defined, the skeletonBoneShimmerRayThickness will take priority. Default: 120dp -->
-        <attr name="skeletonBoneShimmerRayThicknessRatio" format="reference|fraction"/>
+        <attr name="skeletonBoneShimmerRayThicknessRatio" format="fraction"/>
 
         <!-- Sets the interpolator to use when animating the shimmer rays. The interpolator will either
         be shared among all the rays or divided among them based on the value of: boneShimmerRaySharedInterpolator.
@@ -278,11 +280,11 @@
 
         <!-- Determines whether the Interpolator set for animating the shimmer rays should be shared
         or divided among all the shimmer rays. Default: true -->
-        <attr name="skeletonBoneShimmerRaySharedInterpolator" format="reference|boolean"/>
+        <attr name="skeletonBoneShimmerRaySharedInterpolator" format="boolean"/>
 
         <!-- Sets the shimmer ray speed multiplier. Values greater than 1.0f will result in faster
         animation speeds, while values lower than 1.0 will result in slower animation speeds. Default: 1.0f -->
-        <attr name="skeletonBoneShimmerRaySpeedMultiplier" format="reference|fraction"/>
+        <attr name="skeletonBoneShimmerRaySpeedMultiplier" format="fraction"/>
 
     </declare-styleable>
 </resources>
