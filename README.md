@@ -1,9 +1,13 @@
-<div align="center">
-  
   [banner]: ./media/gifs/section_stripe_white.gif
   [thick-banner]: ./media/gifs/wide_banner_white.gif
   
-  ![Banner Demo][thick-banner]
+[![Dev Nation Banner](./media/images/android_dev_nation_banner_orig.png)](https://medium.com/android-dev-nation)
+ 
+ > **Android Developer Nation** is a developer driven community dedicated to sharing high quality resources and libraries. At dev-nation we the goal is to push the boundaries of the android platform and deliver top of the line and completely open source libraries for the android community. If you can sing our anthem and would like to contribute, you are more than welcome. 🏆 
+ > ***"By developers for developers"*** 
+ 
+![Banner Demo][thick-banner]
+<div align="center">
   
 ![Issues](https://img.shields.io/github/issues-raw/EudyContreras/Skeleton-Bones?color=yellow)
 [![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
@@ -13,13 +17,15 @@
 [![Release](https://img.shields.io/github/v/release/EudyContreras/Skeleton-Bones)](https://github.com/EudyContreras/Skeleton-Bones/releases)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
-  
-<h1> Bones </h1>
+</div>
+
+<div align="center">
+ 
+  <h1> Bones </h1>
 
 </div>
 
-Library for dynamically generating and animating skeleton drawables. This library can generate a drawable skeleton loader for any View or ViewGroup. Simply define the desired properties and the skeleton drawable will be generated for the ViewGroup and its children. It is that simple! Below you'll find information on how to use this library.
-
+Library for dynamically generating and animating skeleton drawables. This library can generate a drawable skeleton loader for any View or ViewGroup. Simply define the desired properties and the skeleton drawable will be generated for the ViewGroup and its children. It is that simple! Below you'll find information on how to use this library. [**Medium Article**](https://medium.com/android-dev-nation/android-skeleton-loaders-1ae979a9d8c9?source=friends_link&sk=3311378eeb72ec136d423441b63541b3)
 
 ![Banner Demo](./media/images/banner_rounded.png)
 <div align="center">
