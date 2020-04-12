@@ -14,7 +14,7 @@
 [![License: ISC](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/ISC)
 [![Release](https://img.shields.io/github/v/release/EudyContreras/Skeleton-Bones)](https://github.com/EudyContreras/Skeleton-Bones/releases)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
-[![Dev-Site](./media/badge.svg)](https://medium.com/android-dev-site)
+[![Dev-Site](./media/badge_alt_flat.svg)](https://medium.com/android-dev-site)
 
 </div>
 
