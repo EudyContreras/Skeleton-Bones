@@ -2,7 +2,7 @@
   [thick-banner]: ./media/gifs/wide_banner_white.gif
   
 [![Dev Site Banner](./media/images/android_dev_site_banner.png)](https://medium.com/android-dev-site)
- > **Android Developer Site** is a developer driven community dedicated to sharing high quality resources and libraries. At dev-site the goal is to push the boundaries of the android platform and deliver top of the line and completely open source libraries and resources for the android community. If you can sing our anthem and would like to contribute, you are more than welcome. 🏆
+ > **Android Development Site** is a developer driven community dedicated to sharing high quality resources and libraries. At dev-site the goal is to push the boundaries of the android platform and deliver top of the line and completely open source libraries and resources for the android community. If you can sing our anthem and would like to contribute, you are more than welcome. 🏆
  > ***"By developers for developers"*** 
  
 ![Banner Demo][thick-banner]
@@ -12,10 +12,9 @@
 [![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23s)
 [![License: ISC](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/ISC)
-[![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
 [![Release](https://img.shields.io/github/v/release/EudyContreras/Skeleton-Bones)](https://github.com/EudyContreras/Skeleton-Bones/releases)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
-
+[![Dev-Site](./media/badge_simple.svg)](https://medium.com/android-dev-site)
 </div>
 
 <div align="center">
