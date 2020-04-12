@@ -7,14 +7,13 @@
  
 ![Banner Demo][thick-banner]
 <div align="center">
-  
+[![Dev-Site](https://github.com/EudyContreras/Skeleton-Bones/blob/badge/media/badge_flat.svg)](https://medium.com/android-dev-site)
 ![Issues](https://img.shields.io/github/issues-raw/EudyContreras/Skeleton-Bones?color=yellow)
 [![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23s)
 [![License: ISC](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/ISC)
 [![Release](https://img.shields.io/github/v/release/EudyContreras/Skeleton-Bones)](https://github.com/EudyContreras/Skeleton-Bones/releases)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
-[![Dev-Site](https://github.com/EudyContreras/Skeleton-Bones/blob/badge/media/badge_flat.svg)](https://medium.com/android-dev-site)
 
 </div>
 
