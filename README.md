@@ -7,6 +7,7 @@
  
 ![Banner Demo][thick-banner]
 <div align="center">
+  
 [![Dev-Site](https://github.com/EudyContreras/Skeleton-Bones/blob/badge/media/badge_flat.svg)](https://medium.com/android-dev-site)
 ![Issues](https://img.shields.io/github/issues-raw/EudyContreras/Skeleton-Bones?color=yellow)
 [![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
