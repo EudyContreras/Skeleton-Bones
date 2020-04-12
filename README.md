@@ -12,9 +12,9 @@
 [![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23s)
 [![License: ISC](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/ISC)
-[![](https://jitpack.io/v/EudyContreras/Skeleton-Bones.svg)](https://jitpack.io/#EudyContreras/Skeleton-Bones)
 [![Release](https://img.shields.io/github/v/release/EudyContreras/Skeleton-Bones)](https://github.com/EudyContreras/Skeleton-Bones/releases)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
+[![Dev-Site](./media/badge.svg)](https://medium.com/android-dev-site)
 
 </div>
 
