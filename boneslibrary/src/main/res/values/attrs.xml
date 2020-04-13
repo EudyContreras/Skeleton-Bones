@@ -14,6 +14,14 @@
         <!-- Sets the color used by this skeleton. Default: null -->
         <attr name="skeletonColor" format="color" />
 
+        <!-- Works as a holder of SkeletonDrawable that will be passed to
+        eventual children. This is ideally used when the children of this view will be added
+        dynamically-->
+        <attr name="skeletonHolder" format="boolean" />
+
+        <!-- Receives a SkeletonDrawable from a SkeletonDrawable holder parent. -->
+        <attr name="skeletonReceiver" format="boolean" />
+
         <!-- When true, view bounds that have been resize in order to accommodate minimum dimensions
         set in order to build valid bones will be restored to their default values using a simple layout
         animation. This is done to provide a smoother using experience in such cases. -->
