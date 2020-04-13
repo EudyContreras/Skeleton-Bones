@@ -1,7 +1,6 @@
   [banner]: ./media/gifs/section_stripe_white.gif
   [thick-banner]: ./media/gifs/wide_banner_white.gif
 
-
 ![Banner Demo][thick-banner]
 <div align="center">
   
