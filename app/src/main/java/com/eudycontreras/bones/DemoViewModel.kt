@@ -7,14 +7,12 @@ internal class DemoViewModel : ViewModel() {
 
     private val repository: Repository = Repository(viewModelScope)
 
-    private val dummyData = MutableList(DUMMY_ENTRY_COUNT) { null }
+    private val dummyData = arrayOfNulls<DemoData>(DUMMY_ENTRY_COUNT)
 
     val items: LiveData<Resource<List<DemoData?>?>> = repository.getDemoData().map {
         if (it.loading) {
-            Resource.Loading(dummyData)
-        } else {
-            Resource.Success(it.data)
-        }
+            Resource.Loading(dummyData.toList())
+        } else it
     }
 
     val itemBinding: ItemBinding<DemoData> = { data ->

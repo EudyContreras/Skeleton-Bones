@@ -55,16 +55,14 @@ fun ImageView.loadImage(imageUrl: String?) {
 }
 
 @Suppress("UNCHECKED_CAST")
-@BindingAdapter(value = ["itemsResource", "itemBinding"], requireAll = false)
+@BindingAdapter(value = ["itemsResource", "itemBinding"], requireAll = true)
 fun <T : DiffComparable> RecyclerView.setItemData(
     itemsResource: Resource<List<T?>?>?,
-    itemBinding: ItemBinding<T>?
+    itemBinding: ItemBinding<T>
 ) {
     itemsResource?.data?.let {
         if (this.adapter == null) {
-            if (itemBinding != null) {
-                this.adapter = ItemAdapter(it, itemBinding)
-            }
+            this.adapter = ItemAdapter(it, itemBinding)
         } else {
             with(adapter as ItemAdapter<T>) {
                 this.updateData(it)

@@ -69,6 +69,5 @@
             android:textColor="@color/text_color"
             tools:targetApi="o"
             tools:text="@string/lorem_ipsum" />
-
     </LinearLayout>
 </layout>

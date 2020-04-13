@@ -22,6 +22,8 @@ class Repository(scope: CoroutineScope) {
 
     init {
         scope.launch(Dispatchers.Main) {
+            demoData.postValue(Resource.Loading())
+
             val dataCollection = List(ENTRY_COUNT) {
                 when {
                     it % 2 == 0 -> {

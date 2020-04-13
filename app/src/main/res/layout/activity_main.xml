@@ -23,127 +23,14 @@
         android:layout_height="match_parent"
         android:background="@color/colorBackground">
 
-        <com.eudycontreras.boneslibrary.framework.BonePropertyHolder
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:bonePropId="@{1}"
-            app:bonePropColor="@{@color/bone_color}"
-            app:bonePropCornerRadius="@{Utils.getDp(10)}"
-            app:bonePropAllowSavedState="@{true}"
-            app:bonePropShimmerRayColor="@{@color/bone_ray_color_alt}"
-            app:bonePropShimmerRayCount="@{3}"
-            app:bonePropShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
-            app:bonePropShimmerRaySharedInterpolator="@{true}"
-            app:bonePropShimmerRaySpeedMultiplier="@{1f}"
-            app:bonePropShimmerRayThicknessRatio="@{0.5f}"
-            app:bonePropMinThickness="@{Utils.getDp(6)}"
-            app:bonePropMaxThickness="@{Utils.getDp(6)}"
-            app:bonePropSectionDistance="@{Utils.getDp(6)}"
-            app:bonePropShimmerRayTilt="@{-0.2f}"
-            app:bonePropTransitionDuration="@{400L}" />
-
-        <com.eudycontreras.boneslibrary.framework.BonePropertyHolder
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:bonePropId="@{2}"
-            app:bonePropColor="@{@color/bone_color}"
-            app:bonePropCornerRadius="@{Utils.getDp(10)}"
-            app:bonePropMaxThickness="@{Utils.getDp(10)}"
-            app:bonePropMinThickness="@{Utils.getDp(10)}"
-            app:bonePropDissectLargeBones="@{true}"
-            app:bonePropShimmerRayColor="@{@color/bone_ray_color}"
-            app:bonePropShimmerRayCount="@{3}"
-            app:bonePropShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
-            app:bonePropShimmerRaySharedInterpolator="@{true}"
-            app:bonePropShimmerRaySpeedMultiplier="@{1.1f}"
-            app:bonePropShimmerRayThicknessRatio="@{0.7f}"
-            app:bonePropShimmerRayTilt="@{-0.1f}"
-            app:bonePropTransitionDuration="@{200L}"
-            app:bonePropAllowSavedState="@{true}"
-            app:bonePropUseStateTransition="@{true}" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/top_banner"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:background="@drawable/shape_background"
-            android:elevation="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/top_banner"
-                app:layout_constraintEnd_toEndOf="@+id/top_banner"
-                app:layout_constraintStart_toStartOf="@+id/top_banner"
-                app:layout_constraintTop_toTopOf="@+id/top_banner">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/shape_background_oval_alt"
-                    android:elevation="4dp"
-                    android:src="@drawable/img_female_avatar"
-                    app:skeletonBoneAllowSavedState="@{true}"
-                    app:skeletonBoneEnabled="@{true}"
-                    app:skeletonBoneShimmerRayColor="@{@color/bone_ray_color_alt}"
-                    app:skeletonBoneShimmerRayCount="@{4}"
-                    app:skeletonBoneShimmerRayInterpolator="@{@android:interpolator/decelerate_quad}"
-                    app:skeletonBoneShimmerRaySharedInterpolator="@{false}"
-                    app:skeletonBoneShimmerRaySpeedMultiplier="@{1.5f}"
-                    app:skeletonBoneShimmerRayThickness="@{Utils.getDp(70)}"
-                    app:skeletonBoneShimmerRayTilt="@{-0.2f}" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/shape_background_oval_alt"
-                    android:elevation="4dp"
-                    android:src="@drawable/img_male_avatar"
-                    app:skeletonBoneAllowSavedState="@{true}"
-                    app:skeletonBoneEnabled="@{true}"
-                    app:skeletonBoneShimmerRayColor="@{@color/bone_ray_color_alt}"
-                    app:skeletonBoneShimmerRayCount="@{4}"
-                    app:skeletonBoneShimmerRayInterpolator="@{@android:interpolator/decelerate_quad}"
-                    app:skeletonBoneShimmerRaySharedInterpolator="@{false}"
-                    app:skeletonBoneShimmerRaySpeedMultiplier="@{1f}"
-                    app:skeletonBoneShimmerRayThicknessRatio="@{0.4f}"
-                    app:skeletonBoneShimmerRayTilt="@{0.5f}" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/shape_background_oval_alt"
-                    android:elevation="4dp"
-                    android:src="@drawable/img_female_avatar"
-                    app:skeletonBoneAllowSavedState="@{true}"
-                    app:skeletonBoneEnabled="@{true}"
-                    app:skeletonBoneShimmerRayColor="@{@color/bone_ray_color_alt}"
-                    app:skeletonBoneShimmerRayCount="@{5}"
-                    app:skeletonBoneShimmerRayInterpolator="@{@android:interpolator/accelerate_quad}"
-                    app:skeletonBoneShimmerRaySharedInterpolator="@{true}"
-                    app:skeletonBoneShimmerRaySpeedMultiplier="@{0.4f}"
-                    app:skeletonBoneShimmerRayThicknessRatio="@{0.25f}"
-                    app:skeletonBoneShimmerRayTilt="@{-0.6f}" />
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="168dp"
+            android:layout_marginTop="0dp"
             android:clipChildren="false"
             android:clipToPadding="false"
-            app:itemBinding="@{viewModel.itemBinding}"
             app:itemsResource="@{viewModel.items}"
+            app:itemBinding="@{viewModel.itemBinding}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
