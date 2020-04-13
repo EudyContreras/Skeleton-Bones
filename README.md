@@ -1,10 +1,6 @@
   [banner]: ./media/gifs/section_stripe_white.gif
   [thick-banner]: ./media/gifs/wide_banner_white.gif
-  
-[![Dev Site Banner](./media/images/android_dev_nation_banner.png)](https://medium.com/android-dev-nation)
- > **Android Developer Nation** is a developer driven community dedicated to sharing high quality resources and libraries. At dev-nation the goal is to push the boundaries of the android platform and deliver top of the line and completely open source libraries and resources for the android community. If you can sing our anthem and would like to contribute, you are more than welcome. 🏆
- > ***"By developers for developers"*** 
- 
+
 ![Banner Demo][thick-banner]
 <div align="center">
   
