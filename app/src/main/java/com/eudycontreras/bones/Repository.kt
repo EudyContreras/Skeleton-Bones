@@ -12,60 +12,51 @@ import kotlinx.coroutines.*
  * @since April 2020
  */
 
-@ExperimentalCoroutinesApi
 class Repository(scope: CoroutineScope) {
 
-    private val database: DataBase = DataBase()
+    private val database: Database = Database()
 
-    private val demoOneData = MutableLiveData(Resource<DemoData.One>())
+    private val demoData: MutableLiveData<Resource<List<DemoData?>?>> = MutableLiveData(Resource.Loading())
 
-    private val demoTwoData = MutableLiveData(Resource<DemoData.Two>())
-
-    private val demoThreeData = MutableLiveData(Resource<DemoData.Three>())
-
-    fun getDemoDataOne(): LiveData<Resource<DemoData.One>> = demoOneData
-
-
-    fun getDemoDataTwo(): LiveData<Resource<DemoData.Two>> = demoTwoData
-
-
-    fun getDemoDataThree(): LiveData<Resource<DemoData.Three>> = demoThreeData
+    fun getDemoData(): LiveData<Resource<List<DemoData?>?>> = demoData
 
     init {
         scope.launch(Dispatchers.Main) {
-            val dataOne = DemoData.One(
-                textOne = database.textOne,
-                textTwo = database.textTwo,
-                imageUrl = database.urlMaleAvatar
-            )
-            val dataTwo = DemoData.Two(
-                text = database.textOne,
-                imageOneUrl = database.urlMaleAvatar,
-                imageTwoUrl = database.urlFemaleAvatar
-            )
-            val dataThree = DemoData.Three(
-                text = database.textOne,
-                imageUrl = database.urlMaleAvatar
-            )
+            val dataCollection = List(ENTRY_COUNT) {
+                when {
+                    it % 2 == 0 -> {
+                        DemoData.A(
+                            id = it.toString(),
+                            text = database.textOne,
+                            imageUrl = database.urlMaleAvatar
+                        )
+                    }
+                    else -> {
+                        DemoData.B(
+                            id = it.toString(),
+                            textOne = database.textOne,
+                            textTwo = database.textTwo,
+                            textThree = database.textThree,
+                            imageUrl = database.urlFemaleAvatar
+                        )
+                    }
+                }
+            }
 
             while (true) {
-                delay(LONG_DELAY)
-                demoOneData.postValue(Resource(dataOne, false))
                 delay(SHORT_DELAY)
-                demoTwoData.postValue(Resource(dataTwo, false))
-                delay(SHORT_DELAY)
-                demoThreeData.postValue(Resource(dataThree, false))
+                demoData.postValue(Resource.Success(dataCollection))
 
-                delay(SHORT_DELAY)
-                demoOneData.postValue(Resource(null, true))
-                demoTwoData.postValue(Resource(null, true))
-                demoThreeData.postValue(Resource(null, true))
+                delay(LONG_DELAY)
+                demoData.postValue(Resource.Loading())
             }
         }
     }
 
     companion object {
-        const val SHORT_DELAY = 1500L
+        const val ENTRY_COUNT = 12
+
+        const val SHORT_DELAY = 3500L
         const val LONG_DELAY = 3500L
     }
 }

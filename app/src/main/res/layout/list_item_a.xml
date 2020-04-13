@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bones="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.eudycontreras.bones.SomeViewModel" />
+            type="com.eudycontreras.bones.DemoData.A" />
 
         <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
 
@@ -17,7 +18,6 @@
     </data>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -27,22 +27,22 @@
         android:elevation="4dp"
         android:orientation="horizontal"
         android:padding="10dp"
-        app:skeletonAllowSavedState="@{true}"
-        app:skeletonBoneColor="@{@color/bone_color}"
-        app:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
-        app:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
-        app:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-        app:skeletonDissectLargeBones="@{true}"
-        app:skeletonEnabled="@{viewModel.demoDataThree.loading}"
-        app:skeletonShimmerRayColor="@{@color/bone_ray_color}"
-        app:skeletonShimmerRayCount="@{3}"
-        app:skeletonShimmerRayInterpolator="@{@android:interpolator/linear}"
-        app:skeletonShimmerRaySharedInterpolator="@{true}"
-        app:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
-        app:skeletonShimmerRayThickness="@{Utils.getDp(100)}"
-        app:skeletonShimmerRayTilt="@{-0.4f}"
-        app:skeletonTransitionDuration="@{200L}"
-        app:skeletonUseStateTransition="@{true}">
+        bones:skeletonEnabled="@{viewModel == null}"
+        bones:skeletonAllowSavedState="@{true}"
+        bones:skeletonBoneColor="@{@color/bone_color}"
+        bones:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
+        bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
+        bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+        bones:skeletonDissectLargeBones="@{true}"
+        bones:skeletonShimmerRayColor="@{@color/bone_ray_color_alt}"
+        bones:skeletonShimmerRayCount="@{3}"
+        bones:skeletonShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
+        bones:skeletonShimmerRaySharedInterpolator="@{true}"
+        bones:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
+        bones:skeletonShimmerRayThicknessRatio="@{0.7f}"
+        bones:skeletonShimmerRayTilt="@{-0.1f}"
+        bones:skeletonTransitionDuration="@{200L}"
+        bones:skeletonUseStateTransition="@{true}">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="60dp"
@@ -50,13 +50,11 @@
             android:layout_gravity="center"
             android:background="@drawable/shape_background_oval_alt"
             android:backgroundTint="@color/bone_color_alt"
-            android:clickable="true"
             android:cropToPadding="false"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:imageUrl="@{viewModel.demoDataThree.data.imageUrl}"
-            app:skeletonBoneEnabled="@{viewModel.demoDataThree.loading}"
-            app:skeletonBoneColor="@{@color/bone_color_alt}"
-            app:skeletonBoneShapeType="@{ShapeType.CIRCULAR}" />
+            app:imageUrl="@{viewModel.imageUrl}"
+            bones:skeletonBoneColor="@{@color/bone_color_alt}"
+            bones:skeletonBoneShadeMultiplier="@{1.021f}"
+            bones:skeletonBoneShapeType="@{ShapeType.CIRCULAR}" />
 
         <TextView
             android:layout_width="match_parent"
@@ -67,10 +65,10 @@
             android:justificationMode="inter_word"
             android:maxLines="3"
             android:padding="3dp"
-            android:text="@{viewModel.demoDataThree.data.text}"
+            android:text="@{viewModel.text}"
             android:textColor="@color/text_color"
             tools:targetApi="o"
-            tools:text="@string/lorem_ipsum"/>
+            tools:text="@string/lorem_ipsum" />
 
     </LinearLayout>
 </layout>

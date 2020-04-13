@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <data class="MainBinding">
+    <data>
 
         <variable
             name="viewModel"
-            type="com.eudycontreras.bones.SomeViewModel" />
+            type="com.eudycontreras.bones.DemoViewModel" />
 
         <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
 
@@ -41,6 +41,26 @@
             app:bonePropSectionDistance="@{Utils.getDp(6)}"
             app:bonePropShimmerRayTilt="@{-0.2f}"
             app:bonePropTransitionDuration="@{400L}" />
+
+        <com.eudycontreras.boneslibrary.framework.BonePropertyHolder
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:bonePropId="@{2}"
+            app:bonePropColor="@{@color/bone_color}"
+            app:bonePropCornerRadius="@{Utils.getDp(10)}"
+            app:bonePropMaxThickness="@{Utils.getDp(10)}"
+            app:bonePropMinThickness="@{Utils.getDp(10)}"
+            app:bonePropDissectLargeBones="@{true}"
+            app:bonePropShimmerRayColor="@{@color/bone_ray_color}"
+            app:bonePropShimmerRayCount="@{3}"
+            app:bonePropShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
+            app:bonePropShimmerRaySharedInterpolator="@{true}"
+            app:bonePropShimmerRaySpeedMultiplier="@{1.1f}"
+            app:bonePropShimmerRayThicknessRatio="@{0.7f}"
+            app:bonePropShimmerRayTilt="@{-0.1f}"
+            app:bonePropTransitionDuration="@{200L}"
+            app:bonePropAllowSavedState="@{true}"
+            app:bonePropUseStateTransition="@{true}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_banner"
@@ -114,89 +134,21 @@
                     app:skeletonBoneShimmerRayTilt="@{-0.6f}" />
 
             </LinearLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="168dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:itemsResource="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="170dp"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="start"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_section_background"
-                        android:elevation="4dp"
-                        android:justificationMode="inter_word"
-                        android:minHeight="80dp"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="6dp"
-                        android:text="@{viewModel.demoDataOne.data.textOne}"
-                        android:textColor="@color/text_color"
-                        app:prop_skeletonBoneDissectLargeBones="@{true}"
-                        app:prop_skeletonBoneEnabled="@{viewModel.demoDataOne.loading}"
-                        app:prop_skeletonBoneMinThickness="@{Utils.getDp(10)}"
-                        app:prop_skeletonBoneMaxThickness="@{Utils.getDp(10)}"
-                        app:prop_skeletonBoneSectionDistance="@{Utils.getDp(10)}"
-                        app:skeletonBonePropId="@{1}"
-                        tools:targetApi="o"
-                        tools:text="@string/lorem_ipsum" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="start"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_section_background"
-                        android:elevation="4dp"
-                        android:justificationMode="inter_word"
-                        android:minHeight="80dp"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="6dp"
-                        android:text="@{viewModel.demoDataOne.data.textTwo}"
-                        android:textColor="@color/text_color"
-                        app:prop_skeletonBoneDissectLargeBones="@{true}"
-                        app:prop_skeletonBoneEnabled="@{viewModel.demoDataOne.loading}"
-                        app:skeletonBonePropId="@{1}"
-                        tools:targetApi="o"
-                        tools:text="@string/lorem_ipsum" />
-                </LinearLayout>
-
-                <include
-                    layout="@layout/layout_section_a"
-                    app:viewModel="@{viewModel}" />
-
-                <include
-                    layout="@layout/layout_section_b"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:viewModel="@{viewModel}" />
-            </LinearLayout>
-        </ScrollView>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/list_item_a" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,7 +8,21 @@ package com.eudycontreras.bones
  * @since April 2020
  */
 
-class Resource<T: DemoData>(
-    val data: T? = null,
-    val loading: Boolean = true
-)
+sealed class Resource<out T>(
+    open val data: T?,
+    open val loading: Boolean
+) {
+    class Success<T>(
+        data: T
+    ) : Resource<T>(
+        data = data,
+        loading = false
+    )
+
+    class Loading<T>(
+        cache: T? = null
+    ) : Resource<T>(
+        data = cache,
+        loading = true
+    )
+}
