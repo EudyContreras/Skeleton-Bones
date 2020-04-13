@@ -16,7 +16,7 @@ class Repository(scope: CoroutineScope) {
 
     private val database: Database = Database()
 
-    private val demoData: MutableLiveData<Resource<List<DemoData?>?>> = MutableLiveData(Resource.Loading())
+    private val demoData: MutableLiveData<Resource<List<DemoData?>?>> = MutableLiveData()
 
     fun getDemoData(): LiveData<Resource<List<DemoData?>?>> = demoData
 
