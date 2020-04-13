@@ -155,6 +155,9 @@ bones:skeletonShimmerRayTilt="@{-0.1f}"
 bones:skeletonTransitionDuration="@{200L}"
 bones:skeletonUseStateTransition="@{true}"
 ```
+The above xml yields the following result: [Demo Recycler](https://github.com/EudyContreras/Skeleton-Bones/blob/development/media/gifs/recycler-demo.gif)
+
+For a full working demo try out the **Demo-1** branch
 
 ### More examples coming soon!
 
