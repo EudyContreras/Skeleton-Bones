@@ -114,11 +114,9 @@ private val demoData: MutableLiveData<Resource<List<DemoData?>?>> = MutableLiveD
 Based on the state of our request our data is usually updated in more or less the following way:
 
 ```kotlin
-// when the data is loading
-
 demoData.postValue(Resource.Loading())
 
-// when the data is available
+...
 
 demoData.postValue(Resource.Success(dataCollection))
 ```
@@ -137,82 +135,25 @@ val items: LiveData<Resource<List<DemoData?>?>> = repository.getDemoData().map {
 
 In the code above, we initialize a collection with null elements and then we map the data based on its state. When the data is loading we can map it to a Loading resource containing null data. All of this can be done directly on the repository. But it is best if the repository does not know about visual dummy data. 
 
-In this example; each item is an individual skeleton. The item is in the loading state when the viewModel is null. Our item  xml could look somewhat like this.
+In this example; each item is an individual skeleton. The item is in the loading state when the viewModel is null. Our item  xml could look somewhat like this. The following attributes can be added to any upper level ViewGroup.
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bones="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.eudycontreras.bones.DemoData.A" />
-
-        <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
-
-        <import
-            alias="Utils"
-            type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
-    </data>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/shape_section_background"
-        android:elevation="4dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        bones:skeletonEnabled="@{viewModel == null}"
-        bones:skeletonAllowSavedState="@{true}"
-        bones:skeletonBoneColor="@{@color/bone_color}"
-        bones:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
-        bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
-        bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-        bones:skeletonDissectLargeBones="@{true}"
-        bones:skeletonShimmerRayColor="@{@color/bone_ray_color_alt}"
-        bones:skeletonShimmerRayCount="@{3}"
-        bones:skeletonShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
-        bones:skeletonShimmerRaySharedInterpolator="@{true}"
-        bones:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
-        bones:skeletonShimmerRayThicknessRatio="@{0.7f}"
-        bones:skeletonShimmerRayTilt="@{-0.1f}"
-        bones:skeletonTransitionDuration="@{200L}"
-        bones:skeletonUseStateTransition="@{true}">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_background_oval_alt"
-            android:backgroundTint="@color/bone_color_alt"
-            android:cropToPadding="false"
-            app:imageUrl="@{viewModel.imageUrl}"
-            bones:skeletonBoneColor="@{@color/bone_color_alt}"
-            bones:skeletonBoneShadeMultiplier="@{1.021f}"
-            bones:skeletonBoneShapeType="@{ShapeType.CIRCULAR}" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginStart="12dp"
-            android:ellipsize="marquee"
-            android:justificationMode="inter_word"
-            android:maxLines="3"
-            android:padding="3dp"
-            android:text="@{viewModel.text}"
-            android:textColor="@color/text_color"
-            tools:targetApi="o"
-            tools:text="@string/lorem_ipsum" />
-    </LinearLayout>
-</layout>
+bones:skeletonEnabled="@{viewModel == null}"
+bones:skeletonAllowSavedState="@{true}"
+bones:skeletonBoneColor="@{@color/bone_color}"
+bones:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
+bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
+bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
+bones:skeletonDissectLargeBones="@{true}"
+bones:skeletonShimmerRayColor="@{@color/bone_ray_color_alt}"
+bones:skeletonShimmerRayCount="@{3}"
+bones:skeletonShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
+bones:skeletonShimmerRaySharedInterpolator="@{true}"
+bones:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
+bones:skeletonShimmerRayThicknessRatio="@{0.7f}"
+bones:skeletonShimmerRayTilt="@{-0.1f}"
+bones:skeletonTransitionDuration="@{200L}"
+bones:skeletonUseStateTransition="@{true}"
 ```
 
 ### More examples coming soon!
