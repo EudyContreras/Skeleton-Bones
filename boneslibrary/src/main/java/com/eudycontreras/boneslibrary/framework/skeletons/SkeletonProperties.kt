@@ -24,7 +24,7 @@ import com.eudycontreras.boneslibrary.utilities.Shadow
  * [Skeleton-Bones](https://github.com/EudyContreras/Skeleton-Bones) library on GitHub.
  */
 
-class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
+class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> {
 
     private var boneProperties: MutableMap<Int, BoneProperties> = mutableMapOf()
 
@@ -33,6 +33,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
     private var disposedIds: HashSet<Int> = HashSet()
 
     private var stateOwners: HashMap<Int, Boolean> = HashMap()
+
+    private val defaultBoneProperties: BoneProperties = BoneProperties()
 
     @Volatile
     internal var waiting: Boolean = false
@@ -242,11 +244,12 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun getBoneProps(ownerId: Int): BoneProperties {
+    @Synchronized
+    fun getBoneProps(ownerId: Int): BoneProperties {
         return boneProperties[ownerId] ?: BoneProperties()
             .apply {
-            boneProperties[ownerId] = this
-        }
+                boneProperties[ownerId] = this
+            }
     }
 
     /**
@@ -261,7 +264,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun settBoneProps(ownerId: Int, boneProps: BoneProperties) {
+    @Synchronized
+    fun settBoneProps(ownerId: Int, boneProps: BoneProperties) {
         boneProperties[ownerId] = boneProps
     }
 
@@ -277,7 +281,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun isIgnored(ownerId: Int): Boolean {
+    @Synchronized
+    fun isIgnored(ownerId: Int): Boolean {
         return ignoredIds.contains(ownerId)
     }
 
@@ -292,7 +297,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun isDisposed(ownerId: Int): Boolean {
+    @Synchronized
+    fun isDisposed(ownerId: Int): Boolean {
         return disposedIds.contains(ownerId)
     }
 
@@ -309,7 +315,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun addIgnored(ownerId: Int) {
+    @Synchronized
+    fun addIgnored(ownerId: Int) {
         ignoredIds.add(ownerId)
     }
 
@@ -324,7 +331,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized internal fun addDisposed(ownerId: Int) {
+    @Synchronized
+    internal fun addDisposed(ownerId: Int) {
         disposedIds.add(ownerId)
     }
 
@@ -340,7 +348,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun removeIgnored(ownerId: Int) {
+    @Synchronized
+    fun removeIgnored(ownerId: Int) {
         ignoredIds.remove(ownerId)
     }
 
@@ -355,7 +364,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun getStateOwnerState(ownerId: Int): Boolean {
+    @Synchronized
+    fun getStateOwnerState(ownerId: Int): Boolean {
         return tryGet {
             stateOwners[ownerId] ?: false
         } ?: false
@@ -373,7 +383,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun hasStateOwner(ownerId: Int): Boolean {
+    @Synchronized
+    fun hasStateOwner(ownerId: Int): Boolean {
         return stateOwners.containsKey(ownerId)
     }
 
@@ -391,7 +402,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun setStateOwner(ownerId: Int, state: Boolean) {
+    @Synchronized
+    fun setStateOwner(ownerId: Int, state: Boolean) {
         if (state) {
             stateOwners[ownerId] = state
         } else {
@@ -410,7 +422,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun removeStateOwner(ownerId: Int) {
+    @Synchronized
+    fun removeStateOwner(ownerId: Int) {
         stateOwners.remove(ownerId)
     }
 
@@ -423,7 +436,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun clearIgnored() {
+    @Synchronized
+    fun clearIgnored() {
         ignoredIds.clear()
     }
 
@@ -436,7 +450,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun clearStateOwners() {
+    @Synchronized
+    fun clearStateOwners() {
         stateOwners.clear()
     }
 
@@ -449,16 +464,24 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
      *
      * @see BoneProperties
      */
-    @Synchronized fun clearDisposedIds() {
+    @Synchronized
+    fun clearDisposedIds() {
         disposedIds.clear()
     }
 
-    @Synchronized internal fun removeBoneProps(ownerId: Int) {
+    @Synchronized
+    internal fun removeBoneProps(ownerId: Int) {
         boneProperties.remove(ownerId)
     }
 
-    @Synchronized internal fun getBoneProperties(ownerId: Int): BoneProperties {
+    @Synchronized
+    internal fun getBoneProperties(ownerId: Int): BoneProperties {
         return getBoneProps(ownerId)
+    }
+
+    @Synchronized
+    internal fun getBoneProps(): BoneProperties {
+        return defaultBoneProperties
     }
 
     override fun clone(): SkeletonProperties {
@@ -476,7 +499,8 @@ class SkeletonProperties internal constructor(): Cloneable<SkeletonProperties> {
             it.skeletonCornerRadii = this.skeletonCornerRadii?.clone()
             it.shimmerRayProperties = this.shimmerRayProperties.clone()
             it.stateTransitionDuration = this.stateTransitionDuration
-            it.boneProperties = HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
+            it.boneProperties =
+                HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
         }
     }
 
