@@ -15,4 +15,8 @@ class Database {
     val textOne: String = "pers pi ciatis unde omn is iste natus ipsum error sit volup tatem accu unde omn is iste natus ipsum unde omn is iste natus ipsums ant ium dolo rem que laud ant ium, totam lorem rem ape riam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae"
     val textTwo: String = "pers pi ciatis unde omn is iste natus ipsum error sit volup tatem accu unde omn is iste natus ipsum unde omn is iste natus ipsums ant ium dolo rem que laud ant ium, totam lorem rem ape riam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae"
     val textThree: String = "pers pi ciatis unde omn is iste natus ipsum error sit volup tatem accu unde omn is iste natus ipsum unde omn is iste natus ipsums ant ium dolo rem que laud ant ium, totam lorem rem ape riam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae"
+
+    companion object {
+        const val ENTRY_COUNT = 12
+    }
 }

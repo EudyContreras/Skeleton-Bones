@@ -16,7 +16,7 @@ class Repository(scope: CoroutineScope) {
 
     private val database: Database = Database()
 
-    private val demoData: MutableLiveData<Resource<List<DemoData?>?>> = MutableLiveData()
+    private val demoData: MutableLiveData<Resource<List<DemoData?>?>> = MutableLiveData(Resource.Loading())
 
     fun getDemoData(): LiveData<Resource<List<DemoData?>?>> = demoData
 
@@ -24,7 +24,7 @@ class Repository(scope: CoroutineScope) {
         scope.launch(Dispatchers.Main) {
             demoData.postValue(Resource.Loading())
 
-            val dataCollection = List(ENTRY_COUNT) {
+            val dataCollection = List(Database.ENTRY_COUNT) {
                 when {
                     it % 2 == 0 -> {
                         DemoData.A(
@@ -56,8 +56,6 @@ class Repository(scope: CoroutineScope) {
     }
 
     companion object {
-        const val ENTRY_COUNT = 12
-
         const val SHORT_DELAY = 3500L
         const val LONG_DELAY = 3500L
     }

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @since April 2020
  */
 
-typealias ItemBinding <T> = (T?) -> Int
+typealias ItemBinding <T> = (T?, Int) -> Int
 
 class ItemAdapter<T : DiffComparable>(
     private var data: List<T?>,
@@ -37,21 +37,21 @@ class ItemAdapter<T : DiffComparable>(
         }
     }
 
-    override fun getItemCount(): Int = data.size
-
     override fun onBindViewHolder(holder: ItemViewHolder<T>, position: Int) {
         holder.bind(data[position])
     }
 
     override fun getItemViewType(position: Int): Int {
         val item: T? = this.data[position]
-        return itemBinding.invoke(item)
+        return itemBinding.invoke(item, position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, @LayoutRes viewType: Int): ItemViewHolder<T> {
         val inflater = LayoutInflater.from(parent.context)
         return ItemViewHolder(DataBindingUtil.inflate(inflater, viewType, parent, false))
     }
+
+    override fun getItemCount(): Int = data.size
 
     class ItemViewHolder<T: DiffComparable>(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: T?) {

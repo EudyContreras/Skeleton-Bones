@@ -20,12 +20,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="6dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:padding="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="8dp"
         android:background="@drawable/shape_section_background"
         android:elevation="4dp"
         bones:skeletonEnabled="@{viewModel == null}"
@@ -34,21 +37,21 @@
         bones:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
         bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
         bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-        bones:skeletonDissectLargeBones="@{true}"
-        bones:skeletonShimmerRayColor="@{@color/bone_ray_color_alt}"
+        bones:skeletonDissectLargeBones="@{false}"
+        bones:skeletonShimmerRayColor="@{@color/bone_ray_color}"
         bones:skeletonShimmerRayCount="@{3}"
         bones:skeletonShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
         bones:skeletonShimmerRaySharedInterpolator="@{true}"
         bones:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
-        bones:skeletonShimmerRayThicknessRatio="@{0.7f}"
+        bones:skeletonShimmerRayThicknessRatio="@{0.6f}"
         bones:skeletonShimmerRayTilt="@{-0.1f}"
         bones:skeletonTransitionDuration="@{200L}"
         bones:skeletonUseStateTransition="@{true}">
 
         <ImageView
             android:id="@+id/someImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/shape_section_background"
             android:backgroundTint="@color/bone_color_alt"
             app:imageUrl="@{viewModel.imageUrl}"
@@ -64,15 +67,15 @@
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/someImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/someImage"
             app:layout_constraintTop_toTopOf="parent"
-            bones:skeletonBoneMaxThickness="@{Utils.getDp(20)}"
-            bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-            bones:skeletonDissectLargeBones="@{false}">
+            bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
+            bones:skeletonBoneMinThickness="@{Utils.getDp(10)}">
 
             <TextView
+                bones:skeletonBoneDissectLargeBones="@{true}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -98,18 +101,20 @@
                 android:textColor="@color/text_color"
                 tools:text="@string/lorem_ipsum" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2dp"
-                android:singleLine="true"
-                android:text="@{viewModel.textThree}"
-                android:textAlignment="gravity"
-                android:textColor="@color/text_color"
-                tools:text="@string/lorem_ipsum" />
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="2dp"
+            android:maxLines="3"
+            android:text="@{viewModel.textThree}"
+            android:textAlignment="gravity"
+            android:textColor="@color/text_color"
+            app:layout_constraintTop_toBottomOf="@id/someImage"
+            tools:text="@string/lorem_ipsum" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
