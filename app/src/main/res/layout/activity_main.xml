@@ -45,7 +45,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_banner"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="145dp"
             android:background="@drawable/shape_background"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +112,6 @@
                     app:skeletonBoneShimmerRaySpeedMultiplier="@{0.4f}"
                     app:skeletonBoneShimmerRayThicknessRatio="@{0.25f}"
                     app:skeletonBoneShimmerRayTilt="@{-0.6f}" />
-
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -129,7 +128,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="170dp"
+                android:layout_marginTop="145dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:orientation="vertical">

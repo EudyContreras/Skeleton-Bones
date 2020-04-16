@@ -50,7 +50,6 @@
             android:layout_gravity="center"
             android:background="@drawable/shape_background_oval_alt"
             android:backgroundTint="@color/bone_color_alt"
-            android:clickable="true"
             android:cropToPadding="false"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:imageUrl="@{viewModel.demoDataThree.data.imageUrl}"

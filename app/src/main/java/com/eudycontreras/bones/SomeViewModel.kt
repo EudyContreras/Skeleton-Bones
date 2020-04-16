@@ -3,9 +3,7 @@ package com.eudycontreras.bones
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
 internal class SomeViewModel : ViewModel() {
 
     private val repository: Repository = Repository(viewModelScope)

@@ -12,22 +12,19 @@ import kotlinx.coroutines.*
  * @since April 2020
  */
 
-@ExperimentalCoroutinesApi
 class Repository(scope: CoroutineScope) {
 
     private val database: DataBase = DataBase()
 
-    private val demoOneData = MutableLiveData(Resource<DemoData.One>())
+    private val demoOneData: MutableLiveData<Resource<DemoData.One>> = MutableLiveData(Resource.Loading())
 
-    private val demoTwoData = MutableLiveData(Resource<DemoData.Two>())
+    private val demoTwoData: MutableLiveData<Resource<DemoData.Two>> = MutableLiveData(Resource.Loading())
 
-    private val demoThreeData = MutableLiveData(Resource<DemoData.Three>())
+    private val demoThreeData: MutableLiveData<Resource<DemoData.Three>> = MutableLiveData(Resource.Loading())
 
     fun getDemoDataOne(): LiveData<Resource<DemoData.One>> = demoOneData
 
-
     fun getDemoDataTwo(): LiveData<Resource<DemoData.Two>> = demoTwoData
-
 
     fun getDemoDataThree(): LiveData<Resource<DemoData.Three>> = demoThreeData
 
@@ -50,16 +47,16 @@ class Repository(scope: CoroutineScope) {
 
             while (true) {
                 delay(LONG_DELAY)
-                demoOneData.postValue(Resource(dataOne, false))
+                demoOneData.postValue(Resource.Success(dataOne))
                 delay(SHORT_DELAY)
-                demoTwoData.postValue(Resource(dataTwo, false))
+                demoTwoData.postValue(Resource.Success(dataTwo))
                 delay(SHORT_DELAY)
-                demoThreeData.postValue(Resource(dataThree, false))
+                demoThreeData.postValue(Resource.Success(dataThree))
 
                 delay(SHORT_DELAY)
-                demoOneData.postValue(Resource(null, true))
-                demoTwoData.postValue(Resource(null, true))
-                demoThreeData.postValue(Resource(null, true))
+                demoOneData.postValue(Resource.Loading())
+                demoTwoData.postValue(Resource.Loading())
+                demoThreeData.postValue(Resource.Loading())
             }
         }
     }
