@@ -45,8 +45,6 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/shape_background_oval_alt"
             android:backgroundTint="@color/bone_color_alt"
             android:elevation="4dp"
@@ -104,24 +102,6 @@
             tools:text="@string/lorem_ipsum"/>
 
         <TextView
-            android:id="@+id/textFour"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:padding="2dp"
-            android:maxLines="3"
-            android:text="@{viewModel.demoDataOne.data.textOne}"
-            android:textAlignment="gravity"
-            android:textColor="@color/text_color"
-            bones:skeletonBoneEnabled="@{viewModel.demoDataOne.loading}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textThree"
-            tools:text="@string/lorem_ipsum"/>
-
-        <TextView
             android:id="@+id/textFive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -133,10 +113,9 @@
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textFour"
+            app:layout_constraintTop_toBottomOf="@id/textThree"
             bones:skeletonBoneEnabled="@{viewModel.demoDataOne.loading}"
             bones:skeletonBoneDissectLargeBones="@{true}"
-            bones:skeletonBoneMinHeight="@{Utils.getDp(90)}"
             tools:text="@string/lorem_ipsum"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
