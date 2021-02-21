@@ -9,16 +9,16 @@ import kotlinx.coroutines.*
  *
  * @Project ProjectX
  * @author Eudy Contreras.
- * @since April 2020
+ * @since February 2021
  */
 
 class Repository(scope: CoroutineScope) {
 
     private val database: Database = Database()
 
-    private val demoData: MutableLiveData<Resource<List<DemoData?>?>> = MutableLiveData(Resource.Loading())
+    private val demoData: MutableLiveData<Resource<List<DemoData>>> = MutableLiveData(Resource.Loading())
 
-    fun getDemoData(): LiveData<Resource<List<DemoData?>?>> = demoData
+    fun getDemoData(): LiveData<Resource<List<DemoData>>> = demoData
 
     init {
         scope.launch(Dispatchers.Main) {
@@ -26,22 +26,18 @@ class Repository(scope: CoroutineScope) {
 
             val dataCollection = List(Database.ENTRY_COUNT) {
                 when {
-                    it % 2 == 0 -> {
-                        DemoData.A(
-                            id = it.toString(),
-                            text = database.textOne,
-                            imageUrl = database.urlMaleAvatar
-                        )
-                    }
-                    else -> {
-                        DemoData.B(
-                            id = it.toString(),
-                            textOne = database.textOne,
-                            textTwo = database.textTwo,
-                            textThree = database.textThree,
-                            imageUrl = database.urlFemaleAvatar
-                        )
-                    }
+                    it.isEven() -> DemoData.A(
+                        id = it.toString(),
+                        text = database.textOne,
+                        imageUrl = database.urlMaleAvatar
+                    )
+                    else -> DemoData.B(
+                        id = it.toString(),
+                        textOne = database.textOne,
+                        textTwo = database.textTwo,
+                        textThree = database.textThree,
+                        imageUrl = database.urlFemaleAvatar
+                    )
                 }
             }
 

@@ -1,73 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bones="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ItemContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/shape_section_background"
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-    <data>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:id="@+id/ItemAImage"
+        android:background="@drawable/shape_background_oval_alt"
+        android:backgroundTint="@color/bone_color_alt"
+        android:cropToPadding="false" />
 
-        <variable
-            name="viewModel"
-            type="com.eudycontreras.bones.DemoData.A" />
-
-        <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
-
-        <import
-            alias="Utils"
-            type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
-    </data>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/ItemAText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/shape_section_background"
-        android:elevation="4dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        bones:skeletonEnabled="@{viewModel == null}"
-        bones:skeletonAllowSavedState="@{true}"
-        bones:skeletonBoneColor="@{@color/bone_color}"
-        bones:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
-        bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
-        bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-        bones:skeletonDissectLargeBones="@{true}"
-        bones:skeletonShimmerRayColor="@{@color/bone_ray_color}"
-        bones:skeletonShimmerRayCount="@{3}"
-        bones:skeletonShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
-        bones:skeletonShimmerRaySharedInterpolator="@{true}"
-        bones:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
-        bones:skeletonShimmerRayThicknessRatio="@{0.6f}"
-        bones:skeletonShimmerRayTilt="@{-0.1f}"
-        bones:skeletonTransitionDuration="@{200L}"
-        bones:skeletonUseStateTransition="@{true}">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_background_oval_alt"
-            android:backgroundTint="@color/bone_color_alt"
-            android:cropToPadding="false"
-            app:imageUrl="@{viewModel.imageUrl}"
-            bones:skeletonBoneColor="@{@color/bone_color_alt}"
-            bones:skeletonBoneShadeMultiplier="@{1.021f}"
-            bones:skeletonBoneShapeType="@{ShapeType.CIRCULAR}" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginStart="12dp"
-            android:ellipsize="marquee"
-            android:justificationMode="inter_word"
-            android:maxLines="3"
-            android:padding="3dp"
-            android:text="@{viewModel.text}"
-            android:textColor="@color/text_color"
-            tools:targetApi="o"
-            tools:text="@string/lorem_ipsum" />
-    </LinearLayout>
-</layout>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_marginStart="12dp"
+        android:ellipsize="marquee"
+        android:justificationMode="inter_word"
+        android:maxLines="3"
+        android:padding="3dp"
+        android:textColor="@color/text_color"
+        tools:targetApi="o"
+        tools:text="@string/lorem_ipsum" />
+</LinearLayout>

@@ -1,120 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bones="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:id="@+id/ItemContainer"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:layout_marginTop="6dp"
+   android:layout_marginStart="8dp"
+   android:layout_marginEnd="8dp"
+   android:clipChildren="false"
+   android:clipToPadding="false"
+   android:paddingStart="10dp"
+   android:paddingEnd="10dp"
+   android:paddingBottom="10dp"
+   android:paddingTop="8dp"
+   android:background="@drawable/shape_section_background"
+   android:elevation="4dp">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.eudycontreras.bones.DemoData.B" />
-
-        <import type="com.eudycontreras.boneslibrary.properties.ShapeType" />
-
-        <import
-            alias="Utils"
-            type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="8dp"
+    <ImageView
+        android:id="@+id/ItemBImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@drawable/shape_section_background"
-        android:elevation="4dp"
-        bones:skeletonEnabled="@{viewModel == null}"
-        bones:skeletonAllowSavedState="@{true}"
-        bones:skeletonBoneColor="@{@color/bone_color}"
-        bones:skeletonBoneCornerRadius="@{Utils.getDp(10)}"
-        bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
-        bones:skeletonBoneMinThickness="@{Utils.getDp(10)}"
-        bones:skeletonDissectLargeBones="@{false}"
-        bones:skeletonShimmerRayColor="@{@color/bone_ray_color}"
-        bones:skeletonShimmerRayCount="@{3}"
-        bones:skeletonShimmerRayInterpolator="@{@android:interpolator/fast_out_slow_in}"
-        bones:skeletonShimmerRaySharedInterpolator="@{true}"
-        bones:skeletonShimmerRaySpeedMultiplier="@{1.1f}"
-        bones:skeletonShimmerRayThicknessRatio="@{0.6f}"
-        bones:skeletonShimmerRayTilt="@{-0.1f}"
-        bones:skeletonTransitionDuration="@{200L}"
-        bones:skeletonUseStateTransition="@{true}">
+        android:backgroundTint="@color/bone_color_alt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/someImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/shape_section_background"
-            android:backgroundTint="@color/bone_color_alt"
-            app:imageUrl="@{viewModel.imageUrl}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            bones:skeletonBoneShadeMultiplier="@{1.021f}"
-            bones:skeletonBoneStateOwner="@{true}" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:id="@+id/ItemBInnerContainer"
+        app:layout_constraintBottom_toBottomOf="@id/ItemBImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ItemBImage"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/someImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/someImage"
-            app:layout_constraintTop_toTopOf="parent"
-            bones:skeletonBoneMaxThickness="@{Utils.getDp(10)}"
-            bones:skeletonBoneMinThickness="@{Utils.getDp(10)}">
-
-            <TextView
-                bones:skeletonBoneDissectLargeBones="@{true}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2dp"
-                android:singleLine="true"
-                android:text="@{viewModel.textOne}"
-                android:textAlignment="gravity"
-                android:textColor="@color/text_color"
-                tools:text="@string/lorem_ipsum" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2dp"
-                android:singleLine="true"
-                android:text="@{viewModel.textTwo}"
-                android:textAlignment="gravity"
-                android:textColor="@color/text_color"
-                tools:text="@string/lorem_ipsum" />
-
-        </LinearLayout>
         <TextView
+            android:id="@+id/ItemBInnerTextA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_gravity="start"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="2dp"
-            android:maxLines="3"
-            android:text="@{viewModel.textThree}"
+            android:singleLine="true"
             android:textAlignment="gravity"
             android:textColor="@color/text_color"
-            app:layout_constraintTop_toBottomOf="@id/someImage"
             tools:text="@string/lorem_ipsum" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+        <TextView
+            android:id="@+id/ItemBInnerTextB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:textAlignment="gravity"
+            android:textColor="@color/text_color"
+            tools:text="@string/lorem_ipsum" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/ItemBOuterText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="start"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:padding="2dp"
+        android:maxLines="3"
+        android:textAlignment="gravity"
+        android:textColor="@color/text_color"
+        app:layout_constraintTop_toBottomOf="@id/ItemBImage"
+        tools:text="@string/lorem_ipsum" />
+</androidx.constraintlayout.widget.ConstraintLayout>

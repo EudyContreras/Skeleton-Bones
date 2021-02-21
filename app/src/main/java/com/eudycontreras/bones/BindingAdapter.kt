@@ -2,7 +2,6 @@ package com.eudycontreras.bones
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -18,10 +17,11 @@ import com.eudycontreras.boneslibrary.extensions.notifySkeletonImageLoaded
  *
  * @Project ProjectX
  * @author Eudy Contreras.
- * @since April 2020
+ * @since February 2021
  */
 
-@BindingAdapter("imageUrl")
+fun Int.isEven() = this % 2 == 0
+
 fun ImageView.loadImage(imageUrl: String?) {
     if (imageUrl == null) return
 
@@ -34,7 +34,6 @@ fun ImageView.loadImage(imageUrl: String?) {
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                this@loadImage.notifySkeletonImageLoaded()
                 return false
             }
 
@@ -55,14 +54,12 @@ fun ImageView.loadImage(imageUrl: String?) {
 }
 
 @Suppress("UNCHECKED_CAST")
-@BindingAdapter(value = ["itemsResource", "itemBinding"], requireAll = true)
-fun <T : DiffComparable> RecyclerView.setItemData(
-    itemsResource: Resource<List<T?>?>?,
-    itemBinding: ItemBinding<T>
+fun <T : DemoData> RecyclerView.setItemData(
+    itemsResource: Resource<List<T?>?>
 ) {
-    itemsResource?.data?.let {
+    itemsResource.data?.let {
         if (this.adapter == null) {
-            this.adapter = ItemAdapter(it, itemBinding)
+            this.adapter = ItemAdapter(it)
         } else {
             with(adapter as ItemAdapter<T>) {
                 this.updateData(it)
