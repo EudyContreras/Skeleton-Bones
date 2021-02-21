@@ -30,6 +30,20 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
 class SkeletonBuilder internal constructor(
     private val skeletonProperties: SkeletonProperties
 ) {
+
+    /**
+     * Allows building bone properties.
+     *
+     * @param builder The target encapsulation of the bone builder
+     *
+     * @see BoneProperties
+     * @see BoneBuilder
+     */
+    fun withBoneBuilder(builder: BoneBuilder.() -> Unit): SkeletonBuilder {
+        builder.invoke(skeletonProperties.getBoneProps().builder())
+        return this
+    }
+
     /**
      * Allows building bone properties.
      *
