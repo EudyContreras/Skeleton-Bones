@@ -53,6 +53,9 @@ class ItemAdapter<T : DemoData>(
         return when (this.data[position]) {
             is DemoData.A -> VIEW_TYPE_A
             is DemoData.B -> VIEW_TYPE_B
+            /**
+             * Here I decide how we render the skeleton
+             */
             else -> when {
                 position.isEven() -> LOADING_A
                 else -> LOADING_B
@@ -72,18 +75,22 @@ class ItemAdapter<T : DemoData>(
             VIEW_TYPE_B -> ItemViewHolder.B(
                 itemView = inflater.inflate(R.layout.list_item_b, parent, false)
             ) as ItemViewHolder<T>
-            LOADING_A -> ItemViewHolder.Loading(
+            /**
+             * As you can see we have loading view types and view holders too
+             */
+            LOADING_A -> ItemViewHolder.Loader(
                 itemView = inflater.inflate(R.layout.list_item_a, parent, false)
             ) as ItemViewHolder<T>
-            else -> ItemViewHolder.Loading(
+            LOADING_B -> ItemViewHolder.Loader(
                 itemView = inflater.inflate(R.layout.list_item_b, parent, false)
             ) as ItemViewHolder<T>
+            else -> throw IllegalStateException()
         }
     }
 
     override fun getItemCount(): Int = data.size
 
-    sealed class ItemViewHolder<T : DemoData>(
+    abstract class ItemViewHolder<T : DemoData>(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
@@ -109,50 +116,55 @@ class ItemAdapter<T : DemoData>(
             }
         }
 
-        class Loading(itemView: View) : ItemViewHolder<DemoData>(itemView) {
+        class Loader(itemView: View) : ItemViewHolder<DemoData>(itemView) {
             override fun bind(data: DemoData?) {
+                /**
+                 * As you can see we can easily compose the bone and skeletons
+                 * that we want to display
+                 */
                 itemView.findViewById<ViewGroup>(R.id.ItemContainer)?.let { parent ->
                     SkeletonDrawable.create(parent, true).build()
                         .setAllowSavedState(false)
                         .setUseStateTransition(true)
                         .setStateTransitionDuration(200L)
-                        .withBoneBuilder(R.id.ItemAText, textBoneBuilder(parent))
-                        .withBoneBuilder(R.id.ItemBInnerTextA, textBoneBuilder(parent))
-                        .withBoneBuilder(R.id.ItemBInnerTextB, textBoneBuilder(parent))
-                        .withBoneBuilder(R.id.ItemBOuterText, textBoneBuilder(parent))
-                        .withBoneBuilder(R.id.ItemAImage, imageBoneBuilder(parent))
-                        .withBoneBuilder(R.id.ItemBImage, imageBoneBuilder(parent))
-                        .withShimmerBuilder(shimmerRayBuilder(parent))
+                        .withBoneBuilder(R.id.ItemAText, textBoneBuilder(parent, true))
+                        .withBoneBuilder(R.id.ItemBInnerTextA, textBoneBuilder(parent, false))
+                        .withBoneBuilder(R.id.ItemBInnerTextB, textBoneBuilder(parent, false))
+                        .withBoneBuilder(R.id.ItemBOuterText, textBoneBuilder(parent, false))
+                        .withBoneBuilder(R.id.ItemAImage, imageBoneBuilder(parent, ShapeType.CIRCULAR))
+                        .withBoneBuilder(R.id.ItemBImage, imageBoneBuilder(parent, ShapeType.RECTANGULAR))
+                        .withShimmerBuilder(shimmerRayBuilder(parent, R.color.bone_ray_color))
                         .setEnabled(true)
                 }
             }
         }
 
         companion object {
-            val imageBoneBuilder: (view: View) -> BoneBuilder.() -> Unit = {
-                {   setColor(MutableColor.fromColor(ContextCompat.getColor(it.context, R.color.bone_color_alt)))
-                    setShaderMultiplier(1.021f)
-                    setShapeType(ShapeType.CIRCULAR)
-                }
-            }
-            val textBoneBuilder: (view: View) -> BoneBuilder.() -> Unit = {
-                {   setColor(MutableColor.fromColor(ContextCompat.getColor(it.context, R.color.bone_color)))
-                    setCornerRadii(CornerRadii(10.dp))
-                    setMaxThickness(10.dp)
-                    setMinThickness(10.dp)
-                    setDissectBones(true)
-                }
-            }
-            val shimmerRayBuilder: (view: View) ->  ShimmerRayBuilder.() -> Unit = {
-                {   setColor(MutableColor.fromColor(ContextCompat.getColor(it.context, R.color.bone_ray_color)))
-                    setCount(3)
-                    setInterpolator(FastOutSlowInInterpolator())
-                    setSharedInterpolator(true)
-                    setSpeedMultiplier(1.1f)
-                    setThicknessRatio(0.6f)
-                    setTilt(-0.1f)
-                }
-            }
+            val imageBoneBuilder: (view: View, shape: ShapeType) -> BoneBuilder.() -> Unit = { view, shape -> {
+                textBoneBuilder(view, false)(this)
+                setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, R.color.bone_color_alt)))
+                setShaderMultiplier(1.021f)
+                setShapeType(shape)
+                withShimmerBuilder(shimmerRayBuilder(view, R.color.bone_ray_color_alt))
+            } }
+
+            val textBoneBuilder: (view: View, dissect: Boolean) -> BoneBuilder.() -> Unit = { view, dissect -> {
+                 setDissectBones(dissect)
+                 setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, R.color.bone_color)))
+                 setCornerRadii(CornerRadii(10.dp))
+                 setMaxThickness(10.dp)
+                 setMinThickness(10.dp)
+            } }
+
+            val shimmerRayBuilder: (view: View, color: Int) ->  ShimmerRayBuilder.() -> Unit = { view, color -> {
+                setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, color)))
+                setCount(3)
+                setInterpolator(FastOutSlowInInterpolator())
+                setSharedInterpolator(true)
+                setSpeedMultiplier(1.1f)
+                setThicknessRatio(1.2f)
+                setTilt(-0.1f)
+            } }
         }
     }
 
