@@ -246,7 +246,7 @@ class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> 
      */
     @Synchronized
     fun getBoneProps(ownerId: Int): BoneProperties {
-        return boneProperties[ownerId] ?: BoneProperties()
+        return boneProperties[ownerId] ?: defaultBoneProperties.clone()
             .apply {
                 boneProperties[ownerId] = this
             }
@@ -393,7 +393,7 @@ class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> 
      * @author Eudy Contreras
      * @since March 2020
      *
-     * If true, dds the given id and the state to the map of state owner.
+     * If true, Adds the given id and the state to the map of state owner.
      * When false it will remove the state owner since there in no point of
      * keeping a loaded owner's state.
      *

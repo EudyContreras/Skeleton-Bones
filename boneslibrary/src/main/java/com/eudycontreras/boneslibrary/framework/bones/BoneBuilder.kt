@@ -29,6 +29,7 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
 class BoneBuilder internal constructor(
     private val boneProperties: BoneProperties
 ) {
+
     /**
      * Allows building shimmer ray properties.
      *
