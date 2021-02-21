@@ -174,7 +174,6 @@ internal class BoneManager(
                 repeatMode = ValueAnimator.RESTART,
                 onUpdate = {
                     renderer.update(it)
-
                     updateListeners.forEach { listener ->
                         listener.invoke(it)
                     }

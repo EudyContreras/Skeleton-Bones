@@ -199,6 +199,11 @@ class SkeletonDrawable internal constructor(
     }
 
     /**
+     * Disposes of this skeleton drawable and restores to its original state
+     */
+    fun dispose() = skeletonManager.dispose()
+
+    /**
      * Retrieves the properties used by this **SkeletonDrawable**
      */
     @Synchronized
