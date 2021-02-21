@@ -88,7 +88,7 @@ class BoneBuilder internal constructor(
      * @author Eudy Contreras
      * @since March 2020
      *
-     * Sets the corner radius for this bone. This property is most noticeable if the
+     * Sets the corner radius for this bone. This property has an effect when the
      * bone has an opaque color and a rectangular shape.
      * ```
      * ```
@@ -104,6 +104,28 @@ class BoneBuilder internal constructor(
     fun setCornerRadii(cornerRadii: CornerRadii? = null): BoneBuilder {
         this.boneProperties.cornerRadii = cornerRadii
         return this
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
+     * Sets the corner radius for this bone. This property has an effect when the
+     * bone has an opaque color and a rectangular shape.
+     * ```
+     * ```
+     * **Default:** null
+     * ```
+     * ```
+     * @param cornerRadius The corner radius amount
+     * @see SkeletonBone
+     * @see CornerRadii
+     * @see MutableColor
+     * @see SkeletonBoneBindings.SKELETON_BONE_CORNER_RADIUS
+     */
+    fun setCornerRadii(cornerRadius: Float = 0f): BoneBuilder {
+        return this.setCornerRadii(CornerRadii(cornerRadius))
     }
 
     /**
