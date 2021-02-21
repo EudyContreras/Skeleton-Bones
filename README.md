@@ -1,4 +1,4 @@
-  [banner]: ./media/gifs/section_stripe_white.gif
+ [banner]: ./media/gifs/section_stripe_white.gif
   [thick-banner]: ./media/gifs/wide_banner_white.gif
 
 ![Banner Demo][thick-banner]
@@ -12,6 +12,9 @@
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 [![Dev-Nation](./media/images/dev_nation_badge.svg)](https://medium.com/android-dev-nation)
 </div>
+
+<h1 style="color:red">News!</h1>
+<h4 style="color:yellow">Check out demo branches for examples. Demo-3 branch contains a non-data-binding example</h4>
 
 <div align="center">
  
@@ -30,6 +33,7 @@ Library for dynamically generating and animating skeleton drawables. This librar
 - **[Features](#features)**
 - **[Glossary](#glossary)**
 - **[Getting Started](#getting-started)**
+- **[Functional Demos](#examples-and-demos)** 
 - **[How can I use in my project?](#how-can-i-use-in-my-project)**
   - **[Step 1](#step-1)**
   - **[Step 2](#step-2)**
@@ -121,6 +125,10 @@ For a more thorough guides and descriptions please look at the following links:
 **Bones** is highly customizable and provides you the freedom of creating concise skeletons that will fit your apps design seamlessly. Although the recommended way of using bones is to apply it and modify it using data-binding, it is possible to customize Bones by directly accessing its properties through an instance. Bones can be customized by creating an instance of a **`SkeletonDrawable`** or **`BoneDrawable`** and directly applying the desired properties to it. The properties can be modified using both builder and property accessors patterns. It can also be use with data-binding.
 
 <br/>
+
+## Examples and demos
+
+Check out the demo branches in this project for demos. New demo-3 added which showcases skeleton drawables without data-binding
 
 ## How can I use in my project?
 
