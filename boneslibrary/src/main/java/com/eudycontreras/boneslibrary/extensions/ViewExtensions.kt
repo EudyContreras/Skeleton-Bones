@@ -6,7 +6,10 @@ import android.os.Build
 import android.view.View
 import android.view.View.NO_ID
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.*
+import com.eudycontreras.boneslibrary.bindings.getParentSkeletonDrawable
+import com.eudycontreras.boneslibrary.doWith
 import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
@@ -213,6 +216,47 @@ private fun findViews(
             }
         } else {
             findViews(it, predicate, views)
+        }
+    }
+}
+
+/**
+ * @Project Project Bones
+ * @author Eudy Contreras
+ * @since Feburary 2021
+ *
+ * Disables skeleton loading for this view and its descendants
+ */
+fun View.enableSkeletonLoading() = this.toggleSkeletonLoading(true)
+
+/**
+ * @Project Project Bones
+ * @author Eudy Contreras
+ * @since Feburary 2021
+ *
+ * Enables skeleton loading for this view and its descendants
+ */
+fun View.disableSkeletonLoading() = this.toggleSkeletonLoading(false)
+
+/**
+ * @Project Project Bones
+ * @author Eudy Contreras
+ * @since Feburary 2021
+ *
+ * Toggles skeleton loading for this view and its descendants
+ */
+fun View.toggleSkeletonLoading(enabled: Boolean) {
+    val id = generateId()
+    val parent = getParentSkeletonDrawable()
+    if (parent != null) {
+        parent.getProps().setStateOwner(id, false)
+        parent.getProps().getBoneProps(id).apply {
+            this.enabled = enabled
+        }
+    }
+    doWith(foreground) {
+        if (it is BoneDrawable) {
+            it.getProps().enabled = enabled
         }
     }
 }
