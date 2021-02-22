@@ -14,7 +14,7 @@ import com.eudycontreras.boneslibrary.MIN_OFFSET
  * @since March 2020
  */
 
-fun ValueAnimator?.build(
+internal fun ValueAnimator?.build(
     duration: Long,
     repeatCount: Int = 0,
     repeatMode: Int = ValueAnimator.RESTART,
@@ -39,7 +39,7 @@ fun ValueAnimator?.build(
     )
 }
 
-fun animate(
+internal fun animate(
     duration: Long,
     repeatCount: Int? = null,
     repeatMode: Int? = null,

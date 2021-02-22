@@ -14,10 +14,10 @@ import com.eudycontreras.boneslibrary.AndroidColor
  */
 
 abstract class Color(
-    var alpha: Int = MAX_COLOR,
-    var red: Int = MIN_COLOR,
-    var green: Int = MIN_COLOR,
-    var blue: Int = MIN_COLOR
+    open var alpha: Int = MAX_COLOR,
+    open var red: Int = MIN_COLOR,
+    open var green: Int = MIN_COLOR,
+    open var blue: Int = MIN_COLOR
 ) {
     protected var mTempColor: Int = -1
 

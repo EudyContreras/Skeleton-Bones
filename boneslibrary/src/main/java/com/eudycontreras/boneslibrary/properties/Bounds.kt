@@ -17,7 +17,6 @@ data class Bounds(
     var width: Float,
     var height: Float
 ) {
-
     constructor() : this(0f, 0f, 0f, 0f)
 
     val left: Float

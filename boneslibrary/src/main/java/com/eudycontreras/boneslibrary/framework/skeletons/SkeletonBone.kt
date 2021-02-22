@@ -134,10 +134,10 @@ internal class SkeletonBone(
             this.shadowFilter = Shadow.getShadowFilter(elevation)
         }
 
-        this.color = boneProperties.color?.clone()
-        this.backgroundColor = boneProperties.backgroundColor?.clone()
+        this.color = boneProperties.color?.copy()
+        this.backgroundColor = boneProperties.backgroundColor?.copy()
 
-        this.corners = boneProperties.cornerRadii?.clone() ?: CornerRadii()
+        this.corners = boneProperties.cornerRadii?.copy() ?: CornerRadii()
 
         this.bounds.width = boneProperties.width ?: getLength(view)
         this.bounds.height = boneProperties.height ?: getThickness(view)

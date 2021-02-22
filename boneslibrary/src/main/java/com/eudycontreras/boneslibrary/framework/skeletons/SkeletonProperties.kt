@@ -496,7 +496,7 @@ class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> 
             it.useStateTransition = this.useStateTransition
             it.animateRestoredBounds = this.animateRestoredBounds
             it.skeletonBackgroundColor = this.skeletonBackgroundColor
-            it.skeletonCornerRadii = this.skeletonCornerRadii?.clone()
+            it.skeletonCornerRadii = this.skeletonCornerRadii?.copy()
             it.shimmerRayProperties = this.shimmerRayProperties.clone()
             it.stateTransitionDuration = this.stateTransitionDuration
             it.boneProperties = HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
