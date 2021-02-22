@@ -2,14 +2,17 @@
 
 package com.eudycontreras.boneslibrary.bindings
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
 import com.eudycontreras.boneslibrary.MIN_OFFSET
 import com.eudycontreras.boneslibrary.doWith
 import com.eudycontreras.boneslibrary.extensions.descendantViews
+import com.eudycontreras.boneslibrary.extensions.findParent
 import com.eudycontreras.boneslibrary.extensions.generateId
 import com.eudycontreras.boneslibrary.extensions.getProps
+import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonManager
@@ -413,4 +416,31 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
             }
         }
     }
+}
+
+/**
+ * Finds the nearest parent of this view that has
+ * an skeleton loader and returns the SkeletonDrawable loader
+ * associated with it.
+ * @see SkeletonDrawable
+ */
+fun ViewGroup.getParentSkeletonDrawable(): SkeletonDrawable? {
+    val skeletonParent = findParent { it.foreground is SkeletonDrawable }
+    return skeletonParent?.foreground as? SkeletonDrawable
+}
+
+/**
+ * Returns true if this view has an ancestor with an attached
+ * SkeletonDrawable loader
+ * @see SkeletonDrawable
+ */
+fun ViewGroup.hasSkeletonLoaderAncestor(): Boolean {
+    return getParentSkeletonDrawable() != null
+}
+
+/**
+ * Returns true if this view has SkeletonDrawable loader as its foreground
+ */
+fun ViewGroup.isSkeletonLoader(): Boolean {
+    return this.foreground is SkeletonDrawable
 }
