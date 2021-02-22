@@ -202,7 +202,7 @@ class ShimmerRayProperties internal constructor(): Cloneable<ShimmerRayPropertie
             it.shimmerRayThickness = this.shimmerRayThickness
             it.shimmerRayThicknessRatio = this.shimmerRayThicknessRatio
             it.shimmerRaySharedInterpolator = this.shimmerRaySharedInterpolator
-            it.shimmerRayColor = this.shimmerRayColor.clone()
+            it.shimmerRayColor = this.shimmerRayColor.copy()
             it.shimmerRayInterpolator = when (this.shimmerRayInterpolator) {
                 is LinearInterpolator -> LinearInterpolator()
                 is FastOutSlowInInterpolator -> FastOutSlowInInterpolator()

@@ -14,16 +14,16 @@ import android.graphics.drawable.Drawable
  * @since March 2020
  */
 
-fun Drawable.clone(): Drawable? {
+internal fun Drawable.clone(): Drawable? {
     return this.mutate().constantState?.newDrawable()
 }
 
-fun Drawable.copy(resources: Resources, width: Int = 1, height: Int = 1): Drawable? {
+internal fun Drawable.copy(resources: Resources, width: Int = 1, height: Int = 1): Drawable? {
     val bitmap = this.mutate().drawableToBitmap(width, height)
     return bitmap?.let { BitmapDrawable(resources, bitmap) }
 }
 
-fun Drawable.drawableToBitmap(width: Int = 1, height: Int = 1): Bitmap? {
+internal fun Drawable.drawableToBitmap(width: Int = 1, height: Int = 1): Bitmap? {
     if (this is BitmapDrawable) {
         if (this.bitmap != null) {
             return this.bitmap
