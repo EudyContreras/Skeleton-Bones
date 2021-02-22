@@ -231,7 +231,9 @@ class SkeletonDrawable internal constructor(
      * this **SkeletonDrawable**
      */
     @Synchronized
-    fun build(): SkeletonBuilder = skeletonManager.getBuilder()
+    fun build(): SkeletonBuilder {
+        return skeletonManager.getBuilder()
+    }
 
     override fun draw(canvas: Canvas) {
         skeletonManager.renderer.render(canvas)
@@ -303,10 +305,39 @@ class SkeletonDrawable internal constructor(
          * attached to the ViewGroup passed in the constructor. The SkeletonDrawable can
          * be manipulated by changing its properties. The properties can be accessed
          * through getProps()
+         *
+         * @param viewGroup The parent ViewGroup of this drawable loader which will become
+         * a skeleton loader
+         * @param enabled When true the loading animation will play right away
+         * @param builder The builder used for building the drawable loader
          */
         @JvmStatic
-        fun create(viewGroup: ViewGroup, enabled: Boolean = true): SkeletonDrawable {
-            return viewGroup.addSkeletonLoader(enabled)
+        fun create(viewGroup: ViewGroup, enabled: Boolean = true, builder: SkeletonBuilder): SkeletonDrawable {
+            return viewGroup.addSkeletonLoader(enabled, builder.skeletonProperties)
+        }
+
+        /**
+         * Creates an instance of a SkeletonDrawable. The drawable is directly
+         * attached to the ViewGroup passed in the constructor. The SkeletonDrawable can
+         * be manipulated by changing its properties. The properties can be accessed
+         * through getProps()
+         *
+         * @param viewGroup The parent ViewGroup of this drawable loader which will become
+         * a skeleton loader
+         * @param enabled When true the loading animation will play right away
+         * @param properties The properties used for building the drawable loader
+         */
+        @JvmStatic
+        fun create(viewGroup: ViewGroup, enabled: Boolean = true, properties: SkeletonProperties = SkeletonProperties()): SkeletonDrawable {
+            return viewGroup.addSkeletonLoader(enabled, properties)
+        }
+
+        /**
+         * Returns a builder which can be used for building skeleton drawable loaders
+         */
+        @JvmStatic
+        fun builder(defaultProps: SkeletonProperties = SkeletonProperties()): SkeletonBuilder {
+            return SkeletonBuilder(defaultProps)
         }
     }
 }
