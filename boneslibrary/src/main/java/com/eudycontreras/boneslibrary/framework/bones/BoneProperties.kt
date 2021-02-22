@@ -25,7 +25,7 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  * [Skeleton-Bones](https://github.com/EudyContreras/Skeleton-Bones) library on GitHub.
  */
 
-class BoneProperties internal constructor(): Cloneable<BoneProperties>{
+class BoneProperties: Cloneable<BoneProperties>{
 
     @Volatile
     internal var enabledListener: ((enabled: Boolean) -> Unit)? = null
@@ -482,9 +482,9 @@ class BoneProperties internal constructor(): Cloneable<BoneProperties>{
             it.transitionDuration = this.transitionDuration
             it.originalBounds = this.originalBounds?.copy()
             it.originalParentTransition = this.originalParentTransition?.copy()
-            it.cornerRadii = this.cornerRadii?.clone()
-            it.color = this.color?.clone()
-            it.backgroundColor = this.backgroundColor?.clone()
+            it.cornerRadii = this.cornerRadii?.copy()
+            it.color = this.color?.copy()
+            it.backgroundColor = this.backgroundColor?.copy()
             it.background = this.background?.clone()
             it.shimmerRayProperties = this.shimmerRayProperties?.clone()
         }

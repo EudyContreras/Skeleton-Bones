@@ -84,16 +84,14 @@ object SkeletonBindings {
  *
  * @return The instance of the SkeletonDrawable that has been added
  */
-fun ViewGroup.addSkeletonLoader(enabled: Boolean?): SkeletonDrawable {
+fun ViewGroup.addSkeletonLoader(enabled: Boolean?, properties: SkeletonProperties = SkeletonProperties()): SkeletonDrawable {
     doWith(foreground) {
         if (it !is SkeletonDrawable) {
-
-            val properties: SkeletonProperties = getProps(SkeletonProperties.TAG) ?: SkeletonProperties()
 
             val drawableBackground = this.background
             val drawableForeground = this.foreground
 
-            this.foreground = SkeletonDrawable(SkeletonManager(properties))
+            this.foreground = SkeletonDrawable(SkeletonManager(getProps(SkeletonProperties.TAG) ?:properties))
 
             with (this.foreground as SkeletonDrawable) {
                 this.owner = this@addSkeletonLoader

@@ -1,6 +1,8 @@
 package com.eudycontreras.boneslibrary.framework.skeletons
 
+import android.view.View
 import com.eudycontreras.boneslibrary.bindings.SkeletonBindings
+import com.eudycontreras.boneslibrary.extensions.generateId
 import com.eudycontreras.boneslibrary.framework.bones.BoneBuilder
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayBuilder
@@ -27,11 +29,15 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  * @see SkeletonProperties
  */
 
-class SkeletonBuilder internal constructor(
-    private val skeletonProperties: SkeletonProperties
+class SkeletonBuilder(
+    internal val skeletonProperties: SkeletonProperties = SkeletonProperties()
 ) {
 
     /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
      * Allows building bone properties.
      *
      * @param builder The target encapsulation of the bone builder
@@ -45,6 +51,28 @@ class SkeletonBuilder internal constructor(
     }
 
     /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since February 2021
+     *
+     * Allows building bone properties.
+     *
+     * @param view The view of the bone to be built.
+     * @param builder The target encapsulation of the bone builder
+     *
+     * @see BoneProperties
+     * @see BoneBuilder
+     */
+    fun withBoneBuilder(view: View, builder: BoneBuilder.() -> Unit): SkeletonBuilder {
+        builder.invoke(skeletonProperties.getBoneProperties(view.generateId()).builder())
+        return this
+    }
+
+    /**
+      * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
      * Allows building bone properties.
      *
      * @param ownerId The owner of the bone to be built.
@@ -164,6 +192,28 @@ class SkeletonBuilder internal constructor(
     /**
      * @Project Project Bones
      * @author Eudy Contreras
+     * @since February 2021
+     *
+     *
+     * When true, view bounds that have been resize in order to accommodate minimum dimensions
+     * set in order to build valid bones will be restored to their default values using a simple layout
+     * animation. This is done to provide a smoother using experience in such cases.
+     * ```
+     * ```
+     * **Default:** false
+     * ```
+     * ```
+     * @see animateRestoreBounds
+     * @see SkeletonBindings.SKELETON_ANIMATE_RESTORED_BOUNDS
+     */
+    fun setAnimateRestoreBounds(animateRestoreBounds: Boolean = false): SkeletonBuilder {
+        this.skeletonProperties.animateRestoredBounds = animateRestoreBounds
+        return this
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
      * @since March 2020
      *
      * Sets the corner radius for this skeleton. This property is most noticeable if the
@@ -228,6 +278,41 @@ class SkeletonBuilder internal constructor(
      */
     fun setEnabled(enabled: Boolean = true): SkeletonBuilder {
         this.skeletonProperties.enabled = enabled
+        return this
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since February 2021
+     *
+     * Adds the given ids to ignored list so that the respective views
+     * are ignored upon bone generation
+     * ```
+     * ```
+     * @param ids The ids of the views to be ignore upon bone loader
+     * generation
+     */
+    fun withIgnoredBones(vararg ids: Int): SkeletonBuilder {
+        this.skeletonProperties.addIgnored(*ids)
+        return this
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since February 2021
+     *
+     * Adds the ids of the given views to ignored list so that the respective views
+     * are ignored upon bone generation
+     * ```
+     * ```
+     * @param views The views to be ignore upon bone loader
+     * generation
+     */
+    fun withIgnoredBones(vararg views: View): SkeletonBuilder {
+        val ids = views.map { it.generateId() }.toIntArray()
+        this.skeletonProperties.addIgnored(*ids)
         return this
     }
 }

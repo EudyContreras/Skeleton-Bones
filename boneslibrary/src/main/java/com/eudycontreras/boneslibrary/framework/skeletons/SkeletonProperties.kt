@@ -24,7 +24,7 @@ import com.eudycontreras.boneslibrary.utilities.Shadow
  * [Skeleton-Bones](https://github.com/EudyContreras/Skeleton-Bones) library on GitHub.
  */
 
-class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> {
+class SkeletonProperties : Cloneable<SkeletonProperties> {
 
     private var boneProperties: MutableMap<Int, BoneProperties> = mutableMapOf()
 
@@ -316,8 +316,8 @@ class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> 
      * @see BoneProperties
      */
     @Synchronized
-    fun addIgnored(ownerId: Int) {
-        ignoredIds.add(ownerId)
+    fun addIgnored(vararg ownerId: Int) {
+        ignoredIds.addAll(ownerId.asList())
     }
 
     /**
@@ -496,11 +496,10 @@ class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> 
             it.useStateTransition = this.useStateTransition
             it.animateRestoredBounds = this.animateRestoredBounds
             it.skeletonBackgroundColor = this.skeletonBackgroundColor
-            it.skeletonCornerRadii = this.skeletonCornerRadii?.clone()
+            it.skeletonCornerRadii = this.skeletonCornerRadii?.copy()
             it.shimmerRayProperties = this.shimmerRayProperties.clone()
             it.stateTransitionDuration = this.stateTransitionDuration
-            it.boneProperties =
-                HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
+            it.boneProperties = HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
         }
     }
 

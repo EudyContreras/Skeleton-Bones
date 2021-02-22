@@ -55,7 +55,7 @@ internal class Bone(
         }
 
         this.shapeType = boneProperties.shapeType ?: this.shapeType
-        this.corners = boneProperties.cornerRadii?.clone() ?: CornerRadii()
+        this.corners = boneProperties.cornerRadii?.copy() ?: CornerRadii()
 
         if (this.color != null) {
             if (boneProperties.shadeMultiplier != MAX_OFFSET) {
