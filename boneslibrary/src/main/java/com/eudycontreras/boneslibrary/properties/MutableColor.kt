@@ -18,12 +18,12 @@ import com.eudycontreras.boneslibrary.common.Cloneable
  * @see Color
  */
 
-class MutableColor(
-    alpha: Int = MAX_COLOR,
-    red: Int = MIN_COLOR,
-    green: Int = MIN_COLOR,
-    blue: Int = MIN_COLOR
-) : Color(alpha, red, green, blue), Cloneable<MutableColor> {
+data class MutableColor(
+    override var alpha: Int = MAX_COLOR,
+    override var red: Int = MIN_COLOR,
+    override var green: Int = MIN_COLOR,
+    override var blue: Int = MIN_COLOR
+) : Color(alpha, red, green, blue) {
 
     constructor(@ColorInt color: Int) : this() {
         this.alpha = AndroidColor.alpha(color)
@@ -324,9 +324,5 @@ class MutableColor(
                 (130 until 245).random()
             )
         }
-    }
-
-    override fun clone(): MutableColor {
-        return MutableColor(alpha, red, green, blue)
     }
 }
