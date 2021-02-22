@@ -1,6 +1,6 @@
 package com.eudycontreras.boneslibrary.properties
 
-import com.eudycontreras.boneslibrary.common.Cloneable
+import java.lang.IllegalStateException
 
 /**
  * Copyright (C) 2019 Project X
@@ -13,13 +13,9 @@ import com.eudycontreras.boneslibrary.common.Cloneable
  * 4 corners of a rounded rectangle
  */
 
-class CornerRadii(
-    topLeft: Float = 0f,
-    topRight: Float = 0f,
-    bottomRight: Float = 0f,
-    bottomLeft: Float = 0f
-): Cloneable<CornerRadii> {
-
+data class CornerRadii(
+    val corners: FloatArray = FloatArray(SIZE)
+) {
     val topLeft: Float
         get() = corners[0]
 
@@ -32,16 +28,26 @@ class CornerRadii(
     val bottomLeft: Float
         get() = corners[6]
 
-    val corners = FloatArray(SIZE)
-
     val size: Int
         get() = corners.size
 
     init {
+        if (corners.size != SIZE) throw IllegalStateException("The size of the array must be 8")
         apply(topLeft, topRight, bottomRight, bottomLeft)
     }
 
-    constructor(radii: FloatArray) : this(radii[0], radii[2], radii[4], radii[6])
+    constructor(topLeft: Float = 0f,
+                topRight: Float = 0f,
+                bottomRight: Float = 0f,
+                bottomLeft: Float = 0f
+    ) : this(kotlin.run {
+        val radii = FloatArray(SIZE)
+        radii[0] = topLeft
+        radii[2] = topRight
+        radii[4] = bottomRight
+        radii[6] = bottomLeft
+        radii
+    })
 
     constructor(radii: Float) : this(radii, radii, radii, radii)
 
@@ -94,15 +100,6 @@ class CornerRadii(
     fun setBottomLeft(radii: Float) {
         corners[6] = radii
         corners[7] = radii
-    }
-
-    override fun clone(): CornerRadii {
-        return CornerRadii(
-            topLeft = topLeft,
-            topRight = topRight,
-            bottomLeft = bottomLeft,
-            bottomRight = bottomRight
-        )
     }
 
     operator fun get(index: Int): Float {

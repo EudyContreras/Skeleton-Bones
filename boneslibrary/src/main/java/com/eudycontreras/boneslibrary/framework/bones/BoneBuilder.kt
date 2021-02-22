@@ -26,7 +26,7 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  * @see BoneProperties
  */
 
-class BoneBuilder internal constructor(
+data class BoneBuilder internal constructor(
     private val boneProperties: BoneProperties
 ) {
 
@@ -125,7 +125,7 @@ class BoneBuilder internal constructor(
      * @see MutableColor
      * @see SkeletonBoneBindings.SKELETON_BONE_CORNER_RADIUS
      */
-    fun setCornerRadii(cornerRadius: Float = 0f): BoneBuilder {
+    fun setCornerRadius(cornerRadius: Float = 0f): BoneBuilder {
         return this.setCornerRadii(CornerRadii(cornerRadius))
     }
 
