@@ -316,8 +316,8 @@ class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> 
      * @see BoneProperties
      */
     @Synchronized
-    fun addIgnored(ownerId: Int) {
-        ignoredIds.add(ownerId)
+    fun addIgnored(vararg ownerId: Int) {
+        ignoredIds.addAll(ownerId.asList())
     }
 
     /**
@@ -499,8 +499,7 @@ class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> 
             it.skeletonCornerRadii = this.skeletonCornerRadii?.clone()
             it.shimmerRayProperties = this.shimmerRayProperties.clone()
             it.stateTransitionDuration = this.stateTransitionDuration
-            it.boneProperties =
-                HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
+            it.boneProperties = HashMap(this.boneProperties.mapValues { entry -> entry.value.clone() })
         }
     }
 
