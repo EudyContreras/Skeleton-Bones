@@ -24,7 +24,7 @@ import com.eudycontreras.boneslibrary.utilities.Shadow
  * [Skeleton-Bones](https://github.com/EudyContreras/Skeleton-Bones) library on GitHub.
  */
 
-class SkeletonProperties internal constructor() : Cloneable<SkeletonProperties> {
+class SkeletonProperties : Cloneable<SkeletonProperties> {
 
     private var boneProperties: MutableMap<Int, BoneProperties> = mutableMapOf()
 

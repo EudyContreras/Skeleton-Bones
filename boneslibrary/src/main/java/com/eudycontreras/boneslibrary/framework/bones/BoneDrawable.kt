@@ -311,10 +311,39 @@ class BoneDrawable internal constructor(
          * attached to the view passed in the constructor. The BoneDrawable can
          * be manipulated by changing its properties. The properties can be accessed
          * through getProps()
+         *
+         * @param view The parent View of this drawable loader which will become
+         * a skeleton loader
+         * @param enabled When true the loading animation will play right away
+         *  @param builder The builder used for building the drawable loader
          */
         @JvmStatic
-        fun create(view: View, enabled: Boolean = true): BoneDrawable {
-            return view.addBoneLoader(enabled)
+        fun create(view: View, enabled: Boolean = true, builder: BoneBuilder): BoneDrawable {
+            return view.addBoneLoader(enabled, builder.boneProperties)
+        }
+
+        /**
+         * Creates an instance of a BoneDrawable. The drawable is directly
+         * attached to the view passed in the constructor. The BoneDrawable can
+         * be manipulated by changing its properties. The properties can be accessed
+         * through getProps()
+         *
+         * @param view The parent View of this drawable loader which will become
+         * a skeleton loader
+         * @param enabled When true the loading animation will play right away
+         *  @param properties The properties used for building the drawable loader
+         */
+        @JvmStatic
+        fun create(view: View, enabled: Boolean = true, properties: BoneProperties = BoneProperties()): BoneDrawable {
+            return view.addBoneLoader(enabled, properties)
+        }
+
+        /**
+         * Returns a builder which can be used for building bone drawable loaders
+         */
+        @JvmStatic
+        fun builder(defaultProps: BoneProperties): BoneBuilder {
+            return BoneBuilder(defaultProps)
         }
     }
 }

@@ -25,7 +25,7 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  * [Skeleton-Bones](https://github.com/EudyContreras/Skeleton-Bones) library on GitHub.
  */
 
-class BoneProperties internal constructor(): Cloneable<BoneProperties>{
+class BoneProperties: Cloneable<BoneProperties>{
 
     @Volatile
     internal var enabledListener: ((enabled: Boolean) -> Unit)? = null

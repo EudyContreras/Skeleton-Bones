@@ -27,7 +27,7 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  */
 
 data class BoneBuilder internal constructor(
-    private val boneProperties: BoneProperties
+    internal val boneProperties: BoneProperties = BoneProperties()
 ) {
 
     /**
@@ -110,13 +110,13 @@ data class BoneBuilder internal constructor(
     /**
      * @Project Project Bones
      * @author Eudy Contreras
-     * @since March 2020
+     * @since Febraury 2021
      *
      * Sets the corner radius for this bone. This property has an effect when the
      * bone has an opaque color and a rectangular shape.
      * ```
      * ```
-     * **Default:** null
+     * **Default:** 0f
      * ```
      * ```
      * @param cornerRadius The corner radius amount
