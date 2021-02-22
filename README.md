@@ -13,8 +13,9 @@
 [![Dev-Nation](./media/images/dev_nation_badge.svg)](https://medium.com/android-dev-nation)
 </div>
 
-<h1 style="color:red">News!</h1>
-<h4 style="color:yellow">Check out demo branches for examples. Demo-3 branch contains a non-data-binding example</h4>
+## News!
+* New Demo-3 branch contains a non-data-binding example
+* Improvements to general API 
 
 <div align="center">
  
