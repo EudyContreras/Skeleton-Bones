@@ -706,7 +706,29 @@ internal fun View.setSkeletonIgnored(ignored: Boolean?) {
     }
 }
 
-internal fun View.getParentSkeletonDrawable(): SkeletonDrawable? {
+/**
+ * Finds the nearest parent of this view that has
+ * an skeleton loader and returns the SkeletonDrawable loader
+ * associated with it.
+ * @see SkeletonDrawable
+ */
+fun View.getParentSkeletonDrawable(): SkeletonDrawable? {
     val skeletonParent = findParent { it.foreground is SkeletonDrawable }
     return skeletonParent?.foreground as? SkeletonDrawable
+}
+
+/**
+ * Returns true if this view has an ancestor with an attached
+ * SkeletonDrawable loader
+ * @see SkeletonDrawable
+ */
+fun View.hasSkeletonLoaderAncestor(): Boolean {
+    return getParentSkeletonDrawable() != null
+}
+
+/**
+ * Returns true if this view has BoneDrawable loader as its foreground
+ */
+fun View.isBoneLoader(): Boolean {
+    return this.foreground is BoneDrawable
 }
