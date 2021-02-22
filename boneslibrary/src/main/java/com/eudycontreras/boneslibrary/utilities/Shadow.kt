@@ -56,7 +56,7 @@ internal object Shadow {
         val alpha = (MAX_SHADOW_ALPHA - abs(MAX_SHADOW_ALPHA * delta) + (MIN_SHADOW_ALPHA * delta))
         val shadow = alpha.roundToInt()
 
-        return color.clone().updateAlpha(shadow)
+        return color.copy().updateAlpha(shadow)
     }
 
     private fun getShadowOffsetX(elevation: Float, translationZ: Float = MIN_OFFSET, shadowCompatRotation: Double = 0.0): Int {

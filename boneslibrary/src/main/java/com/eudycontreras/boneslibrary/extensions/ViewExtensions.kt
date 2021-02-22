@@ -55,7 +55,7 @@ fun View.applyBoneDrawable(): BoneDrawable {
     return BoneDrawable.create(this)
 }
 
-fun View.compareBounds(bounds: Bounds): Int {
+internal fun View.compareBounds(bounds: Bounds): Int {
     val xDiff = left - bounds.left.toInt()
     val yDiff = top - bounds.top.toInt()
     val widthDiff = measuredWidth - bounds.width.toInt()
@@ -64,7 +64,7 @@ fun View.compareBounds(bounds: Bounds): Int {
     return xDiff + yDiff + widthDiff + heightDiff
 }
 
-fun View.getBounds(): Bounds {
+internal fun View.getBounds(): Bounds {
     return Bounds(
         x = this.left.toFloat(),
         y = this.top.toFloat(),
@@ -73,7 +73,7 @@ fun View.getBounds(): Bounds {
     )
 }
 
-fun View.hasValidMinBounds(boneProps: BoneProperties): Boolean {
+internal fun View.hasValidMinBounds(boneProps: BoneProperties): Boolean {
     boneProps.minHeight?.let {
         if (measuredHeight < it) {
             return false
@@ -87,11 +87,11 @@ fun View.hasValidMinBounds(boneProps: BoneProperties): Boolean {
     return true
 }
 
-fun View.hasValidBounds(): Boolean {
+internal fun View.hasValidBounds(): Boolean {
     return (measuredWidth > 0 && measuredHeight > 0)
 }
 
-fun View.hasDrawableBounds(boneProps: BoneProperties): Boolean {
+internal fun View.hasDrawableBounds(boneProps: BoneProperties): Boolean {
     return (measuredWidth > 0 && measuredHeight > boneProps.minThickness)
 }
 
