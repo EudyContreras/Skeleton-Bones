@@ -7,6 +7,7 @@ import com.eudycontreras.boneslibrary.Action
 import com.eudycontreras.boneslibrary.MAX_OFFSET
 import com.eudycontreras.boneslibrary.MIN_OFFSET
 import com.eudycontreras.boneslibrary.common.Disposable
+import com.eudycontreras.boneslibrary.common.Reusable
 import com.eudycontreras.boneslibrary.extensions.animate
 import com.eudycontreras.boneslibrary.extensions.build
 
@@ -20,7 +21,7 @@ import com.eudycontreras.boneslibrary.extensions.build
 
 internal class SkeletonManager(
     var properties: SkeletonProperties = SkeletonProperties()
-): Disposable {
+): Disposable, Reusable {
 
     private lateinit var drawable: SkeletonDrawable
 
@@ -38,17 +39,14 @@ internal class SkeletonManager(
 
     private val builder: SkeletonBuilder = SkeletonBuilder(properties)
 
+    val renderer: SkeletonRenderer = SkeletonRenderer(skeleton)
+
     private var discardedListener: (() -> Unit)? = null
 
     private var discarded: Boolean = false
 
     val isDiscarded: Boolean
         get() = discarded
-
-    val renderer: SkeletonRenderer =
-        SkeletonRenderer(
-            skeleton
-        )
 
     val isAnimating: Boolean
         get() = skeletonAnimator?.isRunning ?: false
@@ -80,6 +78,13 @@ internal class SkeletonManager(
                 dispose()
             }
         }
+    }
+
+    override fun resetForReuse() {
+        this.dispose()
+        this.discarded = false
+        this.renderer.shouldRender = true
+        this.properties.resetForReuse()
     }
 
     @Synchronized

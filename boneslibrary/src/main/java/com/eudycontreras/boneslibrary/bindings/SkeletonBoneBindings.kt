@@ -2,6 +2,7 @@ package com.eudycontreras.boneslibrary.bindings
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.databinding.BindingAdapter
@@ -137,7 +138,6 @@ object SkeletonBoneBindings {
 
 ///////////////////////// Skeleton Bone Binding Adapters ///////////////////////
 
-
 /**
  * Adds a bone loader Drawable to this View. The loader is enabled by default.
  * @see BoneDrawable
@@ -158,10 +158,11 @@ fun View.addBoneLoader(enabled: Boolean? = true, boneProps: BoneProperties? = nu
 
             this.foreground = BoneDrawable(BoneManager(
                 owner = this,
-                foreground = drawableForeground,
-                background = drawableBackground,
                 properties = properties
-            ))
+            ).apply {
+                this.foreground = drawableForeground
+                this.background = drawableBackground
+            })
 
             with (this.foreground as BoneDrawable) {
                 this.owner = this@addBoneLoader
@@ -172,6 +173,35 @@ fun View.addBoneLoader(enabled: Boolean? = true, boneProps: BoneProperties? = nu
         }
     }
 
+    return foreground as BoneDrawable
+}
+
+fun View.addBoneLoader(
+    boneLoaderDrawable: BoneDrawable,
+    enabled: Boolean? = true
+): BoneDrawable {
+    doWith(foreground) {
+        if (it !is BoneDrawable) {
+            boneLoaderDrawable.resetForReuse()
+            val properties: BoneProperties = boneLoaderDrawable.getProps()
+
+            val drawableBackground = this.background
+            val drawableForeground = properties.background ?: this.foreground
+
+            this.foreground = boneLoaderDrawable.apply {
+                boneManager.owner = this@addBoneLoader
+                boneManager.foreground = drawableForeground
+                boneManager.background = drawableBackground
+            }
+
+            with(this.foreground as BoneDrawable) {
+                this.owner = this@addBoneLoader
+                this.enabled = enabled ?: true
+                this.baseForeground = drawableForeground
+                this.baseBackground = drawableBackground
+            }
+        }
+    }
     return foreground as BoneDrawable
 }
 
@@ -731,4 +761,21 @@ fun View.hasSkeletonLoaderAncestor(): Boolean {
  */
 fun View.isBoneLoader(): Boolean {
     return this.foreground is BoneDrawable
+}
+
+/**
+ * Returns the BoneDrawable loader of this View or null if it does not have one
+ */
+fun View.getBoneDrawable(): BoneDrawable? {
+    return this.foreground as? BoneDrawable?
+}
+
+/**
+ * Returns the BoneDrawable loader of this ViewGroup
+ * @throws IllegalStateException when this view does not contain a BoneDrawable
+ */
+fun ViewGroup.requireBoneDrawable(): BoneDrawable {
+    return runCatching { this.foreground as BoneDrawable }.getOrElse {
+        throw IllegalStateException("This view does not contain a BoneDrawable")
+    }
 }

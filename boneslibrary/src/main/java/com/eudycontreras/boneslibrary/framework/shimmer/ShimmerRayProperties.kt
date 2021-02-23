@@ -20,7 +20,7 @@ import com.eudycontreras.boneslibrary.properties.MutableColor
  *
  */
 
-class ShimmerRayProperties internal constructor(): Cloneable<ShimmerRayProperties> {
+class ShimmerRayProperties: Cloneable<ShimmerRayProperties> {
 
     /**
      * @Project Project Bones

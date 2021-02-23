@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import com.eudycontreras.boneslibrary.MAX_OFFSET
 import com.eudycontreras.boneslibrary.bindings.SkeletonBoneBindings
 import com.eudycontreras.boneslibrary.common.Cloneable
+import com.eudycontreras.boneslibrary.common.Reusable
 import com.eudycontreras.boneslibrary.extensions.clone
 import com.eudycontreras.boneslibrary.extensions.dp
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayProperties
@@ -25,7 +26,7 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  * [Skeleton-Bones](https://github.com/EudyContreras/Skeleton-Bones) library on GitHub.
  */
 
-class BoneProperties: Cloneable<BoneProperties>{
+class BoneProperties: Cloneable<BoneProperties>, Reusable {
 
     @Volatile
     internal var enabledListener: ((enabled: Boolean) -> Unit)? = null
@@ -437,6 +438,11 @@ class BoneProperties: Cloneable<BoneProperties>{
         set(value) {
             enabledListener?.invoke(value)
         }
+
+    override fun resetForReuse() {
+        this.isDisposed = false
+        this.isLoaded = false
+    }
 
     /**
      * Returns a builder for this Bone Property instance.

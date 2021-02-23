@@ -8,6 +8,7 @@ import com.eudycontreras.boneslibrary.Action
 import com.eudycontreras.boneslibrary.MAX_OFFSET
 import com.eudycontreras.boneslibrary.MIN_OFFSET
 import com.eudycontreras.boneslibrary.common.Disposable
+import com.eudycontreras.boneslibrary.common.Reusable
 import com.eudycontreras.boneslibrary.extensions.animate
 import com.eudycontreras.boneslibrary.extensions.build
 import com.eudycontreras.boneslibrary.properties.Color
@@ -21,13 +22,25 @@ import com.eudycontreras.boneslibrary.properties.Color
  */
 
 internal class BoneManager(
-    private val owner: View,
-    internal var foreground: Drawable?,
-    internal var background: Drawable?,
+    owner: View,
     internal var properties: BoneProperties = BoneProperties()
-) : Disposable {
+) : Disposable, Reusable {
 
     private lateinit var drawable: BoneDrawable
+
+    internal var foreground: Drawable? = null
+
+    internal var background: Drawable? = null
+
+    internal var owner: View? = owner
+        set(value) {
+            field = value
+            if (value != null) {
+                bone = Bone.build(value, properties, this)
+            }
+        }
+
+    private var bone: Bone = Bone.build(owner, properties, this)
 
     private var fadeAnimator = ValueAnimator.ofFloat(MIN_OFFSET, MAX_OFFSET)
 
@@ -43,11 +56,9 @@ internal class BoneManager(
 
     private var discarded: Boolean = false
 
-    private val bone: Bone = Bone.build(owner, properties, this)
-
     private val builder: BoneBuilder = BoneBuilder(properties)
 
-    val renderer: BoneRenderer = BoneRenderer(bone)
+    val renderer: BoneRenderer by lazy { BoneRenderer(bone) }
 
     val isDiscarded: Boolean
         get() = discarded
@@ -70,13 +81,13 @@ internal class BoneManager(
     fun showBone(show: Boolean) {
         if (show) {
             if (foreground != null) {
-                owner.background = foreground
+                owner?.background = foreground
             }
             this.renderer.shouldRender = true
             startAnimation()
         } else {
             if (properties.transitionDuration > 0L) {
-                owner.background = background
+                owner?.background = background
                 animateFadeOut()
             } else {
                 this.renderer.shouldRender = false
@@ -84,6 +95,13 @@ internal class BoneManager(
                 dispose()
             }
         }
+    }
+
+    override fun resetForReuse() {
+        this.dispose()
+        this.discarded = false
+        this.renderer.shouldRender = true
+        this.properties.resetForReuse()
     }
 
     override fun dispose() {

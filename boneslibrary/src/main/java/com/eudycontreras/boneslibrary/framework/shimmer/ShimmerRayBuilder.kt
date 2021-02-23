@@ -24,8 +24,8 @@ import com.eudycontreras.boneslibrary.properties.MutableColor
  * @see ShimmerRayProperties
  */
 
-data class ShimmerRayBuilder internal constructor(
-    private val shimmerRayProperties: ShimmerRayProperties
+data class ShimmerRayBuilder(
+    private val shimmerRayProperties: ShimmerRayProperties = ShimmerRayProperties()
 ) {
 
     /**
