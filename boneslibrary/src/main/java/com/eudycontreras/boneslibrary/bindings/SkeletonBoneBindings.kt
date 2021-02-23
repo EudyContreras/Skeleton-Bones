@@ -2,6 +2,7 @@ package com.eudycontreras.boneslibrary.bindings
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.databinding.BindingAdapter
@@ -731,4 +732,21 @@ fun View.hasSkeletonLoaderAncestor(): Boolean {
  */
 fun View.isBoneLoader(): Boolean {
     return this.foreground is BoneDrawable
+}
+
+/**
+ * Returns the BoneDrawable loader of this View or null if it does not have one
+ */
+fun View.getBoneDrawable(): BoneDrawable? {
+    return this.foreground as? BoneDrawable?
+}
+
+/**
+ * Returns the BoneDrawable loader of this ViewGroup
+ * @throws IllegalStateException when this view does not contain a BoneDrawable
+ */
+fun ViewGroup.requireBoneDrawable(): BoneDrawable {
+    return runCatching { this.foreground as BoneDrawable }.getOrElse {
+        throw IllegalStateException("This view does not contain a BoneDrawable")
+    }
 }

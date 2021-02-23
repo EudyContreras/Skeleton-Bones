@@ -2,7 +2,6 @@
 
 package com.eudycontreras.boneslibrary.bindings
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
@@ -12,7 +11,6 @@ import com.eudycontreras.boneslibrary.extensions.descendantViews
 import com.eudycontreras.boneslibrary.extensions.findParent
 import com.eudycontreras.boneslibrary.extensions.generateId
 import com.eudycontreras.boneslibrary.extensions.getProps
-import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonManager
@@ -443,4 +441,21 @@ fun ViewGroup.hasSkeletonLoaderAncestor(): Boolean {
  */
 fun ViewGroup.isSkeletonLoader(): Boolean {
     return this.foreground is SkeletonDrawable
+}
+
+/**
+ * Returns the SkeletonDrawable loader of this ViewGroup or null if it does not have one
+ */
+fun ViewGroup.getSkeletonDrawable(): SkeletonDrawable? {
+    return this.foreground as? SkeletonDrawable?
+}
+
+/**
+ * Returns the SkeletonDrawable loader of this ViewGroup
+ * @throws IllegalStateException when this view does not contain a SkeletonDrawable
+ */
+fun ViewGroup.requireSkeletonDrawable(): SkeletonDrawable {
+    return runCatching { this.foreground as SkeletonDrawable }.getOrElse {
+        throw IllegalStateException("This view does not contain a SkeletonDrawable")
+    }
 }

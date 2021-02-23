@@ -26,7 +26,7 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  * @see BoneProperties
  */
 
-data class BoneBuilder internal constructor(
+data class BoneBuilder(
     internal val boneProperties: BoneProperties = BoneProperties()
 ) {
 
