@@ -105,6 +105,30 @@ fun ViewGroup.addSkeletonLoader(enabled: Boolean?, properties: SkeletonPropertie
     return foreground as SkeletonDrawable
 }
 
+fun ViewGroup.addSkeletonLoader(enabled: Boolean?, skeletonLoaderDrawable: SkeletonDrawable): SkeletonDrawable {
+    doWith(foreground) {
+        if (it !is SkeletonDrawable) {
+
+            val drawableBackground = this.background
+            val drawableForeground = this.foreground
+
+
+            this.foreground = skeletonLoaderDrawable.apply {
+                skeletonLoaderDrawable.resetForReuse()
+            }
+
+            with (this.foreground as SkeletonDrawable) {
+                this.owner = this@addSkeletonLoader
+                this.enabled = enabled ?: true
+                this.baseDrawableForeground = drawableForeground
+                this.baseDrawableBackground = drawableBackground
+            }
+        }
+    }
+    return foreground as SkeletonDrawable
+}
+
+
 @BindingAdapter(SkeletonBindings.SKELETON_ENABLED)
 internal fun ViewGroup.setSkeletonEnabled(enabled: Boolean?) {
     doWith(foreground) {

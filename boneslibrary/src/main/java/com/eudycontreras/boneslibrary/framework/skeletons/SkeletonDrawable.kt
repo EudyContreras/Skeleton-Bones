@@ -16,6 +16,7 @@ import androidx.core.view.doOnLayout
 import com.eudycontreras.boneslibrary.bindings.addSkeletonLoader
 import com.eudycontreras.boneslibrary.common.AnimatableCallback
 import com.eudycontreras.boneslibrary.common.AnimateableDrawable
+import com.eudycontreras.boneslibrary.common.Reusable
 import com.eudycontreras.boneslibrary.extensions.saveProps
 import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable.Companion.create
@@ -90,39 +91,10 @@ import com.eudycontreras.boneslibrary.tryGet
 
 class SkeletonDrawable internal constructor(
     private val skeletonManager: SkeletonManager
-) : GradientDrawable(), AnimateableDrawable, AnimatableCallback {
+) : GradientDrawable(), AnimateableDrawable, AnimatableCallback, Reusable {
 
     init {
-        skeletonManager.setDrawable(this)
-
-        skeletonManager.addUpdateListener {
-            invalidateSelf()
-
-            if (skeletonManager.properties.waiting) {
-                skeletonManager.properties.enabled = false
-            }
-        }
-
-        skeletonManager.addAnimationListener(
-            onStart = {
-                listeners.forEach { it.onAnimationStart(this) }
-            },
-            onEnd = {
-                listeners.forEach { it.onAnimationEnd(this) }
-            }
-        )
-
-        skeletonManager.onDiscarded {
-            val base = baseDrawableForeground
-            if (skeletonManager.properties.allowWeakSavedState) {
-                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties.clone(), true)
-            } else if (skeletonManager.properties.allowSavedState) {
-                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties.clone())
-            }
-            listeners.clear()
-            owner?.foreground = null
-            owner?.foreground = base
-        }
+        initialize()
     }
 
     private val listeners: MutableList<AnimationCallback> = mutableListOf()
@@ -175,6 +147,39 @@ class SkeletonDrawable internal constructor(
                 }
             }
         }
+
+    private fun initialize() {
+        skeletonManager.setDrawable(this)
+
+        skeletonManager.addUpdateListener {
+            invalidateSelf()
+
+            if (skeletonManager.properties.waiting) {
+                skeletonManager.properties.enabled = false
+            }
+        }
+
+        skeletonManager.addAnimationListener(
+            onStart = {
+                listeners.forEach { it.onAnimationStart(this) }
+            },
+            onEnd = {
+                listeners.forEach { it.onAnimationEnd(this) }
+            }
+        )
+
+        skeletonManager.onDiscarded {
+            val base = baseDrawableForeground
+            if (skeletonManager.properties.allowWeakSavedState) {
+                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties.clone(), true)
+            } else if (skeletonManager.properties.allowSavedState) {
+                owner?.saveProps(SkeletonProperties.TAG, skeletonManager.properties.clone())
+            }
+            listeners.clear()
+            owner?.foreground = null
+            owner?.foreground = base
+        }
+    }
 
     @RequiresApi(VERSION_CODES.N)
     private fun initializeProperties(drawable: Drawable) {
@@ -233,6 +238,16 @@ class SkeletonDrawable internal constructor(
     @Synchronized
     fun build(): SkeletonBuilder {
         return skeletonManager.getBuilder()
+    }
+
+    override fun resetForReuse() {
+        owner = null
+        enabled = false
+        baseDrawableBackground = null
+        baseDrawableForeground = null
+        skeletonManager.resetForReuse()
+        listeners.clear()
+        initialize()
     }
 
     override fun draw(canvas: Canvas) {

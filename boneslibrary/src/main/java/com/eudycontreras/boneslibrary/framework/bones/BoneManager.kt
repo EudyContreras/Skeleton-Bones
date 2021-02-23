@@ -98,9 +98,10 @@ internal class BoneManager(
     }
 
     override fun resetForReuse() {
-        this.properties.resetForReuse()
+        this.dispose()
         this.discarded = false
         this.renderer.shouldRender = true
+        this.properties.resetForReuse()
     }
 
     override fun dispose() {

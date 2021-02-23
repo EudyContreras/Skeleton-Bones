@@ -2,6 +2,7 @@ package com.eudycontreras.boneslibrary.framework.skeletons
 
 import com.eudycontreras.boneslibrary.bindings.SkeletonBindings
 import com.eudycontreras.boneslibrary.common.Cloneable
+import com.eudycontreras.boneslibrary.common.Reusable
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayProperties
 import com.eudycontreras.boneslibrary.properties.CornerRadii
@@ -24,7 +25,7 @@ import com.eudycontreras.boneslibrary.utilities.Shadow
  * [Skeleton-Bones](https://github.com/EudyContreras/Skeleton-Bones) library on GitHub.
  */
 
-class SkeletonProperties : Cloneable<SkeletonProperties> {
+class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
 
     private var boneProperties: MutableMap<Int, BoneProperties> = mutableMapOf()
 
@@ -232,6 +233,14 @@ class SkeletonProperties : Cloneable<SkeletonProperties> {
             }
         }
 
+    override fun resetForReuse() {
+        waiting = false
+        disposedIds.clear()
+        stateOwners.clear()
+        boneProperties.clear()
+        defaultBoneProperties.resetForReuse()
+    }
+
     /**
      * @Project Project Bones
      * @author Eudy Contreras
@@ -395,7 +404,9 @@ class SkeletonProperties : Cloneable<SkeletonProperties> {
      *
      * If true, Adds the given id and the state to the map of state owner.
      * When false it will remove the state owner since there in no point of
-     * keeping a loaded owner's state.
+     * keeping a loaded owner's state. A state owner will own the state of those
+     * bones or skeletons belonging to it. If a state owner state changes it will
+     * also change the state of the views it owns.
      *
      * @param ownerId The id of the state owner view.
      * @param state The state of the state owner
