@@ -3,6 +3,7 @@ package com.eudycontreras.boneslibrary.bindings
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Interpolator
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.databinding.BindingAdapter
@@ -220,7 +221,15 @@ fun View.addBoneLoader(
         "prop_${SkeletonBoneBindings.SKELETON_BONE_SAVE_STATE}",
         "prop_${SkeletonBoneBindings.SKELETON_BONE_WEAK_SAVE_STATE}",
         "prop_${SkeletonBoneBindings.SKELETON_BONE_SHADE_MULTIPLIER}",
-        "prop_${SkeletonBoneBindings.SKELETON_BONE_TRANSITION_DURATION}"
+        "prop_${SkeletonBoneBindings.SKELETON_BONE_TRANSITION_DURATION}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_COLOR}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_TILT}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_COUNT}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_THICKNESS}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_THICKNESS_RATIO}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_SPEED_MULTIPLIER}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_INTERPOLATOR}",
+        "prop_${SkeletonBoneShimmerRayBindings.SKELETON_BONE_SHIMMER_RAY_INTERPOLATOR_SHARED}"
     ],
     requireAll = false
 )
@@ -238,7 +247,15 @@ internal fun View.setBonePropertyId(
     allowSavedState: Boolean?,
     allowWeakSavedState: Boolean?,
     shadeMultiplier: Float?,
-    animDuration: Long?
+    animDuration: Long?,
+    shimmerRayColor: Int?,
+    shimmerRayTilt: Float?,
+    shimmerRayCount: Int?,
+    shimmerRayThickness: Float?,
+    shimmerRayThicknessRatio: Float?,
+    shimmerRaySpeedMultiplier: Float?,
+    shimmerRayInterpolator: Interpolator?,
+    shimmerRayInterpolatorShared: Boolean?
 ) {
     val parent = findParent()
 
@@ -270,6 +287,18 @@ internal fun View.setBonePropertyId(
         if (allowWeakSavedState != null) setSkeletonBoneAllowWeakSavedState(allowSavedState = allowWeakSavedState)
         if (shadeMultiplier != null) setSkeletonBoneShadeMultiplier(shadeMultiplier = shadeMultiplier)
         if (animDuration != null) setSkeletonBoneTransitionDuration(duration = animDuration)
+
+        /**
+         * Set shimmer props
+         */
+        if (shimmerRayColor != null) setSkeletonBoneShimmerRayColor(rayColor = shimmerRayColor)
+        if (shimmerRayTilt != null) setSkeletonBoneShimmerRayTilt(rayTilt = shimmerRayTilt)
+        if (shimmerRayCount != null) setSkeletonBoneShimmerRayCount(count = shimmerRayCount)
+        if (shimmerRayThickness != null) setSkeletonBoneShimmerRayThickness(thickness = shimmerRayThickness)
+        if (shimmerRayThicknessRatio != null) setSkeletonBoneShimmerRayThicknessRatio(thicknessRatio = shimmerRayThicknessRatio)
+        if (shimmerRaySpeedMultiplier != null) setSkeletonBoneShimmerRaySpeedMultiplier(speedMultiplier = shimmerRaySpeedMultiplier)
+        if (shimmerRayInterpolator != null) setSkeletonBoneShimmerRayInterpolator(interpolator = shimmerRayInterpolator)
+        if (shimmerRayInterpolatorShared != null) setSkeletonBoneShimmerRaySharedInterpolator(shared = shimmerRayInterpolatorShared)
     }
 }
 
