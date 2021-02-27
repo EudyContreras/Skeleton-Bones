@@ -41,18 +41,13 @@ class Repository(scope: CoroutineScope) {
                 }
             }
 
-            while (true) {
-                delay(SHORT_DELAY)
-                demoData.postValue(Resource.Success(dataCollection))
-
-                delay(LONG_DELAY)
-                demoData.postValue(Resource.Loading())
-            }
+            delay(LONG_DELAY)
+            demoData.postValue(Resource.Success(dataCollection))
         }
     }
 
     companion object {
         const val SHORT_DELAY = 3500L
-        const val LONG_DELAY = 3500L
+        const val LONG_DELAY = 4500L
     }
 }

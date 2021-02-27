@@ -1,5 +1,6 @@
 package com.eudycontreras.bones
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +10,20 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.eudycontreras.boneslibrary.bindings.addSkeletonLoader
 import com.eudycontreras.boneslibrary.extensions.dp
 import com.eudycontreras.boneslibrary.framework.bones.BoneBuilder
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayBuilder
+import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonBuilder
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
-import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.properties.MutableColor
 import com.eudycontreras.boneslibrary.properties.ShapeType
 import kotlinx.android.synthetic.main.list_item_a.view.*
 import kotlinx.android.synthetic.main.list_item_b.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Copyright (C) 2020 Project X
@@ -46,7 +52,7 @@ class ItemAdapter<T : DemoData>(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder<T>, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], position)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -94,10 +100,10 @@ class ItemAdapter<T : DemoData>(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
-        abstract fun bind(data: T?)
+        abstract fun bind(data: T?, position: Int)
 
         class A(itemView: View) : ItemViewHolder<DemoData.A>(itemView) {
-            override fun bind(data: DemoData.A?) {
+            override fun bind(data: DemoData.A?, position: Int) {
                 data?.let {
                     itemView.ItemAText.text = it.text
                     itemView.ItemAImage.loadImage(it.imageUrl)
@@ -106,64 +112,87 @@ class ItemAdapter<T : DemoData>(
         }
 
         class B(itemView: View) : ItemViewHolder<DemoData.B>(itemView) {
-            override fun bind(data: DemoData.B?) {
+            override fun bind(data: DemoData.B?, position: Int) {
+                val context: Context = itemView.context
                 data?.let {
                     itemView.ItemBOuterText.text = it.textOne
                     itemView.ItemBInnerTextA.text = it.textTwo
                     itemView.ItemBInnerTextB.text = it.textThree
                     itemView.ItemBImage.loadImage(it.imageUrl)
                 }
+                val builder: SkeletonBuilder = SkeletonBuilder()
+                    .setAllowSavedState(false)
+                    .setUseStateTransition(true)
+                    .setStateTransitionDuration(200L)
+                    .withBoneBuilder(itemView.ItemBImage, imageBoneBuilder(context, ShapeType.RECTANGULAR))
+                    .withBoneBuilder(itemView.ItemBOuterText, textBoneBuilder(context, true))
+                    .withBoneBuilder(itemView.ItemBInnerTextA, textBoneBuilder(context, false))
+                    .withBoneBuilder(itemView.ItemBInnerTextB, textBoneBuilder(context, false))
+                    .setEnabled(true)
+                val drawable: SkeletonDrawable = SkeletonDrawable.from(builder)
+
+                if (position == 1) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(3000)
+                        itemView.ItemBContainer?.let {
+                            it.addSkeletonLoader(true, drawable)
+                        }
+                    }
+                }
             }
         }
 
         class Loader(itemView: View) : ItemViewHolder<DemoData>(itemView) {
-            override fun bind(data: DemoData?) {
+            override fun bind(data: DemoData?, position: Int) {
                 /**
                  * As you can see we can easily compose the bone and skeletons
                  * that we want to display
                  */
-                itemView.findViewById<ViewGroup>(R.id.ItemContainer)?.let { parent ->
-                    SkeletonDrawable.create(parent, true).build()
+                val container: ViewGroup? = itemView.ItemAContainer ?: itemView.ItemBContainer
+                container?.let { parent ->
+                    val context: Context = parent.context
+                    SkeletonDrawable.create(parent, true)
+                        .builder()
                         .setAllowSavedState(false)
                         .setUseStateTransition(true)
                         .setStateTransitionDuration(200L)
-                        .withBoneBuilder(R.id.ItemAText, textBoneBuilder(parent, true))
-                        .withBoneBuilder(R.id.ItemBInnerTextA, textBoneBuilder(parent, false))
-                        .withBoneBuilder(R.id.ItemBInnerTextB, textBoneBuilder(parent, false))
-                        .withBoneBuilder(R.id.ItemBOuterText, textBoneBuilder(parent, false))
-                        .withBoneBuilder(R.id.ItemAImage, imageBoneBuilder(parent, ShapeType.CIRCULAR))
-                        .withBoneBuilder(R.id.ItemBImage, imageBoneBuilder(parent, ShapeType.RECTANGULAR))
-                        .withShimmerBuilder(shimmerRayBuilder(parent, R.color.bone_ray_color))
+                        .withBoneBuilder(parent.ItemAImage, imageBoneBuilder(context, ShapeType.CIRCULAR))
+                        .withBoneBuilder(parent.ItemBImage, imageBoneBuilder(context, ShapeType.RECTANGULAR))
+                        .withBoneBuilder(parent.ItemAText, textBoneBuilder(context, true))
+                        .withBoneBuilder(parent.ItemBInnerTextA, textBoneBuilder(context, false))
+                        .withBoneBuilder(parent.ItemBInnerTextB, textBoneBuilder(context, false))
+                        .withBoneBuilder(parent.ItemBOuterText, textBoneBuilder(context, false))
                         .setEnabled(true)
                 }
             }
         }
 
         companion object {
-            val imageBoneBuilder: (view: View, shape: ShapeType) -> BoneBuilder.() -> Unit = { view, shape -> {
-                textBoneBuilder(view, false)(this)
-                setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, R.color.bone_color_alt)))
+            val imageBoneBuilder: (context: Context, shape: ShapeType) -> BoneBuilder.() -> Unit = { context, shape -> {
+                withShimmerBuilder(shimmerRayBuilder(context, R.color.bone_ray_color_alt, 0.1f, 1))
+                setColor(MutableColor.fromColor(ContextCompat.getColor(context, R.color.bone_color_alt)))
+                setCornerRadius(10.dp)
                 setShaderMultiplier(1.021f)
                 setShapeType(shape)
-                withShimmerBuilder(shimmerRayBuilder(view, R.color.bone_ray_color_alt))
             } }
 
-            val textBoneBuilder: (view: View, dissect: Boolean) -> BoneBuilder.() -> Unit = { view, dissect -> {
-                 setDissectBones(dissect)
-                 setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, R.color.bone_color)))
-                 setCornerRadii(CornerRadii(10.dp))
-                 setMaxThickness(10.dp)
-                 setMinThickness(10.dp)
+            val textBoneBuilder: (context: Context, dissect: Boolean) -> BoneBuilder.() -> Unit = { context, dissect -> {
+                withShimmerBuilder(shimmerRayBuilder(context, R.color.bone_ray_color, 2f, 3))
+                setColor(MutableColor.fromColor(ContextCompat.getColor(context, R.color.bone_color)))
+                setDissectBones(dissect)
+                setCornerRadius(10.dp)
+                setMaxThickness(10.dp)
+                setMinThickness(10.dp)
             } }
 
-            val shimmerRayBuilder: (view: View, color: Int) ->  ShimmerRayBuilder.() -> Unit = { view, color -> {
-                setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, color)))
-                setCount(3)
+            val shimmerRayBuilder: (context: Context, color: Int, speed: Float, count: Int) ->  ShimmerRayBuilder.() -> Unit = { context, color, speed, count -> {
+                setColor(MutableColor.fromColor(ContextCompat.getColor(context, color)))
                 setInterpolator(FastOutSlowInInterpolator())
                 setSharedInterpolator(true)
-                setSpeedMultiplier(1.1f)
+                setSpeedMultiplier(speed)
                 setThicknessRatio(1.2f)
                 setTilt(-0.1f)
+                setCount(count)
             } }
         }
     }
