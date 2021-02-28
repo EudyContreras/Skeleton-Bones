@@ -25,7 +25,7 @@ import com.eudycontreras.boneslibrary.properties.Color
 internal class Skeleton(
     private val manager: SkeletonManager,
     private val properties: SkeletonProperties
-) : DrawableShape(), RenderTarget, UpdateTarget, FadeTarget, Disposable, ContentLoader {
+) : DrawableShape(), RenderTarget, UpdateTarget, FadeTarget, Disposable, ContentLoader, Reusable {
 
     private var owner: ViewGroup? = null
 
@@ -40,6 +40,12 @@ internal class Skeleton(
     private val bones: MutableMap<Int, SkeletonBone> = mutableMapOf()
 
     private val shimmerRays: MutableList<ShimmerRay> = mutableListOf()
+
+    override fun resetForReuse() {
+        isDirty = false
+        bones.clear()
+        shimmerRays.clear()
+    }
 
     override fun concealContent() {
         for ((_, value) in bones) {

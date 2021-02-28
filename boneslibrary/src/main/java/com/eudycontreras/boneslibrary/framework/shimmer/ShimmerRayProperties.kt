@@ -1,11 +1,11 @@
 package com.eudycontreras.boneslibrary.framework.shimmer
 
 import android.view.animation.*
+import androidx.annotation.Dimension
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.eudycontreras.boneslibrary.MAX_OFFSET
 import com.eudycontreras.boneslibrary.common.Cloneable
-import com.eudycontreras.boneslibrary.extensions.dp
 import com.eudycontreras.boneslibrary.properties.MutableColor
 
 /**
@@ -20,7 +20,7 @@ import com.eudycontreras.boneslibrary.properties.MutableColor
  *
  */
 
-class ShimmerRayProperties internal constructor(): Cloneable<ShimmerRayProperties> {
+class ShimmerRayProperties: Cloneable<ShimmerRayProperties> {
 
     /**
      * @Project Project Bones
@@ -162,12 +162,16 @@ class ShimmerRayProperties internal constructor(): Cloneable<ShimmerRayPropertie
      * @since March 2020
      *
      * Sets the duration of the **Shimmer Rays** animation. This is the duration of the whole animation. The
-     * individual **Shimmer Rays**  may appear to be animated much quicker.
+     * individual **Shimmer Rays**  may appear to be animated much quicker. This property applies to the parent
+     * skeleton only. Shimmer ray durations applied to bones or inner skeletons will be ignored.
+     * Use the **shimmerRaySpeedMultiplier** property in order to adjust the speed of children bones and skeletons
+     *
      * ```
      * ```
      * **Default:** 2000L
      * ```
      * ```
+     * @see shimmerRaySpeedMultiplier
      */
     @Volatile
     var shimmerRayAnimDuration: Long = DEFAULT_DURATION
@@ -221,8 +225,9 @@ class ShimmerRayProperties internal constructor(): Cloneable<ShimmerRayPropertie
         return ShimmerRayBuilder(this)
     }
 
-    internal companion object {
-        @JvmStatic val MAX_THICKNESS = 120.dp
+
+    companion object {
+        @Dimension(unit = Dimension.DP) const val MAX_THICKNESS = 120
 
         const val DEFAULT_RAY_TILT = -0.3f
         const val DEFAULT_RAY_COUNT = 0
