@@ -2,12 +2,12 @@ package com.eudycontreras.boneslibrary.framework.bones
 
 import android.animation.ValueAnimator
 import android.graphics.drawable.Drawable
-import android.view.View
 import android.view.animation.LinearInterpolator
 import com.eudycontreras.boneslibrary.Action
 import com.eudycontreras.boneslibrary.MAX_OFFSET
 import com.eudycontreras.boneslibrary.MIN_OFFSET
 import com.eudycontreras.boneslibrary.common.Disposable
+import com.eudycontreras.boneslibrary.common.Reusable
 import com.eudycontreras.boneslibrary.extensions.animate
 import com.eudycontreras.boneslibrary.extensions.build
 import com.eudycontreras.boneslibrary.properties.Color
@@ -21,13 +21,24 @@ import com.eudycontreras.boneslibrary.properties.Color
  */
 
 internal class BoneManager(
-    private val owner: View,
-    internal var foreground: Drawable?,
-    internal var background: Drawable?,
-    internal var properties: BoneProperties = BoneProperties()
-) : Disposable {
+    internal val builder: BoneBuilder = BoneBuilder()
+) : Disposable, Reusable {
+
+    constructor(properties: BoneProperties): this(BoneBuilder(properties))
 
     private lateinit var drawable: BoneDrawable
+
+    lateinit var renderer: BoneRenderer
+    
+    internal var foreground: Drawable? = null
+
+    internal var background: Drawable? = null
+
+    internal var properties: BoneProperties
+        set(value) { builder.boneProperties = value}
+        get() = builder.boneProperties
+
+    internal lateinit var innerBone: Bone
 
     private var fadeAnimator = ValueAnimator.ofFloat(MIN_OFFSET, MAX_OFFSET)
 
@@ -42,12 +53,6 @@ internal class BoneManager(
     private var discardedListener: (() -> Unit)? = null
 
     private var discarded: Boolean = false
-
-    private val bone: Bone = Bone.build(owner, properties, this)
-
-    private val builder: BoneBuilder = BoneBuilder(properties)
-
-    val renderer: BoneRenderer = BoneRenderer(bone)
 
     val isDiscarded: Boolean
         get() = discarded
@@ -70,13 +75,13 @@ internal class BoneManager(
     fun showBone(show: Boolean) {
         if (show) {
             if (foreground != null) {
-                owner.background = foreground
+                drawable.owner?.background = foreground
             }
             this.renderer.shouldRender = true
             startAnimation()
         } else {
             if (properties.transitionDuration > 0L) {
-                owner.background = background
+                drawable.owner?.background = background
                 animateFadeOut()
             } else {
                 this.renderer.shouldRender = false
@@ -86,10 +91,17 @@ internal class BoneManager(
         }
     }
 
+    override fun resetForReuse() {
+        this.dispose()
+        this.discarded = false
+        this.renderer.shouldRender = true
+        this.properties.resetForReuse()
+    }
+
     override fun dispose() {
         this.stopAnimation()
         this.discarded = true
-        this.bone.dispose()
+        this.innerBone.dispose()
         this.updateListeners.clear()
         this.startListeners.clear()
         this.endListeners.clear()
@@ -101,7 +113,7 @@ internal class BoneManager(
     }
 
     fun getBone(): Bone {
-        return bone
+        return innerBone
     }
 
     fun onDiscarded(listener: () -> Unit) {
