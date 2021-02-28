@@ -1,8 +1,10 @@
 package com.eudycontreras.boneslibrary.framework.skeletons
 
+import android.view.View
 import com.eudycontreras.boneslibrary.bindings.SkeletonBindings
 import com.eudycontreras.boneslibrary.common.Cloneable
 import com.eudycontreras.boneslibrary.common.Reusable
+import com.eudycontreras.boneslibrary.extensions.generateId
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayProperties
 import com.eudycontreras.boneslibrary.properties.CornerRadii
@@ -274,8 +276,46 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
      * @see BoneProperties
      */
     @Synchronized
+    @Deprecated(
+        message = "this is spelled wrong and will be removed",
+        replaceWith = ReplaceWith("setBoneProps")
+    )
     fun settBoneProps(ownerId: Int, boneProps: BoneProperties) {
         boneProperties[ownerId] = boneProps
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
+     * Sets the **BoneProperties** for the bone with
+     * the given ownerId.
+     *
+     * @param ownerId The id of the view this bone is meant to represent.
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun setBoneProps(ownerId: Int, boneProps: BoneProperties) {
+        boneProperties[ownerId] = boneProps
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
+     * Sets the **BoneProperties** for the bone with
+     * the given ownerId.
+     *
+     * @param view The view this bone is meant to represent.
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun setBoneProps(view: View, boneProps: BoneProperties) {
+        setBoneProps(view.generateId(), boneProps)
     }
 
     /**
@@ -300,6 +340,23 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
      * @author Eudy Contreras
      * @since March 2020
      *
+     * Returns true when the view with the given id is currently
+     * being ignored during **Bone** generation.
+     *
+     * @param ownerId The id of the view which is meant to be a **Bone's** owner.
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun isIgnored(view: View): Boolean {
+        return isIgnored(view.generateId())
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
      * Returns true when the view with the given id has been disposed
      *
      * @param ownerId The id of the view which is meant to be a **Bone's** owner.
@@ -309,6 +366,22 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
     @Synchronized
     fun isDisposed(ownerId: Int): Boolean {
         return disposedIds.contains(ownerId)
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
+     * Returns true when the view with the given id has been disposed
+     *
+     * @param view The view which is meant to be a **Bone's** owner.
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun isDisposed(view: View): Boolean {
+        return isDisposed(view.generateId())
     }
 
     /**
@@ -327,6 +400,24 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
     @Synchronized
     fun addIgnored(vararg ownerId: Int) {
         ignoredIds.addAll(ownerId.asList())
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
+     * Adds the given id to list of ignored ids.
+     * This will prevent the generation of the bone meant to represent the owner
+     * view.
+     *
+     * @param view The view which is meant to be a **Bone's** owner.
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun addIgnored(vararg view: View) {
+        ignoredIds.addAll(view.map { it.generateId() })
     }
 
     /**
@@ -385,6 +476,22 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
      * @author Eudy Contreras
      * @since March 2020
      *
+     * Returns the state state of the state owner
+     *
+     * @param ownerId The id of the state owner view
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun getStateOwnerState(view: View): Boolean {
+        return getStateOwnerState(view.generateId())
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
      * Returns true when the view with the given id is currently
      * being a state owner.
      *
@@ -395,6 +502,23 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
     @Synchronized
     fun hasStateOwner(ownerId: Int): Boolean {
         return stateOwners.containsKey(ownerId)
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
+     * Returns true when the view with the given id is currently
+     * being a state owner.
+     *
+     * @param view The id of the state owner view
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun hasStateOwner(view: View): Boolean {
+        return hasStateOwner(view.generateId())
     }
 
     /**
@@ -427,6 +551,27 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
      * @author Eudy Contreras
      * @since March 2020
      *
+     * If true, Adds the given id and the state to the map of state owner.
+     * When false it will remove the state owner since there in no point of
+     * keeping a loaded owner's state. A state owner will own the state of those
+     * bones or skeletons belonging to it. If a state owner state changes it will
+     * also change the state of the views it owns.
+     *
+     * @param view The state owner view.
+     * @param state The state of the state owner
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun setStateOwner(view: View, state: Boolean) {
+        setStateOwner(view.generateId(), state)
+    }
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
      * Removes the given id from the mpa of state owners.
      *
      * @param ownerId The id of the state owner view.
@@ -436,6 +581,23 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
     @Synchronized
     fun removeStateOwner(ownerId: Int) {
         stateOwners.remove(ownerId)
+    }
+
+
+    /**
+     * @Project Project Bones
+     * @author Eudy Contreras
+     * @since March 2020
+     *
+     * Removes the given id from the mpa of state owners.
+     *
+     * @param view The state owner view.
+     *
+     * @see BoneProperties
+     */
+    @Synchronized
+    fun removeStateOwner(view: View) {
+        removeStateOwner(view.generateId())
     }
 
     /**

@@ -10,8 +10,7 @@ import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayProperties.Com
 import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.properties.MutableColor
 import com.eudycontreras.boneslibrary.properties.ShapeType
-
-//TODO Update to reflect new properties
+import java.util.*
 
 /**
  * Copyright (C) 2020 Project Bones
@@ -30,8 +29,10 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  */
 
 class SkeletonBuilder(
-    internal val skeletonProperties: SkeletonProperties = SkeletonProperties()
+    internal var skeletonProperties: SkeletonProperties = SkeletonProperties()
 ) {
+
+    private val builderQueue: Queue<() -> Unit> = LinkedList()
 
     /**
      * @Project Project Bones
@@ -46,7 +47,7 @@ class SkeletonBuilder(
      * @see BoneBuilder
      */
     fun withBoneBuilder(builder: BoneBuilder.() -> Unit): SkeletonBuilder {
-        builder.invoke(skeletonProperties.getBoneProps().builder())
+        builderQueue.add { builder.invoke(skeletonProperties.getBoneProps().builder()) }
         return this
     }
 
@@ -63,8 +64,9 @@ class SkeletonBuilder(
      * @see BoneProperties
      * @see BoneBuilder
      */
-    fun withBoneBuilder(view: View, builder: BoneBuilder.() -> Unit): SkeletonBuilder {
-        builder.invoke(skeletonProperties.getBoneProperties(view.generateId()).builder())
+    fun withBoneBuilder(view: View?, builder: BoneBuilder.() -> Unit): SkeletonBuilder {
+        if (view == null) return this
+        builderQueue.add { builder.invoke(skeletonProperties.getBoneProperties(view.generateId()).builder()) }
         return this
     }
 
@@ -82,7 +84,7 @@ class SkeletonBuilder(
      * @see BoneBuilder
      */
     fun withBoneBuilder(ownerId: Int, builder: BoneBuilder.() -> Unit): SkeletonBuilder {
-        builder.invoke(skeletonProperties.getBoneProperties(ownerId).builder())
+        builderQueue.add { builder.invoke(skeletonProperties.getBoneProperties(ownerId).builder()) }
         return this
     }
 
@@ -95,7 +97,7 @@ class SkeletonBuilder(
      * @see BoneBuilder
      */
     fun withShimmerBuilder(builder: ShimmerRayBuilder.() -> Unit): SkeletonBuilder {
-        builder.invoke(skeletonProperties.shimmerRayProperties.builder())
+        builderQueue.add { builder.invoke(skeletonProperties.shimmerRayProperties.builder()) }
         return this
     }
 
@@ -116,7 +118,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_TRANSITION_DURATION
      */
     fun setStateTransitionDuration(duration: Long = DEFAULT_DURATION): SkeletonBuilder {
-        this.skeletonProperties.stateTransitionDuration = duration
+        builderQueue.add { this.skeletonProperties.stateTransitionDuration = duration }
         return this
     }
 
@@ -137,7 +139,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_USE_TRANSITION
      */
     fun setUseStateTransition(useTransition: Boolean = true): SkeletonBuilder {
-        this.skeletonProperties.useStateTransition = useTransition
+        builderQueue.add { this.skeletonProperties.useStateTransition = useTransition }
         return this
     }
 
@@ -160,7 +162,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_SAVE_STATE
      */
     fun setAllowSavedState(allowSavedState: Boolean = false): SkeletonBuilder {
-        this.skeletonProperties.allowSavedState = allowSavedState
+        builderQueue.add { this.skeletonProperties.allowSavedState = allowSavedState }
         return this
     }
 
@@ -185,7 +187,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_BACKGROUND_COLOR
      */
     fun setColor(color: MutableColor? = null): SkeletonBuilder {
-        this.skeletonProperties.skeletonBackgroundColor = color
+        builderQueue.add { this.skeletonProperties.skeletonBackgroundColor = color }
         return this
     }
 
@@ -207,7 +209,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_ANIMATE_RESTORED_BOUNDS
      */
     fun setAnimateRestoreBounds(animateRestoreBounds: Boolean = false): SkeletonBuilder {
-        this.skeletonProperties.animateRestoredBounds = animateRestoreBounds
+        builderQueue.add { this.skeletonProperties.animateRestoredBounds = animateRestoreBounds }
         return this
     }
 
@@ -232,7 +234,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_CORNER_RADIUS
      */
     fun setCornerRadii(cornerRadii: CornerRadii? = null): SkeletonBuilder {
-        this.skeletonProperties.skeletonCornerRadii = cornerRadii
+        builderQueue.add { this.skeletonProperties.skeletonCornerRadii = cornerRadii }
         return this
     }
 
@@ -256,7 +258,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_CORNER_RADIUS
      */
     fun setCornerRadii(cornerRadius: Float? = null): SkeletonBuilder {
-        this.skeletonProperties.skeletonCornerRadii = cornerRadius?.let { CornerRadii(cornerRadius) }
+        builderQueue.add { this.skeletonProperties.skeletonCornerRadii = cornerRadius?.let { CornerRadii(cornerRadius) } }
         return this
     }
 
@@ -277,7 +279,7 @@ class SkeletonBuilder(
      * @see SkeletonBindings.SKELETON_ENABLED
      */
     fun setEnabled(enabled: Boolean = true): SkeletonBuilder {
-        this.skeletonProperties.enabled = enabled
+        builderQueue.add { this.skeletonProperties.enabled = enabled }
         return this
     }
 
@@ -294,7 +296,7 @@ class SkeletonBuilder(
      * generation
      */
     fun withIgnoredBones(vararg ids: Int): SkeletonBuilder {
-        this.skeletonProperties.addIgnored(*ids)
+        builderQueue.add { this.skeletonProperties.addIgnored(*ids) }
         return this
     }
 
@@ -311,8 +313,21 @@ class SkeletonBuilder(
      * generation
      */
     fun withIgnoredBones(vararg views: View): SkeletonBuilder {
-        val ids = views.map { it.generateId() }.toIntArray()
-        this.skeletonProperties.addIgnored(*ids)
+        builderQueue.add { this.skeletonProperties.addIgnored(*views.map { it.generateId() }.toIntArray()) }
+        return this
+    }
+
+    @Synchronized
+    internal fun clearBuilders(): SkeletonBuilder {
+        builderQueue.clear()
+        return this
+    }
+
+    @Synchronized
+    internal fun applyBuilders(): SkeletonBuilder {
+        while (builderQueue.peek() != null) {
+            builderQueue.poll()?.invoke()
+        }
         return this
     }
 }

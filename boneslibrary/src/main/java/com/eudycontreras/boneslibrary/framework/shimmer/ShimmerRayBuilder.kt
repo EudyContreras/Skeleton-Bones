@@ -2,6 +2,7 @@ package com.eudycontreras.boneslibrary.framework.shimmer
 
 import android.view.animation.Interpolator
 import com.eudycontreras.boneslibrary.MAX_OFFSET
+import com.eudycontreras.boneslibrary.extensions.dp
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayProperties.Companion.DEFAULT_DURATION
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayProperties.Companion.DEFAULT_RAY_TILT
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayProperties.Companion.DEFAULT_THICKNESS_RATIO
@@ -161,7 +162,7 @@ data class ShimmerRayBuilder(
      * ```
      * @param thickness The thickness/width of the shimmer ray
      */
-    fun setThickness(thickness: Float = MAX_THICKNESS): ShimmerRayBuilder {
+    fun setThickness(thickness: Float = MAX_THICKNESS.dp): ShimmerRayBuilder {
         this.shimmerRayProperties.shimmerRayThickness = thickness
         return this
     }
@@ -193,12 +194,16 @@ data class ShimmerRayBuilder(
      * @since March 2020
      *
      * Sets the duration of the **Shimmer Rays** animation. This is the duration of the whole animation. The
-     * individual **Shimmer Rays**  may appear to be animated much quicker.
+     * individual **Shimmer Rays**  may appear to be animated much quicker.This property applies to the parent
+     * skeleton only. Shimmer ray durations applied to bones or inner skeletons will be ignored.
+     * Use the **setSpeedMultiplier** builder function in order to adjust the speed of children bones and skeletons
+     *
      * ```
      * ```
      * **Default:** 2000L
      * ```
      * ```
+     * @see setSpeedMultiplier
      * @param duration The total duration of the shimmer ray animation
      */
     fun setAnimationDuration(duration: Long = DEFAULT_DURATION): ShimmerRayBuilder {

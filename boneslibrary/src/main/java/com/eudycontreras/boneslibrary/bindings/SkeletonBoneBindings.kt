@@ -12,9 +12,10 @@ import com.eudycontreras.boneslibrary.MIN_OFFSET
 import com.eudycontreras.boneslibrary.doWith
 import com.eudycontreras.boneslibrary.extensions.*
 import com.eudycontreras.boneslibrary.framework.BonePropertyHolder
-import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
+import com.eudycontreras.boneslibrary.framework.bones.*
+import com.eudycontreras.boneslibrary.framework.bones.Bone
 import com.eudycontreras.boneslibrary.framework.bones.BoneManager
-import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
+import com.eudycontreras.boneslibrary.framework.bones.BoneRenderer
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonProperties
 import com.eudycontreras.boneslibrary.properties.CornerRadii
@@ -157,12 +158,11 @@ fun View.addBoneLoader(enabled: Boolean? = true, boneProps: BoneProperties? = nu
             val drawableBackground = this.background
             val drawableForeground = properties.background ?: this.foreground
 
-            this.foreground = BoneDrawable(BoneManager(
-                owner = this,
-                properties = properties
-            ).apply {
+            this.foreground = BoneDrawable(BoneManager(properties = properties).apply {
                 this.foreground = drawableForeground
                 this.background = drawableBackground
+                this.innerBone = Bone.build(this@addBoneLoader, properties, this)
+                this.renderer = BoneRenderer(bone = innerBone)
             })
 
             with (this.foreground as BoneDrawable) {
@@ -178,8 +178,8 @@ fun View.addBoneLoader(enabled: Boolean? = true, boneProps: BoneProperties? = nu
 }
 
 fun View.addBoneLoader(
-    boneLoaderDrawable: BoneDrawable,
-    enabled: Boolean? = true
+    enabled: Boolean? = true,
+    boneLoaderDrawable: BoneDrawable
 ): BoneDrawable {
     doWith(foreground) {
         if (it !is BoneDrawable) {
@@ -189,13 +189,14 @@ fun View.addBoneLoader(
             val drawableBackground = this.background
             val drawableForeground = properties.background ?: this.foreground
 
-            this.foreground = boneLoaderDrawable.apply {
-                boneManager.owner = this@addBoneLoader
-                boneManager.foreground = drawableForeground
-                boneManager.background = drawableBackground
+            boneLoaderDrawable.boneManager.apply {
+                this.foreground = drawableForeground
+                this.background = drawableBackground
+                this.innerBone = Bone.build(this@addBoneLoader, builder.boneProperties, this)
+                this.renderer = BoneRenderer(bone = innerBone)
             }
 
-            with(this.foreground as BoneDrawable) {
+            this.foreground = boneLoaderDrawable.apply {
                 this.owner = this@addBoneLoader
                 this.enabled = enabled ?: true
                 this.baseForeground = drawableForeground
