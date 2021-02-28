@@ -148,6 +148,10 @@ internal inline fun <reified T> View.saveProps(propId: Int, props: T, weak: Bool
     }
 }
 
+internal fun View.clearProps(propId: Int) {
+    setTag(propId, null)
+}
+
 internal tailrec fun View.findParent(criteria: ((parent: View) -> Boolean)? = null): ViewGroup? {
     val parent: ViewGroup? = this.parent as? ViewGroup?
 

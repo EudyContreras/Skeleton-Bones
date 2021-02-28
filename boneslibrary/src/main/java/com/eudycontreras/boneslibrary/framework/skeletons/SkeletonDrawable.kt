@@ -22,6 +22,7 @@ import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable.Companion.create
 import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.tryGet
+import java.util.*
 
 /**
  * Copyright (C) 2020 Bones
@@ -90,12 +91,14 @@ import com.eudycontreras.boneslibrary.tryGet
  */
 
 class SkeletonDrawable internal constructor(
-    private val skeletonManager: SkeletonManager
+    internal val skeletonManager: SkeletonManager
 ) : GradientDrawable(), AnimateableDrawable, AnimatableCallback, Reusable {
 
     init {
         initialize()
     }
+
+    constructor(): this(SkeletonManager())
 
     private val listeners: MutableList<AnimationCallback> = mutableListOf()
 
@@ -135,11 +138,16 @@ class SkeletonDrawable internal constructor(
                 owner?.let { viewGroup ->
                     viewGroup.doOnLayout {
                         if (field) {
+                            while (builderList.peek() != null) {
+                                builderList.poll()?.invoke()
+                            }
+                            skeletonManager.getBuilder().applyBuilders()
                             skeletonManager.getSkeleton().compute(field, viewGroup) {
                                 skeletonManager.showSkeleton(field)
                                 invalidateSelf()
                             }
                         } else {
+                            builderList.clear()
                             skeletonManager.showSkeleton(field)
                             invalidateSelf()
                         }
@@ -236,9 +244,19 @@ class SkeletonDrawable internal constructor(
      * this **SkeletonDrawable**
      */
     @Synchronized
+    @Deprecated(
+        message = "This function will soon be removed Use builder() instead",
+        replaceWith = ReplaceWith("builder()")
+    )
     fun build(): SkeletonBuilder {
         return skeletonManager.getBuilder()
     }
+
+    /**
+     * Retrieves the property builder which can be used for building
+     * this **SkeletonDrawable**
+     */
+    fun builder(): SkeletonBuilder = skeletonManager.getBuilder()
 
     override fun resetForReuse() {
         owner = null
@@ -315,6 +333,8 @@ class SkeletonDrawable internal constructor(
     }
 
     companion object {
+        internal val builderList: Queue<() -> Unit> = LinkedList()
+
         /**
          * Creates an instance of a SkeletonDrawable. The drawable is directly
          * attached to the ViewGroup passed in the constructor. The SkeletonDrawable can
@@ -353,6 +373,22 @@ class SkeletonDrawable internal constructor(
         @JvmStatic
         fun builder(defaultProps: SkeletonProperties = SkeletonProperties()): SkeletonBuilder {
             return SkeletonBuilder(defaultProps)
+        }
+
+        /**
+         * Returns a SkeletonDrawable which is then built with the given builder
+         */
+        @JvmStatic
+        fun from(builder: SkeletonBuilder): SkeletonDrawable {
+            return SkeletonDrawable(SkeletonManager(builder))
+        }
+
+        /**
+         * Returns a SkeletonDrawable which is then built with the given properties
+         */
+        @JvmStatic
+        fun from(properties: SkeletonProperties): SkeletonDrawable {
+            return SkeletonDrawable(SkeletonManager(properties))
         }
     }
 }

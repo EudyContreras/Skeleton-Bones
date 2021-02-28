@@ -1,6 +1,8 @@
 package com.eudycontreras.boneslibrary.framework.bones
 
+
 import android.graphics.drawable.Drawable
+import androidx.annotation.Dimension as DimenRes
 import com.eudycontreras.boneslibrary.MAX_OFFSET
 import com.eudycontreras.boneslibrary.bindings.SkeletonBoneBindings
 import com.eudycontreras.boneslibrary.common.Cloneable
@@ -180,7 +182,7 @@ class BoneProperties: Cloneable<BoneProperties>, Reusable {
      * @see SkeletonBoneBindings.SKELETON_BONE_MIN_THICKNESS
      */
     @Volatile
-    var minThickness: Float = MIN_THICKNESS
+    var minThickness: Float = MIN_THICKNESS.dp
 
     /**
      * @Project Project Bones
@@ -197,7 +199,7 @@ class BoneProperties: Cloneable<BoneProperties>, Reusable {
      * @see SkeletonBoneBindings.SKELETON_BONE_MAX_THICKNESS
      */
     @Volatile
-    var maxThickness: Float = MAX_THICKNESS
+    var maxThickness: Float = MAX_THICKNESS.dp
 
     /**
      * @Project Project Bones
@@ -417,7 +419,7 @@ class BoneProperties: Cloneable<BoneProperties>, Reusable {
      * @see SkeletonBone
      */
     @Volatile
-    var sectionDistance: Float = DISTANCE
+    var sectionDistance: Float = DISTANCE.dp
 
     /**
      * @Project Project Bones
@@ -498,10 +500,10 @@ class BoneProperties: Cloneable<BoneProperties>, Reusable {
 
     internal companion object {
 
-        @JvmStatic val MIN_THICKNESS = 10f.dp
-        @JvmStatic val MAX_THICKNESS = 10f.dp
+        @DimenRes(unit = DimenRes.DP) const val MIN_THICKNESS = 10f
+        @DimenRes(unit = DimenRes.DP) const val MAX_THICKNESS = 10f
 
-        @JvmStatic val DISTANCE = 10f.dp
+        @DimenRes(unit = DimenRes.DP) const val DISTANCE = 10f
 
         const val OVERFLOW_THRESHOLD = 2.5
         const val HEIGHT_THRESHOLD = 1.5f
