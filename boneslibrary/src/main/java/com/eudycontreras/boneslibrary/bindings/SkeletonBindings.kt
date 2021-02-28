@@ -7,6 +7,7 @@ import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
 import com.eudycontreras.boneslibrary.MIN_OFFSET
 import com.eudycontreras.boneslibrary.doWith
+import com.eudycontreras.boneslibrary.extensions.*
 import com.eudycontreras.boneslibrary.extensions.descendantViews
 import com.eudycontreras.boneslibrary.extensions.findParent
 import com.eudycontreras.boneslibrary.extensions.generateId
@@ -92,7 +93,7 @@ fun ViewGroup.addSkeletonLoader(enabled: Boolean?, properties: SkeletonPropertie
             val drawableBackground = this.background
             val drawableForeground = this.foreground
 
-            this.foreground = SkeletonDrawable(SkeletonManager(getProps(SkeletonProperties.TAG) ?:properties))
+            this.foreground = SkeletonDrawable(SkeletonManager(getProps(SkeletonProperties.TAG) ?: properties))
 
             with (this.foreground as SkeletonDrawable) {
                 this.owner = this@addSkeletonLoader
@@ -112,7 +113,6 @@ fun ViewGroup.addSkeletonLoader(enabled: Boolean?, skeletonLoaderDrawable: Skele
             val drawableBackground = this.background
             val drawableForeground = this.foreground
 
-
             this.foreground = skeletonLoaderDrawable.apply {
                 skeletonLoaderDrawable.resetForReuse()
             }
@@ -122,6 +122,9 @@ fun ViewGroup.addSkeletonLoader(enabled: Boolean?, skeletonLoaderDrawable: Skele
                 this.enabled = enabled ?: true
                 this.baseDrawableForeground = drawableForeground
                 this.baseDrawableBackground = drawableBackground
+                this.skeletonManager
+                    .getBuilder()
+                    .applyBuilders()
             }
         }
     }
@@ -260,7 +263,6 @@ internal fun ViewGroup.setSkeletonDissectLargeBones(dissect: Boolean?) {
             }
         } else {
             val parent = getParentSkeletonDrawable()
-
             if (parent != null) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
@@ -391,7 +393,7 @@ internal fun ViewGroup.setSkeletonBoneMinThickness(minThickness: Float?) {
             descendantViews().forEach { view ->
                 val id = view.generateId()
                 it.getProps().getBoneProps(id).apply {
-                    this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS
+                    this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS.dp
                 }
             }
         } else {
@@ -401,7 +403,7 @@ internal fun ViewGroup.setSkeletonBoneMinThickness(minThickness: Float?) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
                     parent.getProps().getBoneProps(id).apply {
-                        this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS
+                        this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS.dp
                     }
                 }
             } else {
@@ -419,7 +421,7 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
             descendantViews().forEach { view ->
                 val id = view.generateId()
                 it.getProps().getBoneProps(id).apply {
-                    this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS
+                    this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS.dp
                 }
             }
         } else {
@@ -429,7 +431,7 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
                     parent.getProps().getBoneProps(id).apply {
-                        this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS
+                        this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS.dp
                     }
                 }
             } else {

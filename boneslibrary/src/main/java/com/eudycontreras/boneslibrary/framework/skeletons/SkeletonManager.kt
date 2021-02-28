@@ -20,8 +20,14 @@ import com.eudycontreras.boneslibrary.extensions.build
  */
 
 internal class SkeletonManager(
-    var properties: SkeletonProperties = SkeletonProperties()
+    internal val builder: SkeletonBuilder = SkeletonBuilder(SkeletonProperties())
 ): Disposable, Reusable {
+
+    constructor(properties: SkeletonProperties): this(SkeletonBuilder(properties))
+
+    internal var properties: SkeletonProperties
+        set(value) { builder.skeletonProperties = value}
+        get() = builder.skeletonProperties
 
     private lateinit var drawable: SkeletonDrawable
 
@@ -36,8 +42,6 @@ internal class SkeletonManager(
     private val endListeners: MutableList<Action> = mutableListOf()
 
     private val skeleton: Skeleton = Skeleton(this, properties)
-
-    private val builder: SkeletonBuilder = SkeletonBuilder(properties)
 
     val renderer: SkeletonRenderer = SkeletonRenderer(skeleton)
 

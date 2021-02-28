@@ -136,7 +136,6 @@ internal fun View.setSkeletonBoneShimmerRayCount(count: Int?) {
     }
 }
 
-
 private fun View.setBoneShimmerRayCount(count: Int?) {
     doWith(foreground) {
         if (it is BoneDrawable) {
