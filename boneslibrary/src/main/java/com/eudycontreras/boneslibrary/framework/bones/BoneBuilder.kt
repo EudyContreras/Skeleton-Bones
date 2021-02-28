@@ -2,6 +2,7 @@ package com.eudycontreras.boneslibrary.framework.bones
 
 import com.eudycontreras.boneslibrary.MAX_OFFSET
 import com.eudycontreras.boneslibrary.bindings.SkeletonBoneBindings
+import com.eudycontreras.boneslibrary.extensions.dp
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties.Companion.DISTANCE
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties.Companion.MAX_THICKNESS
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties.Companion.MIN_THICKNESS
@@ -26,8 +27,8 @@ import com.eudycontreras.boneslibrary.properties.ShapeType
  * @see BoneProperties
  */
 
-data class BoneBuilder internal constructor(
-    internal val boneProperties: BoneProperties = BoneProperties()
+data class BoneBuilder(
+    internal var boneProperties: BoneProperties = BoneProperties()
 ) {
 
     /**
@@ -167,7 +168,7 @@ data class BoneBuilder internal constructor(
      * @see SkeletonBoneBindings.SKELETON_BONE_MIN_THICKNESS
      */
     fun setMinThickness(minThickness: Float? = null): BoneBuilder {
-        this.boneProperties.minThickness = minThickness ?: MIN_THICKNESS
+        this.boneProperties.minThickness = minThickness ?: MIN_THICKNESS.dp
         return this
     }
 
@@ -189,7 +190,7 @@ data class BoneBuilder internal constructor(
      * @see SkeletonBone
      * @see SkeletonBoneBindings.SKELETON_BONE_MAX_THICKNESS
      */
-    fun setMaxThickness(maxThickness: Float = MAX_THICKNESS): BoneBuilder {
+    fun setMaxThickness(maxThickness: Float = MAX_THICKNESS.dp): BoneBuilder {
         this.boneProperties.maxThickness = maxThickness
         return this
     }
@@ -352,7 +353,7 @@ data class BoneBuilder internal constructor(
      * @param distance The distance between dissected bones.
      * @see SkeletonBone
      */
-    fun setMaxDistance(distance: Float = DISTANCE): BoneBuilder {
+    fun setMaxDistance(distance: Float = DISTANCE.dp): BoneBuilder {
         this.boneProperties.sectionDistance = distance
         return this
     }

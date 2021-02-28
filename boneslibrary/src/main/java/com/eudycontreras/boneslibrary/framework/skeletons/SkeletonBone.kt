@@ -47,7 +47,7 @@ internal class SkeletonBone(
     private var viewBounds = Bounds()
 
     private fun getLength(owner: View): Float {
-        val ownerWidth = owner.width.toFloat() - (owner.horizontalMargin)
+        val ownerWidth = owner.width.toFloat()
         return boneProperties.width ?: ownerWidth
     }
 

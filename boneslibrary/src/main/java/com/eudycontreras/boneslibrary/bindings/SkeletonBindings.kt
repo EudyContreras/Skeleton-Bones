@@ -7,7 +7,9 @@ import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
 import com.eudycontreras.boneslibrary.MIN_OFFSET
 import com.eudycontreras.boneslibrary.doWith
+import com.eudycontreras.boneslibrary.extensions.*
 import com.eudycontreras.boneslibrary.extensions.descendantViews
+import com.eudycontreras.boneslibrary.extensions.findParent
 import com.eudycontreras.boneslibrary.extensions.generateId
 import com.eudycontreras.boneslibrary.extensions.getProps
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
@@ -91,7 +93,7 @@ fun ViewGroup.addSkeletonLoader(enabled: Boolean?, properties: SkeletonPropertie
             val drawableBackground = this.background
             val drawableForeground = this.foreground
 
-            this.foreground = SkeletonDrawable(SkeletonManager(getProps(SkeletonProperties.TAG) ?:properties))
+            this.foreground = SkeletonDrawable(SkeletonManager(getProps(SkeletonProperties.TAG) ?: properties))
 
             with (this.foreground as SkeletonDrawable) {
                 this.owner = this@addSkeletonLoader
@@ -103,6 +105,32 @@ fun ViewGroup.addSkeletonLoader(enabled: Boolean?, properties: SkeletonPropertie
     }
     return foreground as SkeletonDrawable
 }
+
+fun ViewGroup.addSkeletonLoader(enabled: Boolean?, skeletonLoaderDrawable: SkeletonDrawable): SkeletonDrawable {
+    doWith(foreground) {
+        if (it !is SkeletonDrawable) {
+
+            val drawableBackground = this.background
+            val drawableForeground = this.foreground
+
+            this.foreground = skeletonLoaderDrawable.apply {
+                skeletonLoaderDrawable.resetForReuse()
+            }
+
+            with (this.foreground as SkeletonDrawable) {
+                this.owner = this@addSkeletonLoader
+                this.enabled = enabled ?: true
+                this.baseDrawableForeground = drawableForeground
+                this.baseDrawableBackground = drawableBackground
+                this.skeletonManager
+                    .getBuilder()
+                    .applyBuilders()
+            }
+        }
+    }
+    return foreground as SkeletonDrawable
+}
+
 
 @BindingAdapter(SkeletonBindings.SKELETON_ENABLED)
 internal fun ViewGroup.setSkeletonEnabled(enabled: Boolean?) {
@@ -235,7 +263,6 @@ internal fun ViewGroup.setSkeletonDissectLargeBones(dissect: Boolean?) {
             }
         } else {
             val parent = getParentSkeletonDrawable()
-
             if (parent != null) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
@@ -366,7 +393,7 @@ internal fun ViewGroup.setSkeletonBoneMinThickness(minThickness: Float?) {
             descendantViews().forEach { view ->
                 val id = view.generateId()
                 it.getProps().getBoneProps(id).apply {
-                    this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS
+                    this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS.dp
                 }
             }
         } else {
@@ -376,7 +403,7 @@ internal fun ViewGroup.setSkeletonBoneMinThickness(minThickness: Float?) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
                     parent.getProps().getBoneProps(id).apply {
-                        this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS
+                        this.minThickness = minThickness ?: BoneProperties.MIN_THICKNESS.dp
                     }
                 }
             } else {
@@ -394,7 +421,7 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
             descendantViews().forEach { view ->
                 val id = view.generateId()
                 it.getProps().getBoneProps(id).apply {
-                    this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS
+                    this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS.dp
                 }
             }
         } else {
@@ -404,7 +431,7 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
                 descendantViews().forEach { view ->
                     val id = view.generateId()
                     parent.getProps().getBoneProps(id).apply {
-                        this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS
+                        this.maxThickness = maxThickness ?: BoneProperties.MAX_THICKNESS.dp
                     }
                 }
             } else {
@@ -412,5 +439,49 @@ internal fun ViewGroup.setSkeletonBoneMaxThickness(maxThickness: Float?) {
                 setSkeletonBoneMaxThickness(maxThickness)
             }
         }
+    }
+}
+
+/**
+ * Finds the nearest parent of this view that has
+ * an skeleton loader and returns the SkeletonDrawable loader
+ * associated with it.
+ * @see SkeletonDrawable
+ */
+fun ViewGroup.getParentSkeletonDrawable(): SkeletonDrawable? {
+    val skeletonParent = findParent { it.foreground is SkeletonDrawable }
+    return skeletonParent?.foreground as? SkeletonDrawable
+}
+
+/**
+ * Returns true if this view has an ancestor with an attached
+ * SkeletonDrawable loader
+ * @see SkeletonDrawable
+ */
+fun ViewGroup.hasSkeletonLoaderAncestor(): Boolean {
+    return getParentSkeletonDrawable() != null
+}
+
+/**
+ * Returns true if this view has SkeletonDrawable loader as its foreground
+ */
+fun ViewGroup.isSkeletonLoader(): Boolean {
+    return this.foreground is SkeletonDrawable
+}
+
+/**
+ * Returns the SkeletonDrawable loader of this ViewGroup or null if it does not have one
+ */
+fun ViewGroup.getSkeletonDrawable(): SkeletonDrawable? {
+    return this.foreground as? SkeletonDrawable?
+}
+
+/**
+ * Returns the SkeletonDrawable loader of this ViewGroup
+ * @throws IllegalStateException when this view does not contain a SkeletonDrawable
+ */
+fun ViewGroup.requireSkeletonDrawable(): SkeletonDrawable {
+    return runCatching { this.foreground as SkeletonDrawable }.getOrElse {
+        throw IllegalStateException("This view does not contain a SkeletonDrawable")
     }
 }

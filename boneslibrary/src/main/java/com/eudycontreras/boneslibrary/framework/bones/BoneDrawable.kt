@@ -16,9 +16,14 @@ import androidx.core.view.doOnLayout
 import com.eudycontreras.boneslibrary.bindings.addBoneLoader
 import com.eudycontreras.boneslibrary.common.AnimatableCallback
 import com.eudycontreras.boneslibrary.common.AnimateableDrawable
+import com.eudycontreras.boneslibrary.common.Reusable
+import com.eudycontreras.boneslibrary.extensions.clearProps
 import com.eudycontreras.boneslibrary.extensions.saveProps
 import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable.Companion.create
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRay
+import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
+import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonManager
+import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonProperties
 import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.properties.ShapeType
 import com.eudycontreras.boneslibrary.tryGet
@@ -60,6 +65,8 @@ import com.eudycontreras.boneslibrary.tryGet
  *          this.enabled = false
  *          this.color = Colors.RED
  *      }
+ *
+ *      etc..
  * ```
  * Using a **BoneDrawable** Instead of a wrapper provides the following benefits:
  * - Lightweight and easy to use
@@ -88,34 +95,11 @@ import com.eudycontreras.boneslibrary.tryGet
  */
 
 class BoneDrawable internal constructor(
-    private val boneManager: BoneManager
-) : GradientDrawable(), AnimateableDrawable, AnimatableCallback {
+    internal var boneManager: BoneManager
+) : GradientDrawable(), AnimateableDrawable, AnimatableCallback, Reusable {
 
     init {
-        boneManager.setDrawable(this)
-
-        boneManager.addUpdateListener {
-            invalidateSelf()
-        }
-
-        boneManager.addAnimationListener(
-            onStart = {
-                listeners?.forEach { it.onAnimationStart(this) }
-            },
-            onEnd = {
-                listeners?.forEach { it.onAnimationEnd(this) }
-            }
-        )
-
-        boneManager.onDiscarded {
-            owner?.foreground = baseForeground
-            if (boneManager.properties.allowWeakSavedState) {
-                owner?.saveProps(BoneProperties.TAG, boneManager.properties, true)
-            } else if (boneManager.properties.allowSavedState) {
-                owner?.saveProps(BoneProperties.TAG, boneManager.properties)
-            }
-            listeners?.clear()
-        }
+        initialize()
     }
 
     private var listeners: MutableList<AnimationCallback>? = null
@@ -172,9 +156,37 @@ class BoneDrawable internal constructor(
             }
         }
 
+    private fun initialize() {
+        boneManager.setDrawable(this)
+
+        boneManager.addUpdateListener {
+            invalidateSelf()
+        }
+
+        boneManager.addAnimationListener(
+            onStart = {
+                listeners?.forEach { it.onAnimationStart(this) }
+            },
+            onEnd = {
+                listeners?.forEach { it.onAnimationEnd(this) }
+            }
+        )
+
+        boneManager.onDiscarded {
+            owner?.foreground = baseForeground
+            if (boneManager.properties.allowWeakSavedState) {
+                owner?.saveProps(BoneProperties.TAG, boneManager.properties, true)
+            } else if (boneManager.properties.allowSavedState) {
+                owner?.saveProps(BoneProperties.TAG, boneManager.properties)
+            } else {
+                owner?.clearProps(BoneProperties.TAG)
+            }
+            listeners?.clear()
+        }
+    }
+
     @RequiresApi(VERSION_CODES.N)
     private fun initializeProperties(drawable: Drawable) {
-
         owner?.let {
             it.outlineProvider = ViewOutlineProvider.BACKGROUND
         }
@@ -218,9 +230,9 @@ class BoneDrawable internal constructor(
     @Synchronized
     fun setProps(properties: BoneProperties) {
         boneManager.properties = properties.clone()
-        owner?.let {
-            if (it.isLaidOut) {
-                boneManager.getBone().compute(it)
+        owner?.let { view ->
+            if (view.isLaidOut) {
+                boneManager.getBone().compute(view)
             }
         }
     }
@@ -230,7 +242,26 @@ class BoneDrawable internal constructor(
      * this **BoneDrawable**
      */
     @Synchronized
+    @Deprecated(
+        message = "This function will soon be removed Use builder() instead",
+        replaceWith = ReplaceWith("builder()")
+    )
     fun build(): BoneBuilder = boneManager.getBuilder()
+
+    /**
+     * Retrieves the property builder which can be used for building
+     * this **SkeletonDrawable**
+     */
+    fun builder(): BoneBuilder = boneManager.getBuilder()
+
+    override fun resetForReuse() {
+        owner = null
+        enabled = false
+        baseBackground = null
+        baseForeground = null
+        boneManager.resetForReuse()
+        initialize()
+    }
 
     override fun draw(canvas: Canvas) {
         baseForeground?.draw(canvas)
@@ -344,6 +375,22 @@ class BoneDrawable internal constructor(
         @JvmStatic
         fun builder(defaultProps: BoneProperties): BoneBuilder {
             return BoneBuilder(defaultProps)
+        }
+
+        /**
+         * Returns a SkeletonDrawable which is then built with the given builder
+         */
+        @JvmStatic
+        fun from(builder: BoneBuilder): BoneDrawable {
+            return BoneDrawable(BoneManager(builder))
+        }
+
+        /**
+         * Returns a SkeletonDrawable which is then built with the given properties
+         */
+        @JvmStatic
+        fun from(properties: BoneProperties): BoneDrawable {
+            return BoneDrawable(BoneManager(properties))
         }
     }
 }
