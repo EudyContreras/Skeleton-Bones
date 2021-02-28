@@ -22,6 +22,7 @@ import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable.Companion.create
 import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.tryGet
+import java.util.*
 
 /**
  * Copyright (C) 2020 Bones
@@ -137,13 +138,16 @@ class SkeletonDrawable internal constructor(
                 owner?.let { viewGroup ->
                     viewGroup.doOnLayout {
                         if (field) {
+                            while (builderList.peek() != null) {
+                                builderList.poll()?.invoke()
+                            }
                             skeletonManager.getBuilder().applyBuilders()
                             skeletonManager.getSkeleton().compute(field, viewGroup) {
                                 skeletonManager.showSkeleton(field)
                                 invalidateSelf()
                             }
                         } else {
-
+                            builderList.clear()
                             skeletonManager.showSkeleton(field)
                             invalidateSelf()
                         }
@@ -329,6 +333,8 @@ class SkeletonDrawable internal constructor(
     }
 
     companion object {
+        internal val builderList: Queue<() -> Unit> = LinkedList()
+
         /**
          * Creates an instance of a SkeletonDrawable. The drawable is directly
          * attached to the ViewGroup passed in the constructor. The SkeletonDrawable can

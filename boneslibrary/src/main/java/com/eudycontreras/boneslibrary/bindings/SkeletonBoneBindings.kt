@@ -22,6 +22,7 @@ import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.properties.MutableColor
 import com.eudycontreras.boneslibrary.properties.ShapeType
 import com.eudycontreras.boneslibrary.tryWith
+import java.util.*
 
 /**
  * Copyright (C) 2020 Bones
@@ -326,6 +327,11 @@ internal fun View.setSkeletonBoneEnabledAndProps(enabled: Boolean?, boneProps: B
     }
 }
 
+private fun withBuilder(action: () -> Unit) {
+    action()
+    SkeletonDrawable.builderList.add(action)
+}
+
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_PROPERTY_PROPS)
 internal fun View.setSkeletonBoneProps(boneProps: BoneProperties? = null) {
     val ownerId = generateId()
@@ -435,7 +441,18 @@ internal fun View.setSkeletonBoneToggleView(toggleView: Boolean?) {
             this.toggleView = toggleView ?: true
         }
     } else {
-        setSkeletonBoneToggleView(toggleView)
+        setBoneToggleView(toggleView)
+    }
+}
+
+private fun View.setBoneToggleView(toggleView: Boolean?) {
+    doWith(foreground) {
+        if (it is BoneDrawable) {
+            it.getProps().toggleView = toggleView ?: false
+        } else {
+            addBoneLoader(enabled = true)
+            setBoneToggleView(toggleView)
+        }
     }
 }
 
@@ -449,12 +466,23 @@ internal fun View.setSkeletonBoneMatchBounds(matchBounds: Boolean?) {
             this.matchOwnersBounds = matchBounds ?: false
         }
     } else {
-        setSkeletonBoneMatchBounds(matchBounds)
+        setBoneMatchBounds(matchBounds)
+    }
+}
+
+private fun View.setBoneMatchBounds(matchBounds: Boolean?) {
+    doWith(foreground) {
+        if (it is BoneDrawable) {
+            it.getProps().matchOwnersBounds = matchBounds ?: false
+        } else {
+            addBoneLoader(enabled = true)
+            setBoneMatchBounds(matchBounds)
+        }
     }
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_SHAPE_TYPE)
-internal fun View.setSkeletonBoneShapeType(shapeType: ShapeType?) {
+internal fun View.setSkeletonBoneShapeType(shapeType: ShapeType?) = withBuilder {
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
@@ -479,13 +507,13 @@ private fun View.setBoneShapeType(shapeType: ShapeType?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_SECTION_DISTANCE)
-internal fun View.setSkeletonBoneSectionDistance(@Dimension distance: Float?) {
+internal fun View.setSkeletonBoneSectionDistance(@Dimension distance: Float?) = withBuilder builder@{
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
     if (parent != null) {
         parent.getProps().getBoneProps(ownerId).apply {
-            this.sectionDistance = distance ?: return
+            this.sectionDistance = distance ?: return@builder
         }
     } else {
         setBoneSectionDistance(distance)
@@ -505,7 +533,7 @@ private fun View.setBoneSectionDistance(@Dimension distance: Float?) {
 
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_COLOR)
-internal fun View.setSkeletonBoneColor(@ColorInt boneColor: Int?) {
+internal fun View.setSkeletonBoneColor(@ColorInt boneColor: Int?) = withBuilder {
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
@@ -530,7 +558,7 @@ private fun View.setBoneColor(@ColorInt boneColor: Int?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_SHADE_MULTIPLIER)
-internal fun View.setSkeletonBoneShadeMultiplier(shadeMultiplier: Float?) {
+internal fun View.setSkeletonBoneShadeMultiplier(shadeMultiplier: Float?) = withBuilder {
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
@@ -556,7 +584,7 @@ private fun View.setBoneShadeMultiplier(shadeMultiplier: Float?) {
 
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_CORNER_RADIUS)
-internal fun View.setSkeletonBoneCorners(cornerRadius: Float?) {
+internal fun View.setSkeletonBoneCorners(cornerRadius: Float?) = withBuilder {
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
@@ -581,7 +609,7 @@ private fun View.setBoneCorners(cornerRadius: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_TRANSITION_DURATION)
-internal fun View.setSkeletonBoneTransitionDuration(duration: Long?) {
+internal fun View.setSkeletonBoneTransitionDuration(duration: Long?) = withBuilder {
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
@@ -606,7 +634,7 @@ private fun View.setBoneTransitionDuration(duration: Long?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_WIDTH)
-internal fun View.setSkeletonBoneWidth(width: Float?) {
+internal fun View.setSkeletonBoneWidth(width: Float?) = withBuilder {
     val ownerId = generateId()
     getParentSkeletonDrawable()?.let {
         it.getProps().getBoneProps(ownerId).apply {
@@ -616,7 +644,7 @@ internal fun View.setSkeletonBoneWidth(width: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_MIN_WIDTH)
-internal fun View.setSkeletonBoneMinWidth(minWidth: Float?) {
+internal fun View.setSkeletonBoneMinWidth(minWidth: Float?) = withBuilder {
     val ownerId = generateId()
     getParentSkeletonDrawable()?.let {
         it.getProps().getBoneProps(ownerId).apply {
@@ -625,9 +653,8 @@ internal fun View.setSkeletonBoneMinWidth(minWidth: Float?) {
     }
 }
 
-
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_HEIGHT)
-internal fun View.setSkeletonBoneHeight(height: Float?) {
+internal fun View.setSkeletonBoneHeight(height: Float?) = withBuilder {
     val ownerId = generateId()
     getParentSkeletonDrawable()?.let {
         it.getProps().getBoneProps(ownerId).apply {
@@ -637,7 +664,7 @@ internal fun View.setSkeletonBoneHeight(height: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_MIN_HEIGHT)
-internal fun View.setSkeletonBoneMinHeight(minHeight: Float?) {
+internal fun View.setSkeletonBoneMinHeight(minHeight: Float?) = withBuilder {
     val ownerId = generateId()
     getParentSkeletonDrawable()?.let {
         it.getProps().getBoneProps(ownerId).apply {
@@ -647,13 +674,13 @@ internal fun View.setSkeletonBoneMinHeight(minHeight: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_MIN_THICKNESS)
-internal fun View.setSkeletonBoneMinThickness(thickness: Float?) {
+internal fun View.setSkeletonBoneMinThickness(thickness: Float?) = withBuilder builder@{
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
     if (parent != null) {
         parent.getProps().getBoneProps(ownerId).apply {
-            this.minThickness = thickness ?: return
+            this.minThickness = thickness ?: return@builder
         }
     } else {
         setBoneMinThickness(thickness)
@@ -672,13 +699,13 @@ private fun View.setBoneMinThickness(thickness: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_MAX_THICKNESS)
-internal fun View.setSkeletonBoneMaxThickness(thickness: Float?) {
+internal fun View.setSkeletonBoneMaxThickness(thickness: Float?) = withBuilder builder@{
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
     if (parent != null) {
         parent.getProps().getBoneProps(ownerId).apply {
-            this.maxThickness = thickness ?: return
+            this.maxThickness = thickness ?: return@builder
         }
     } else {
         setBoneMaxThickness(thickness)
@@ -697,7 +724,7 @@ private fun View.setBoneMaxThickness(thickness: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_SIZE)
-internal fun View.setSkeletonBoneSize(value: Float?) {
+internal fun View.setSkeletonBoneSize(value: Float?) = withBuilder {
     tryWith {
         setSkeletonBoneWidth(value)
         setSkeletonBoneHeight(value)
@@ -705,7 +732,7 @@ internal fun View.setSkeletonBoneSize(value: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_TRANSLATION_X)
-internal fun View.setSkeletonBoneTranslationX(@Dimension translation: Float?) {
+internal fun View.setSkeletonBoneTranslationX(@Dimension translation: Float?) = withBuilder {
     val ownerId = generateId()
     getParentSkeletonDrawable()?.let {
         it.getProps().getBoneProps(ownerId).apply {
@@ -715,7 +742,7 @@ internal fun View.setSkeletonBoneTranslationX(@Dimension translation: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_TRANSLATION_Y)
-internal fun View.setSkeletonBoneTranslationY(@Dimension translation: Float?) {
+internal fun View.setSkeletonBoneTranslationY(@Dimension translation: Float?) = withBuilder {
     val ownerId = generateId()
     getParentSkeletonDrawable()?.let {
         it.getProps().getBoneProps(ownerId).apply {
@@ -725,7 +752,7 @@ internal fun View.setSkeletonBoneTranslationY(@Dimension translation: Float?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_DISSECT_LARGE)
-internal fun View.setSkeletonBoneDissectLargeBones(dissect: Boolean?) {
+internal fun View.setSkeletonBoneDissectLargeBones(dissect: Boolean?) = withBuilder {
     val ownerId = generateId()
     val parent = getParentSkeletonDrawable()
 
@@ -750,7 +777,7 @@ private fun View.setBoneDissectLargeBones(dissect: Boolean?) {
 }
 
 @BindingAdapter(SkeletonBoneBindings.SKELETON_BONE_IGNORED)
-internal fun View.setSkeletonIgnored(ignored: Boolean?) {
+internal fun View.setSkeletonIgnored(ignored: Boolean?) = withBuilder {
     val ownerId = generateId()
     getParentSkeletonDrawable()?.let {
         val props = it.getProps()
