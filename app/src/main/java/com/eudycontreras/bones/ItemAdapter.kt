@@ -10,7 +10,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.eudycontreras.boneslibrary.bindings.addSkeletonLoader
+import com.eudycontreras.boneslibrary.extensions.disableSkeletonLoading
 import com.eudycontreras.boneslibrary.extensions.dp
 import com.eudycontreras.boneslibrary.framework.bones.BoneBuilder
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayBuilder
@@ -20,10 +20,7 @@ import com.eudycontreras.boneslibrary.properties.MutableColor
 import com.eudycontreras.boneslibrary.properties.ShapeType
 import kotlinx.android.synthetic.main.list_item_a.view.*
 import kotlinx.android.synthetic.main.list_item_b.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * Copyright (C) 2020 Project X
@@ -120,23 +117,36 @@ class ItemAdapter<T : DemoData>(
                     itemView.ItemBInnerTextB.text = it.textThree
                     itemView.ItemBImage.loadImage(it.imageUrl)
                 }
-                val builder: SkeletonBuilder = SkeletonBuilder()
-                    .setAllowSavedState(false)
+                val drawable: SkeletonDrawable = SkeletonBuilder()
+                    .setAllowSavedState(true)
                     .setUseStateTransition(true)
                     .setStateTransitionDuration(200L)
                     .withBoneBuilder(itemView.ItemBImage, imageBoneBuilder(context, ShapeType.RECTANGULAR))
                     .withBoneBuilder(itemView.ItemBOuterText, textBoneBuilder(context, true))
                     .withBoneBuilder(itemView.ItemBInnerTextA, textBoneBuilder(context, false))
                     .withBoneBuilder(itemView.ItemBInnerTextB, textBoneBuilder(context, false))
+                    .withIgnoredBones(itemView.ItemBInnerTextA)
                     .setEnabled(true)
-                val drawable: SkeletonDrawable = SkeletonDrawable.from(builder)
+                    .get()
 
                 if (position == 1) {
-                    CoroutineScope(Dispatchers.Main).launch {
+                    MainScope().launch {
+
                         delay(3000)
-                        itemView.ItemBContainer?.let {
-                            it.addSkeletonLoader(true, drawable)
-                        }
+                        /**
+                         * We can enable a loader in multiple ways
+                         */
+                        //itemView.ItemBContainer.addSkeletonLoader(true, drawable)
+                        drawable.enable(itemView.ItemBContainer)
+
+                        delay(1500)
+                        itemView.ItemBContainer.disableSkeletonLoading()
+
+                        delay(1500)
+                        drawable.enable(itemView.ItemBContainer)
+
+                        delay(1500)
+                        drawable.disable()
                     }
                 }
             }
@@ -163,6 +173,21 @@ class ItemAdapter<T : DemoData>(
                         .withBoneBuilder(parent.ItemBInnerTextB, textBoneBuilder(context, false))
                         .withBoneBuilder(parent.ItemBOuterText, textBoneBuilder(context, false))
                         .setEnabled(true)
+                }
+
+                if (position == 1) {
+                    /**
+                     * To disable a skeleton after it has been created we have to do it on
+                     * the next frame. This can be do using the main dispatcher or by posting
+                     * to the message queue
+                     */
+                    container?.let {
+                        MainScope().launch {
+                            delay(500)
+                            it.ItemAText?.disableSkeletonLoading()
+                            it.ItemBInnerTextA?.disableSkeletonLoading()
+                        }
+                    }
                 }
             }
         }

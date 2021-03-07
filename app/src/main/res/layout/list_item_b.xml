@@ -51,6 +51,7 @@
             android:singleLine="true"
             android:textAlignment="gravity"
             android:textColor="@color/text_color"
+            android:text="Some random text"
             tools:text="@string/lorem_ipsum" />
 
         <TextView

@@ -48,6 +48,6 @@ class Repository(scope: CoroutineScope) {
 
     companion object {
         const val SHORT_DELAY = 3500L
-        const val LONG_DELAY = 4500L
+        const val LONG_DELAY = 2500L
     }
 }
