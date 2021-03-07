@@ -31,6 +31,9 @@ data class BoneBuilder(
     internal var boneProperties: BoneProperties = BoneProperties()
 ) {
 
+    val properties: BoneProperties
+        get() = boneProperties
+
     /**
      * Allows building shimmer ray properties.
      *
@@ -377,5 +380,13 @@ data class BoneBuilder(
     fun setEnabled(enabled: Boolean = true): BoneBuilder {
         this.boneProperties.enabled = enabled
         return this
+    }
+
+    /**
+     * Creates a returns a Bone Drawable built with this
+     * builder
+     */
+    fun get(): BoneDrawable {
+        return BoneDrawable.from(this)
     }
 }
