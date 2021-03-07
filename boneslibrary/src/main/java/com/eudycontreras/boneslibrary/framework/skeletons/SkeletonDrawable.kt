@@ -223,6 +223,22 @@ class SkeletonDrawable internal constructor(
     fun getProps(): SkeletonProperties = skeletonManager.properties
 
     /**
+     * Disables this skeleton drawable if it is enabled for for some
+     * ViewGroup
+     */
+    fun disable() {
+        this.enabled = false
+    }
+
+    /**
+     * Enables the skeleton drawable for the given ViewGroup
+     * @param viewGroup The view this drawable will be attached to.
+     */
+    fun enable(viewGroup: ViewGroup) {
+        viewGroup.addSkeletonLoader(true, this)
+    }
+
+    /**
      * Sets the properties use by this **SkeletonDrawable**
      * @param properties The properties to be set on this drawable
      */
