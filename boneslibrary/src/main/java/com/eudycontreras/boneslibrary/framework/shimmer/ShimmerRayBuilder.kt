@@ -29,6 +29,9 @@ data class ShimmerRayBuilder(
     private val shimmerRayProperties: ShimmerRayProperties = ShimmerRayProperties()
 ) {
 
+    val properties: ShimmerRayProperties
+        get() = shimmerRayProperties
+
     /**
      * @Project Project Bones
      * @author Eudy Contreras

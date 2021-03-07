@@ -21,9 +21,6 @@ import com.eudycontreras.boneslibrary.extensions.clearProps
 import com.eudycontreras.boneslibrary.extensions.saveProps
 import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable.Companion.create
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRay
-import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
-import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonManager
-import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonProperties
 import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.properties.ShapeType
 import com.eudycontreras.boneslibrary.tryGet
@@ -253,6 +250,22 @@ class BoneDrawable internal constructor(
      * this **SkeletonDrawable**
      */
     fun builder(): BoneBuilder = boneManager.getBuilder()
+
+    /**
+     * Disables this bone drawable if it is enabled for for some
+     * View
+     */
+    fun disable() {
+        this.enabled = false
+    }
+
+    /**
+     * Enables the bone drawable for the given View
+     * @param view The view this drawable will be attached to.
+     */
+    fun enable(view: View) {
+        view.addBoneLoader(true, this)
+    }
 
     override fun resetForReuse() {
         owner = null

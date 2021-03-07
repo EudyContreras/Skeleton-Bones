@@ -6,8 +6,9 @@ import android.os.Build
 import android.view.View
 import android.view.View.NO_ID
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.*
+import com.eudycontreras.boneslibrary.bindings.addBoneLoader
+import com.eudycontreras.boneslibrary.bindings.addSkeletonLoader
 import com.eudycontreras.boneslibrary.bindings.getParentSkeletonDrawable
 import com.eudycontreras.boneslibrary.doWith
 import com.eudycontreras.boneslibrary.framework.bones.BoneDrawable
@@ -229,7 +230,7 @@ private fun findViews(
  * @author Eudy Contreras
  * @since Feburary 2021
  *
- * Disables skeleton loading for this view and its descendants
+ * Enables skeleton loading for this view and its descendants
  */
 fun View.enableSkeletonLoading() = this.toggleSkeletonLoading(true)
 
@@ -238,7 +239,7 @@ fun View.enableSkeletonLoading() = this.toggleSkeletonLoading(true)
  * @author Eudy Contreras
  * @since Feburary 2021
  *
- * Enables skeleton loading for this view and its descendants
+ * Disables skeleton loading for this view and its descendants
  */
 fun View.disableSkeletonLoading() = this.toggleSkeletonLoading(false)
 
@@ -247,9 +248,29 @@ fun View.disableSkeletonLoading() = this.toggleSkeletonLoading(false)
  * @author Eudy Contreras
  * @since Feburary 2021
  *
- * Toggles skeleton loading for this view and its descendants
+ * Enables skeleton loading for this view and its descendants
  */
-fun View.toggleSkeletonLoading(enabled: Boolean) {
+fun ViewGroup.enableSkeletonLoading() = this.toggleSkeletonLoading(true)
+
+/**
+ * @Project Project Bones
+ * @author Eudy Contreras
+ * @since Feburary 2021
+ *
+ * Disables skeleton loading for this view and its descendants
+ */
+fun ViewGroup.disableSkeletonLoading() = this.toggleSkeletonLoading(false)
+
+/**
+ * @Project Project Bones
+ * @author Eudy Contreras
+ * @since Feburary 2021
+ *
+ * Toggles skeleton loading for this view and its descendants
+ *
+ * @return The bone loader associated with this View or null if known is found
+ */
+fun View.toggleSkeletonLoading(enabled: Boolean): BoneDrawable? {
     val id = generateId()
     val parent = getParentSkeletonDrawable()
     if (parent != null) {
@@ -257,10 +278,49 @@ fun View.toggleSkeletonLoading(enabled: Boolean) {
         parent.getProps().getBoneProps(id).apply {
             this.enabled = enabled
         }
-    }
-    doWith(foreground) {
-        if (it is BoneDrawable) {
-            it.getProps().enabled = enabled
+        return null
+    } else {
+        var loaderDrawable: BoneDrawable? = null
+        doWith(foreground) {
+            if (it is BoneDrawable) {
+                it.enabled = enabled
+                loaderDrawable = it
+            } else {
+                loaderDrawable = addBoneLoader(enabled = enabled)
+            }
         }
+        return loaderDrawable
+    }
+}
+
+/**
+ * @Project Project Bones
+ * @author Eudy Contreras
+ * @since Feburary 2021
+ *
+ * Toggles skeleton loading for this view and its descendants
+ *
+ * @return The skeleton associated with this ViewGroup or null if known is found
+ */
+fun ViewGroup.toggleSkeletonLoading(enabled: Boolean): SkeletonDrawable? {
+    val id = generateId()
+    val parent = getParentSkeletonDrawable()
+    if (parent != null) {
+        parent.getProps().setStateOwner(id, false)
+        parent.getProps().getBoneProps(id).apply {
+            this.enabled = enabled
+        }
+        return null
+    } else {
+        var loaderDrawable: SkeletonDrawable? = null
+        doWith(foreground) {
+            if (it is SkeletonDrawable) {
+                it.enabled = enabled
+                loaderDrawable = it
+            } else {
+                loaderDrawable = addSkeletonLoader(enabled = enabled)
+            }
+        }
+        return loaderDrawable
     }
 }
