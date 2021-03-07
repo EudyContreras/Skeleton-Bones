@@ -32,6 +32,9 @@ class SkeletonBuilder(
     internal var skeletonProperties: SkeletonProperties = SkeletonProperties()
 ) {
 
+    val properties: SkeletonProperties
+        get() = skeletonProperties
+
     private val builderQueue: Queue<() -> Unit> = LinkedList()
 
     /**
@@ -325,9 +328,15 @@ class SkeletonBuilder(
 
     @Synchronized
     internal fun applyBuilders(): SkeletonBuilder {
-        while (builderQueue.peek() != null) {
-            builderQueue.poll()?.invoke()
-        }
+        builderQueue.forEach { it.invoke() }
         return this
+    }
+
+    /**
+     * Creates a returns a Skeleton Drawable built with this
+     * builder
+     */
+    fun get(): SkeletonDrawable {
+        return SkeletonDrawable.from(this)
     }
 }
