@@ -20,9 +20,7 @@ import com.eudycontreras.boneslibrary.extensions.notifySkeletonImageLoaded
  * @since February 2021
  */
 
-fun Int.isEven() = this % 2 == 0
-
-fun ImageView.loadImage(imageUrl: String?) {
+fun ImageView.loadImage(imageUrl: String?, onLoaded: () -> Unit = {}) {
     if (imageUrl == null) return
 
     Glide.with(context)
@@ -45,6 +43,7 @@ fun ImageView.loadImage(imageUrl: String?) {
                 isFirstResource: Boolean
             ): Boolean {
                 this@loadImage.notifySkeletonImageLoaded()
+                onLoaded()
                 return false
             }
 
@@ -54,16 +53,14 @@ fun ImageView.loadImage(imageUrl: String?) {
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <T : DemoData> RecyclerView.setItemData(
-    itemsResource: Resource<List<T?>?>
+fun RecyclerView.setItemData(
+    data: List<DemoData?>
 ) {
-    itemsResource.data?.let {
-        if (this.adapter == null) {
-            this.adapter = ItemAdapter(it)
-        } else {
-            with(adapter as ItemAdapter<T>) {
-                this.updateData(it)
-            }
+    if (this.adapter == null) {
+        this.adapter = ItemAdapter(data)
+    } else {
+        with(adapter as ItemAdapter) {
+            this.updateData(data)
         }
     }
 }

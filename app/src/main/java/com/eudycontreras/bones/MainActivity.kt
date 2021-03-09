@@ -17,11 +17,13 @@ internal class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val items: LiveData<Resource<List<DemoData?>?>> = repository.getDemoData().map {
-            if (it.loading) {
-                Resource.Loading(dummyData.toList())
-            } else it
+        val items: LiveData<List<DemoData?>> = repository.getDemoData().map {
+            when (it) {
+                is Resource.Loading -> dummyData.toList()
+                is Resource.Success -> it.data
+            }
         }
+
         items.observeForever {
             recyclerView.setItemData(it)
         }

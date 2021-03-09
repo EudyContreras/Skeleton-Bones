@@ -25,29 +25,28 @@ class Repository(scope: CoroutineScope) {
             demoData.postValue(Resource.Loading())
 
             val dataCollection = List(Database.ENTRY_COUNT) {
-                when {
-                    it.isEven() -> DemoData.A(
-                        id = it.toString(),
-                        text = database.textOne,
-                        imageUrl = database.urlMaleAvatar
-                    )
-                    else -> DemoData.B(
-                        id = it.toString(),
-                        textOne = database.textOne,
-                        textTwo = database.textTwo,
-                        textThree = database.textThree,
-                        imageUrl = database.urlFemaleAvatar
-                    )
-                }
+                DemoData(
+                    id = it.toString(),
+                    textOne = database.textOne,
+                    textTwo = database.textTwo,
+                    textThree = database.textThree,
+                    imageUrl = database.urlAvatar
+                )
             }
 
-            delay(LONG_DELAY)
+            delay(SHORT_DELAY)
+            demoData.postValue(Resource.Success(dataCollection))
+
+            delay(SHORT_DELAY)
+            demoData.postValue(Resource.Loading(dataCollection))
+
+            delay(SHORT_DELAY)
             demoData.postValue(Resource.Success(dataCollection))
         }
     }
 
     companion object {
-        const val SHORT_DELAY = 3500L
-        const val LONG_DELAY = 2500L
+        const val SHORT_DELAY = 2500L
+        const val LONG_DELAY = 4000L
     }
 }

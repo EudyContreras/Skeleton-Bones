@@ -9,20 +9,17 @@ package com.eudycontreras.bones
  */
 
 sealed class Resource<out T>(
-    open val data: T?,
     open val loading: Boolean
 ) {
     class Success<T>(
-        data: T
+        val data: T
     ) : Resource<T>(
-        data = data,
         loading = false
     )
 
     class Loading<T>(
-        cache: T? = null
+        val cache: T? = null
     ) : Resource<T>(
-        data = cache,
         loading = true
     )
 }
