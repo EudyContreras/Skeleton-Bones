@@ -12,8 +12,8 @@ sealed class Resource<out T>(
     open val data: T?,
     open val loading: Boolean
 ) {
-    class Success<T>(
-        data: T
+    data class Success<T>(
+        override val data: T
     ) : Resource<T>(
         data = data,
         loading = false

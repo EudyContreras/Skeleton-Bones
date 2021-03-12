@@ -4,11 +4,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.eudycontreras.bones.databinding.MainBinding
 
 internal class MainActivity : AppCompatActivity() {
 
-    private val viewModel: SomeViewModel by viewModels()
+    private val viewModel: SomeViewModel by lazy {
+        SomeViewModel(lifecycleScope)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

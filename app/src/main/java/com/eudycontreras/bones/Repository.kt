@@ -14,18 +14,14 @@ import kotlinx.coroutines.*
 
 class Repository(scope: CoroutineScope) {
 
-    private val database: DataBase = DataBase()
+    private val database: LocalSource = LocalSource()
 
     private val demoOneData: MutableLiveData<Resource<DemoData.One>> = MutableLiveData(Resource.Loading())
-
     private val demoTwoData: MutableLiveData<Resource<DemoData.Two>> = MutableLiveData(Resource.Loading())
-
     private val demoThreeData: MutableLiveData<Resource<DemoData.Three>> = MutableLiveData(Resource.Loading())
 
     fun getDemoDataOne(): LiveData<Resource<DemoData.One>> = demoOneData
-
     fun getDemoDataTwo(): LiveData<Resource<DemoData.Two>> = demoTwoData
-
     fun getDemoDataThree(): LiveData<Resource<DemoData.Three>> = demoThreeData
 
     init {
@@ -41,15 +37,17 @@ class Repository(scope: CoroutineScope) {
                 imageTwoUrl = database.urlFemaleAvatar
             )
             val dataThree = DemoData.Three(
-                text = database.textOne,
+                text = database.textThree,
                 imageUrl = database.urlMaleAvatar
             )
 
             while (true) {
                 delay(LONG_DELAY)
                 demoOneData.postValue(Resource.Success(dataOne))
+
                 delay(SHORT_DELAY)
                 demoTwoData.postValue(Resource.Success(dataTwo))
+
                 delay(SHORT_DELAY)
                 demoThreeData.postValue(Resource.Success(dataThree))
 

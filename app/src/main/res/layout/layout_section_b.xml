@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,53 +16,15 @@
             type="com.eudycontreras.boneslibrary.extensions.NumberExtensionsKt" />
     </data>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:orientation="vertical">
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-
-        <include
-            layout="@layout/list_item"
-            app:viewModel="@{viewModel}" />
-    </LinearLayout>
+        android:orientation="vertical"
+        app:adapter=""
+        tools:listitem="@layout/list_item" />
 </layout>

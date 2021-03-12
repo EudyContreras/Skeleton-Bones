@@ -77,6 +77,13 @@
             app:layout_constraintStart_toEndOf="@id/photo"
             app:layout_constraintTop_toTopOf="@id/photo"
             bones:skeletonBoneDissectLargeBones="@{true}"
+            bones:skeletonBoneShimmerRayColor="@{@color/bone_ray_color_alt}"
+            bones:skeletonBoneShimmerRayCount="@{2}"
+            bones:skeletonBoneShimmerRayInterpolator="@{@android:interpolator/decelerate_quad}"
+            bones:skeletonBoneShimmerRaySharedInterpolator="@{false}"
+            bones:skeletonBoneShimmerRaySpeedMultiplier="@{1.2f}"
+            bones:skeletonBoneShimmerRayThickness="@{Utils.getDp(40)}"
+            bones:skeletonBoneShimmerRayTilt="@{-0.2f}"
             tools:text="@string/lorem_ipsum"
             tools:targetApi="o" />
 
@@ -114,6 +121,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textThree"
+            bones:skeletonBoneMinHeight="@{Utils.getDp(70)}"
             bones:skeletonBoneEnabled="@{viewModel.demoDataOne.loading}"
             bones:skeletonBoneDissectLargeBones="@{true}"
             tools:text="@string/lorem_ipsum"/>
