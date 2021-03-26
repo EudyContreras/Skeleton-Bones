@@ -38,7 +38,7 @@ class CategoryViewHolder(private val binding: RowCategoryBinding) : BaseViewHold
                 binding.imageView.disableSkeletonLoading()
             }
         } else {
-            ImageService().getImage(binding.root.context) { image ->
+            ImageService().getImage(binding.root.context, viewModel.category.level) { image ->
                 if (viewModel.category.name == viewModel.category.name && image != null) {
                     binding.imageView.setImageBitmap(image)
                     binding.imageView.disableSkeletonLoading()

@@ -10,13 +10,13 @@ import kotlin.random.Random
 
 
 class ImageService {
-    fun getImage(context: Context, completion: (image: Bitmap?) -> Unit) {
+    fun getImage(context: Context, level: Int, completion: (image: Bitmap?) -> Unit) {
         val delay = Random(3123).nextLong(200, 5000)
 
         Handler(Looper.getMainLooper()).postDelayed({
             val icon = BitmapFactory.decodeResource(
                 context.resources,
-                R.drawable.img_female_avatar
+                if (level % 2 == 0) R.drawable.img_female_avatar else R.drawable.img_male_avatar
             )
             completion(icon)
         }, delay)
