@@ -25,4 +25,16 @@
 
     <color name="white">#ffffff</color>
     <color name="red">#ff0000</color>
+
+
+
+
+
+    <color name="breeze">#E4EBEE</color>
+    <color name="navy10">#E5EBEE</color>
+    <color name="navy15">#D5E2E5</color>
+    <color name="navy20">#CCD8DD</color>
+    <color name="navy25">#BFCFD4</color>
+    <color name="navy30">#B3C5CC</color>
+
 </resources>

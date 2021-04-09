@@ -52,6 +52,10 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -71,6 +75,9 @@ dependencies {
     // Android dependencies
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
