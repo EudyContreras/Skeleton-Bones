@@ -1,7 +1,9 @@
 package com.eudycontreras.boneslibrary.framework.skeletons
 
 import android.view.View
+import android.view.ViewGroup
 import com.eudycontreras.boneslibrary.bindings.SkeletonBindings
+import com.eudycontreras.boneslibrary.extensions.descendantViews
 import com.eudycontreras.boneslibrary.extensions.generateId
 import com.eudycontreras.boneslibrary.framework.bones.BoneBuilder
 import com.eudycontreras.boneslibrary.framework.bones.BoneProperties
@@ -299,7 +301,7 @@ class SkeletonBuilder(
      * generation
      */
     fun withIgnoredBones(vararg ids: Int): SkeletonBuilder {
-        builderQueue.add { this.skeletonProperties.addIgnored(*ids) }
+        builderQueue.add { this.skeletonProperties.ignoredIds.addAll(ids.toList()) }
         return this
     }
 
@@ -316,7 +318,14 @@ class SkeletonBuilder(
      * generation
      */
     fun withIgnoredBones(vararg views: View): SkeletonBuilder {
-        builderQueue.add { this.skeletonProperties.addIgnored(*views.map { it.generateId() }.toIntArray()) }
+        builderQueue.add {
+            val viewIds = views.flatMap {
+                if (it is ViewGroup) {
+                    it.descendantViews().map { child -> child.generateId() }
+                } else listOf(it.generateId())
+            }
+            this.skeletonProperties.ignoredIds.addAll(viewIds)
+        }
         return this
     }
 
