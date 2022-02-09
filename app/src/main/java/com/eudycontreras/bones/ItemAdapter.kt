@@ -9,6 +9,9 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.eudycontreras.boneslibrary.bindings.getParentSkeletonDrawable
+import com.eudycontreras.boneslibrary.bindings.getSkeletonDrawable
+import com.eudycontreras.boneslibrary.extensions.disableSkeletonLoading
 import com.eudycontreras.boneslibrary.extensions.dp
 import com.eudycontreras.boneslibrary.framework.bones.BoneBuilder
 import com.eudycontreras.boneslibrary.framework.shimmer.ShimmerRayBuilder
@@ -123,48 +126,39 @@ class ItemAdapter<T : DemoData>(
                  * that we want to display
                  */
                 itemView.findViewById<ViewGroup>(R.id.ItemContainer)?.let { parent ->
-                    SkeletonDrawable.create(parent, true).build()
+
+                    SkeletonDrawable
+                        .create(parent, true)
+                        .builder()
                         .setAllowSavedState(false)
                         .setUseStateTransition(true)
                         .setStateTransitionDuration(200L)
-                        .withBoneBuilder(R.id.ItemAText, textBoneBuilder(parent, true))
-                        .withBoneBuilder(R.id.ItemBInnerTextA, textBoneBuilder(parent, false))
-                        .withBoneBuilder(R.id.ItemBInnerTextB, textBoneBuilder(parent, false))
-                        .withBoneBuilder(R.id.ItemBOuterText, textBoneBuilder(parent, false))
-                        .withBoneBuilder(R.id.ItemAImage, imageBoneBuilder(parent, ShapeType.CIRCULAR))
-                        .withBoneBuilder(R.id.ItemBImage, imageBoneBuilder(parent, ShapeType.RECTANGULAR))
-                        .withShimmerBuilder(shimmerRayBuilder(parent, R.color.bone_ray_color))
+                        .withBoneBuilder {
+                            setDissectBones(true)
+                            setColor(MutableColor.fromColor(ContextCompat.getColor(parent.context, R.color.bone_color)))
+                            setCornerRadii(CornerRadii(10.dp))
+                            setMaxThickness(10.dp)
+                            setMinThickness(10.dp)
+                        }
+                        .withBoneBuilder(R.id.ItemBInnerTextA) {
+                            setDissectBones(true)
+                            setColor(MutableColor.fromColor(ContextCompat.getColor(parent.context, R.color.bone_color)))
+                            setCornerRadii(CornerRadii(10.dp))
+                            setMaxThickness(10.dp)
+                            setMinThickness(10.dp)
+                        }
+                        .withShimmerBuilder{
+                            setColor(MutableColor.fromColor(ContextCompat.getColor(parent.context, R.color.bone_color_alt)))
+                            setCount(3)
+                            setInterpolator(FastOutSlowInInterpolator())
+                            setSharedInterpolator(false)
+                            setSpeedMultiplier(1.1f)
+                            setThicknessRatio(1.2f)
+                            setTilt(-0.1f)
+                        }
                         .setEnabled(true)
                 }
             }
-        }
-
-        companion object {
-            val imageBoneBuilder: (view: View, shape: ShapeType) -> BoneBuilder.() -> Unit = { view, shape -> {
-                textBoneBuilder(view, false)(this)
-                setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, R.color.bone_color_alt)))
-                setShaderMultiplier(1.021f)
-                setShapeType(shape)
-                withShimmerBuilder(shimmerRayBuilder(view, R.color.bone_ray_color_alt))
-            } }
-
-            val textBoneBuilder: (view: View, dissect: Boolean) -> BoneBuilder.() -> Unit = { view, dissect -> {
-                 setDissectBones(dissect)
-                 setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, R.color.bone_color)))
-                 setCornerRadii(CornerRadii(10.dp))
-                 setMaxThickness(10.dp)
-                 setMinThickness(10.dp)
-            } }
-
-            val shimmerRayBuilder: (view: View, color: Int) ->  ShimmerRayBuilder.() -> Unit = { view, color -> {
-                setColor(MutableColor.fromColor(ContextCompat.getColor(view.context, color)))
-                setCount(3)
-                setInterpolator(FastOutSlowInInterpolator())
-                setSharedInterpolator(true)
-                setSpeedMultiplier(1.1f)
-                setThicknessRatio(1.2f)
-                setTilt(-0.1f)
-            } }
         }
     }
 
