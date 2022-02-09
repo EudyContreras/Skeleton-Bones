@@ -127,8 +127,7 @@ class ItemAdapter<T : DemoData>(
                  */
                 itemView.findViewById<ViewGroup>(R.id.ItemContainer)?.let { parent ->
 
-                    SkeletonDrawable
-                        .create(parent, true)
+                    SkeletonDrawable.create(parent, true)
                         .builder()
                         .setAllowSavedState(false)
                         .setUseStateTransition(true)
@@ -156,7 +155,6 @@ class ItemAdapter<T : DemoData>(
                             setThicknessRatio(1.2f)
                             setTilt(-0.1f)
                         }
-                        .setEnabled(true)
                 }
             }
         }

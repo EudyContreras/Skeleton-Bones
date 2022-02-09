@@ -1,8 +1,13 @@
 package com.eudycontreras.bones
 
+import android.os.StatFs
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Copyright (C) 2020 Project X
@@ -12,18 +17,19 @@ import kotlinx.coroutines.*
  * @since February 2021
  */
 
-class Repository(scope: CoroutineScope) {
+class DemoViewModel: ViewModel() {
 
     private val database: Database = Database()
 
-    private val demoData: MutableLiveData<Resource<List<DemoData>>> = MutableLiveData(Resource.Loading())
+    fun getDemoData(): StateFlow<Resource<List<DemoData>>> {
+        val demoData: MutableStateFlow<Resource<List<DemoData>>> = MutableStateFlow(Resource.Loading())
 
-    fun getDemoData(): LiveData<Resource<List<DemoData>>> = demoData
-
-    init {
-        scope.launch(Dispatchers.Main) {
-            demoData.postValue(Resource.Loading())
-
+        /**
+         * Simulate fetching from network
+         */
+        viewModelScope.launch(Dispatchers.Main) {
+            demoData.emit(Resource.Loading())
+            delay(SHORT_DELAY)
             val dataCollection = List(Database.ENTRY_COUNT) {
                 when {
                     it.isEven() -> DemoData.A(
@@ -40,19 +46,12 @@ class Repository(scope: CoroutineScope) {
                     )
                 }
             }
-
-            while (true) {
-                delay(SHORT_DELAY)
-                demoData.postValue(Resource.Success(dataCollection))
-
-                delay(LONG_DELAY)
-                demoData.postValue(Resource.Loading())
-            }
+            demoData.emit(Resource.Success(dataCollection))
         }
+        return demoData
     }
 
     companion object {
         const val SHORT_DELAY = 3500L
-        const val LONG_DELAY = 3500L
     }
 }

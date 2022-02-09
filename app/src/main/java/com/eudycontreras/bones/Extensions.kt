@@ -55,15 +55,13 @@ fun ImageView.loadImage(imageUrl: String?) {
 
 @Suppress("UNCHECKED_CAST")
 fun <T : DemoData> RecyclerView.setItemData(
-    itemsResource: Resource<List<T?>?>
+    data: List<T?>
 ) {
-    itemsResource.data?.let {
-        if (this.adapter == null) {
-            this.adapter = ItemAdapter(it)
-        } else {
-            with(adapter as ItemAdapter<T>) {
-                this.updateData(it)
-            }
+    if (this.adapter == null) {
+        this.adapter = ItemAdapter(data)
+    } else {
+        with(adapter as ItemAdapter<T>) {
+            this.updateData(data)
         }
     }
 }
