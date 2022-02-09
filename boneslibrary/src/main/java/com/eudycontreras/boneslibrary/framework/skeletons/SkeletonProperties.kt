@@ -31,7 +31,7 @@ class SkeletonProperties : Cloneable<SkeletonProperties>, Reusable {
 
     private var boneProperties: MutableMap<Int, BoneProperties> = mutableMapOf()
 
-    private var ignoredIds: HashSet<Int> = HashSet()
+    internal var ignoredIds: HashSet<Int> = HashSet()
 
     private var disposedIds: HashSet<Int> = HashSet()
 
