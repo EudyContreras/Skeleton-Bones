@@ -9,11 +9,18 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.eudycontreras.boneslibrary.bindings.getParentSkeletonDrawable
+import com.eudycontreras.boneslibrary.bindings.requireSkeletonDrawable
+import com.eudycontreras.boneslibrary.extensions.disableSkeletonLoading
 import com.eudycontreras.boneslibrary.extensions.dp
+import com.eudycontreras.boneslibrary.extensions.enableSkeletonLoading
 import com.eudycontreras.boneslibrary.framework.skeletons.SkeletonDrawable
 import com.eudycontreras.boneslibrary.properties.CornerRadii
 import com.eudycontreras.boneslibrary.properties.MutableColor
 import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Copyright (C) 2020 Project X
@@ -25,6 +32,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 
 @Suppress("UNCHECKED_CAST")
 class ItemAdapter(
+    private val scope: CoroutineScope,
     private var data: List<DemoData?>
 ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
@@ -59,6 +67,7 @@ class ItemAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val isLoading = viewType == LOADING_VIEW_TYPE
         return ItemViewHolder(
+            scope = scope,
             isLoading = isLoading,
             itemView = inflater.inflate(R.layout.list_item, parent, false)
         )
@@ -67,6 +76,7 @@ class ItemAdapter(
     override fun getItemCount(): Int = data.size
 
     class ItemViewHolder(
+        val scope: CoroutineScope,
         val isLoading: Boolean,
         itemView: View,
     ) : RecyclerView.ViewHolder(itemView)  {
@@ -136,10 +146,7 @@ class DiffCallback<T : DiffComparable>(
 ) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        if (oldItems.size == newItems.size) {
-            return true
-        }
-        return oldItems[oldItemPosition]?.getIdentifier() == newItems[newItemPosition]?.getIdentifier()
+        return oldItems[oldItemPosition]?.id == newItems[newItemPosition]?.id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -151,5 +158,5 @@ class DiffCallback<T : DiffComparable>(
 }
 
 interface DiffComparable {
-    fun getIdentifier(): String
+    val id: String
 }

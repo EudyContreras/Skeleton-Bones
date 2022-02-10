@@ -52,16 +52,3 @@ fun ImageView.loadImage(imageUrl: String?) {
         .apply(RequestOptions().format(DecodeFormat.PREFER_ARGB_8888))
         .into(this)
 }
-
-@Suppress("UNCHECKED_CAST")
-fun RecyclerView.setItemData(
-    data: List<DemoData?>
-) {
-    if (this.adapter == null) {
-        this.adapter = ItemAdapter(data)
-    } else {
-        with(adapter as ItemAdapter) {
-            this.updateData(data)
-        }
-    }
-}

@@ -28,21 +28,19 @@ class DemoViewModel: ViewModel() {
          * Simulate fetching from network
          */
         viewModelScope.launch(Dispatchers.Main) {
-            while(true) {
-                demoData.emit(Resource.Loading())
-                delay(SHORT_DELAY)
-                val dataCollection = List(Database.ENTRY_COUNT) {
-                    DemoData(
-                        id = it.toString(),
-                        textOne = database.textOne,
-                        textTwo = database.textTwo,
-                        textThree = database.textThree,
-                        imageUrl = database.urlFemaleAvatar
-                    )
-                }
-                demoData.emit(Resource.Success(dataCollection))
-                delay(SHORT_DELAY)
+            demoData.emit(Resource.Loading())
+            delay(SHORT_DELAY)
+            val dataCollection = List(Database.ENTRY_COUNT) {
+                DemoData(
+                    id = it.toString(),
+                    textOne = database.textOne,
+                    textTwo = database.textTwo,
+                    textThree = database.textThree,
+                    imageUrl = database.urlFemaleAvatar
+                )
             }
+            demoData.emit(Resource.Success(dataCollection))
+            delay(SHORT_DELAY)
         }
         return demoData
     }

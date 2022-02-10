@@ -17,10 +17,12 @@ internal class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         lifecycleScope.launchWhenResumed {
+            val adapter = ItemAdapter(lifecycleScope, emptyList())
+            recyclerView.adapter = adapter
             demoViewModel.getDemoData().collect {
                 when(it) {
-                    is Resource.Loading -> recyclerView.setItemData(it.cache ?: dummyData.toList())
-                    is Resource.Success -> recyclerView.setItemData(it.data)
+                    is Resource.Loading -> adapter.updateData(it.cache ?: dummyData.toList())
+                    is Resource.Success -> adapter.updateData(it.data)
                     is Resource.Failure -> TODO("Show some error screen")
                 }
             }
