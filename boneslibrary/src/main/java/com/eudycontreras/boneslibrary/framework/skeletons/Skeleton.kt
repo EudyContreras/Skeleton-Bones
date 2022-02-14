@@ -167,7 +167,7 @@ internal class Skeleton(
         }
 
         if (foundInvalid) {
-            viewGroup.doOnLayout {
+            viewGroup.post {
                 applyAndBuild(viewGroup, descendants)
                 onCompute()
             }
