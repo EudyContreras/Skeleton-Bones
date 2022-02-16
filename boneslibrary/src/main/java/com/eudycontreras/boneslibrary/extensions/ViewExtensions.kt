@@ -96,7 +96,7 @@ internal fun View.hasValidBounds(): Boolean {
 }
 
 internal fun View.hasDrawableBounds(boneProps: BoneProperties): Boolean {
-    return (measuredWidth > 0 && measuredHeight > boneProps.minThickness)
+    return minimumWidth > 0 || (measuredWidth > 0 && measuredHeight > boneProps.minThickness)
 }
 
 internal fun View.getBackgroundColor(): MutableColor? {
